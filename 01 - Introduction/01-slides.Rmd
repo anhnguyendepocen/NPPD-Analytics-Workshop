@@ -1,0 +1,66 @@
+---
+title: "Introduction to R"
+output: 
+    revealjs::revealjs_presentation:
+        transition: fade
+        theme: white
+        highlight: zenburn
+        css: ../css/slides.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Setting up R for Data Analysis
+
+## Your Background
+
+What do you know already?
+
+> - Excel, Numbers, Some sort of spreadsheet software
+> - SAS, SPSS, Minitab
+> - Any other programming language
+> - A text editor
+> - R
+
+## Installing R
+
+For Windows or OS X:
+
+- Go to http://www.r-project.org/
+- Click the CRAN link on the left, and pick a download site (0-Cloud is a good choice)
+- Choose link based on your OS
+- On Windows, choose the "base" subdirectory to install R.
+- On OS X, choose the .pkg file to install R.
+
+## Installing RStudio
+
+- Browse to https://www.rstudio.com/
+- Mouse over Products and click RStudio
+- Choose RStudio Desktop
+- Click Download RStudio Desktop
+- Choose the installer appropriate for your platform
+
+# Example: Tips Data
+
+## Goals
+
+- Explore a real dataset using R
+- Get the "flavor" of R for data management and exploration
+- Don't focus on the code - it will be explained later and in much more detail
+
+## Tips Dataset
+
+A server recorded the tips they received over about 10 weeks, including several variables:
+
+  - Amount they were tipped
+  - Cost of the total bill
+  - Characteristics about the party (# people, gender, etc.)
+
+## Primary Question:
+
+How do these variable influence the amount being tipped?
+
+Follow along using [Tips-Example.R](code/Tips-Example.R)
+
