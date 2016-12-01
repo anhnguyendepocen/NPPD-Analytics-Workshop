@@ -9,7 +9,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = T)
 ```
 
 # Setting up R for Data Analysis
@@ -18,11 +18,10 @@ knitr::opts_chunk$set(echo = FALSE)
 
 What do you know already?
 
-> - Excel, Numbers, Some sort of spreadsheet software
+> - Excel
 > - SAS, SPSS, Minitab
 > - Any other programming language
-> - A text editor
-> - R
+> - SQL or other database
 
 ## Installing R
 
@@ -64,3 +63,150 @@ How do these variable influence the amount being tipped?
 
 Follow along using [Tips-Example.R](code/Tips-Example.R)
 
+## First Look at Data in R
+
+Load the tips data using `read.csv()`
+
+```{r, echo = T}
+tips <- read.csv("http://srvanderplas.github.com/NPPD-Analytics-Workshop/01.Introduction/data/tips.csv")
+# Short link:
+tips <- read.csv("http://bit.ly/2fQoMP1")
+```
+
+The `head()` function shows the first few rows of the data: 
+```{r, echo = T}
+head(tips)
+```
+
+## Data Set Attributes
+
+How big is the dataset? What types of variables are in each column?
+```{r}
+str(tips)
+```
+
+## Summary of Variables
+
+R can easily summarize each variable in the dataset: 
+```{r}
+summary(tips)
+```
+
+## Plotting the data
+
+First, we need to install and load `ggplot2`, a library for plotting the data
+```{r, eval=FALSE}
+install.packages("ggplot2")
+library(ggplot2)
+```
+
+```{r, echo=FALSE}
+library(ggplot2)
+```
+
+## Scatterplots
+
+What is the relationship between total bill and tip value? 
+
+```{r, fig.height=3, fig.width=7}
+qplot(tip, total_bill, geom = "point", data = tips)
+```
+
+## Fancy Scatterplots
+
+Color the points by meal. Is there a difference?
+
+```{r, fig.height=4, fig.width=7}
+qplot(tip, total_bill, geom = "point", data = tips, colour = time)
+```
+
+## Even More Scatterplots
+
+Add a linear regression line to the plot
+
+```{r, fig.height=4, fig.width=7}
+qplot(tip, total_bill, geom = "point", data = tips) + 
+    geom_smooth(method = "lm")
+```
+
+
+## Rate of Tipping
+
+Tips are usually based on a percentage of the total bill. 
+
+Make a new variable for the tipping rate = tip / total bill
+
+```{r}
+# New variable rate is a combination of 
+# other variables in the tips dataset
+tips$rate <- tips$tip / tips$total_bill
+
+summary(tips$rate)
+```
+
+## Tipping Rate Histogram
+
+What is the distribution of tipping rates? 
+
+```{r, fig.height=4, fig.width=7}
+qplot(rate, data = tips, binwidth = .01)
+```
+
+## Someone is an AMAZING tipper...
+
+One person tipped over 70%, who are they?
+
+```{r}
+tips[which.max(tips$rate),]
+```
+
+
+## Rates by Gender
+
+Look at the average tipping rate for men and women seperately
+
+```{r}
+mean(tips$rate[tips$sex == "Male"])
+mean(tips$rate[tips$sex == "Female"])
+```
+
+## Statistical Significance
+
+There is a difference but is it statistically significant?
+
+```{r}
+t.test(rate ~ sex, data = tips)
+```
+
+## Boxplots
+
+Boxplots are useful for comparing the distribution of data. Do smokers tip at different rates than non-smokers?
+
+```{r, fig.height=3, fig.width=7}
+qplot(smoker, rate, geom = "boxplot", data = tips)
+```
+
+## Your Turn {data-background=#527a7a}
+
+Try playing with chunks of code from this session to further investigate the tips data:
+
+1. Get a summary of the total bill values
+2. Make side by side boxplots of tip rates for different days of the week
+3. Find the average tip value for smokers
+
+## Your Turn Solutions
+### Summary  of Total Bill Values
+```{r}
+summary(tips$total_bill)
+```
+
+### Tip Values by Day of the Week
+
+```{r, fig.height=3, fig.width=7}
+qplot(day, rate, geom = "boxplot", data = tips)
+```
+
+### Average Tip Value for Smokers
+```{r}
+mean(tips$tip[tips$smoker == "Yes"])
+```

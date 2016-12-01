@@ -94,7 +94,7 @@ summary(tips)
 
 
 What is the relationship between total bill and tip value?
-First, we need to install and load `ggplot2`:
+First, we need to install and load `ggplot2` (a graphics library):
 
 ```{r, eval=FALSE}
 install.packages("ggplot2")
@@ -164,3 +164,19 @@ Try playing with chunks of code shown above to further investigate the tips data
 1. Get a summary of the total bill values
 2. Make side by side boxplots of tip rates for different days of the week
 3. Find the average tip value for smokers
+
+### Solutions
+
+1. Get a summary of the total bill values
+```{r}
+summary(tips$total_bill)
+```
+
+2. Make side by side boxplots of tip rates for different days of the week
+```{r}
+qplot(day, rate, geom = "boxplot", data = tips)
+```
+
+3. Find the average tip value for smokers
+```{r}
+mean(tips$tip[tips$smoker == "Yes"])

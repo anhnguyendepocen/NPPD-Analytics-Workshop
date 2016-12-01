@@ -4,7 +4,7 @@ tips <- read.csv("http://srvanderplas.github.com/NPPD-Analytics-Workshop/01.Intr
 # Take a look at the data
 # First few rows
 head(tips)
-# Structure of the object
+# Show the structure of the data set
 str(tips)
 # Summarize the variables/columns
 summary(tips)
