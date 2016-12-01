@@ -184,6 +184,29 @@ mean(tips$tip[tips$smoker == "Yes"])
 
 # R Basics
 
+## Getting Help in R
+The `help()` function is useful for getting help with a function:
+
+```{r}
+help(head)
+```
+
+The `?` function also works:
+
+```{r}
+?head
+```
+
+When searching for results online, it is helpful to use R + CRAN + <query> to get good results.
+
+## R Reference Card
+
+A copy of the R reference card is available at: 
+
+http://cran.r-project.org/doc/contrib/Short-refcard.pdf
+
+This card contains short versions of the most common functions used in R.
+
 ## R as an Overgrown Calculator
 
 R can perform simple mathematical operations.
@@ -254,6 +277,18 @@ MyAge ^ 2
 - R will let you use the name of a predefined function.  Try not to overwrite those though!
 
 ## Rules for Variable Names
+Error messages:
+```{r, error = T}
+1age <- 3
+
+# Case Sensitive
+Age <- 3
+age
+
+for <- 3
+```
+
+## Rules for Variable Names
 
 ```{r, eval = F}
 # This is a VERY bad idea:
@@ -267,17 +302,55 @@ F == TRUE
 rm(T, F) # Fix it!
 ```
 
-## Rules for Variable Names
-Error messages:
-```{r, error = T}
-1age <- 3
+## Vectors
+A variable can contain more than one value. A _vector_ is a variable which contains a set of values of the same type. the `c` (combine) function is used to create vectors:
 
-# Case Sensitive
-Age <- 3
-age
-
-for <- 3
+```{r}
+y <- c(1, 5, 3, 2)
+z <- c(y, y)
 ```
 
-## Vectors
+R performs operations on the entire vector at once:
+```{r}
+z + 3
+y / 2
+```
 
+
+## Your Turn {data-background=#527a7a}
+
+Using the R Reference Card (and the Help pages, if needed), do the following:
+
+1. Find out how many rows and columns the `iris' data set has.  Figure out at least 2 ways to do this.
+*Hint: "Variable Information" section on the first page of the reference card!*
+2. Use the `rep` function to construct the following vector:  1 1 2 2 3 3 4 4 5 5
+*Hint: "Data Creation" section of the reference card*
+3. Use `rep` to construct this vector: 1 2 3 4 5 1 2 3 4 5 1 2 3 4 5
+
+### Solutions
+
+1. Find out how many rows and columns the `iris' data set has.  Figure out at least 2 ways to do this.
+
+```{r}
+data(iris)
+
+# first way: 
+nrow(iris)
+ncol(iris)
+
+# second way: 
+dim(iris)
+
+# third way: 
+str(iris) # look at the top line
+```
+
+2. Use the `rep` function to construct the following vector:  1 1 2 2 3 3 4 4 5 5
+```{r}
+rep(c(1:5), each = 2)
+```
+
+3. Use `rep` to construct this vector: 1 2 3 4 5 1 2 3 4 5 1 2 3 4 5
+```{r}
+rep(c(1:5), times = 3)
+```

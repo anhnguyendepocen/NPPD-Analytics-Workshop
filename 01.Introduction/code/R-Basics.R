@@ -69,3 +69,11 @@ F == TRUE
 rm(T, F) # Fix it!
 # using "c" as a variable name causes a lot of problems and cryptic error messages
 
+# Vectors
+# c() creates a vector of values
+y <- c(1, 5, 3, 2)
+# You can combine vectors with c() as well
+z <- c(y, y)
+# R performs operations on an entire vector at once
+z + 3
+y / 2
