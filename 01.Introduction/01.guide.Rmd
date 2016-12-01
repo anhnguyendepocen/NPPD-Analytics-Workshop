@@ -180,3 +180,104 @@ qplot(day, rate, geom = "boxplot", data = tips)
 3. Find the average tip value for smokers
 ```{r}
 mean(tips$tip[tips$smoker == "Yes"])
+```
+
+# R Basics
+
+## R as an Overgrown Calculator
+
+R can perform simple mathematical operations.
+```{r}
+# Addition and Subtraction
+2 + 5 - 1
+
+# Multiplication
+109*23452
+
+# Division
+3/7
+```
+
+
+Here are a few more complex operations:
+```{r}
+# Integer division
+7 %/% 2
+
+# Modulo operator (Remainder)
+7 %% 2
+
+# Powers
+1.5 ^ 3
+```
+
+```{r}
+# Exponentiation
+exp(3)
+
+# Logarithms
+log(3)
+log(3, base = 10)
+
+# Trig functions
+sin(0)
+cos(0)
+tan(pi/4)
+
+asin(0)
+acos(1)
+atan(1)
+```
+
+## Variables in R
+
+Variables in R are created using the assignment operator, `<-`:
+
+```{r}
+x <- 5
+R_awesomeness <- Inf
+MyAge <- 21 #Haha
+```
+
+These variables can then be used in computation:
+```{r}
+log(x)
+MyAge ^ 2
+```
+
+## Rules for Variable Names
+
+- Variable names can't start with a number
+- Variables in R are case-sensitive
+- Some common letters are used internally by R and should be avoided as variable names (c, q, t, C, D, F, T, I)
+- There are reserved words that R won't let you use for variable names. (for, in, while, if, else, repeat, break, next)
+- R will let you use the name of a predefined function.  Try not to overwrite those though!
+
+## Rules for Variable Names
+
+```{r, eval = F}
+# This is a VERY bad idea:
+
+T <- FALSE
+F <- TRUE
+
+T == FALSE
+F == TRUE
+
+rm(T, F) # Fix it!
+```
+
+## Rules for Variable Names
+Error messages:
+```{r, error = T}
+1age <- 3
+
+# Case Sensitive
+Age <- 3
+age
+
+for <- 3
+```
+
+## Vectors
+
