@@ -71,7 +71,7 @@ Follow along using [Tips-Example.R](code/Tips-Example.R)
 Lets use R to look at the top few rows of the tips data set. First, we load tip using `read.csv`:
 
 ```{r}
-tips <- read.csv("http://srvanderplas.github.com/NPDP-Analytics-Workshop/01%20-%20Introduction/data/tips.csv")
+tips <- read.csv("http://srvanderplas.github.com/NPPD-Analytics-Workshop/01.Introduction/data/tips.csv")
 ```
 
 Now, we use the `head` function to look at the first 6 rows of the data:
