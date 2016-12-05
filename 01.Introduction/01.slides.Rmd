@@ -9,7 +9,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = T)
+knitr::opts_chunk$set(echo = T, comments = T, collapse = T)
 ```
 
 # Setting up R for Data Analysis
@@ -200,13 +200,218 @@ Try playing with chunks of code from this session to further investigate the tip
 summary(tips$total_bill)
 ```
 
+## Your Turn Solutions
 ### Tip Values by Day of the Week
 
 ```{r, fig.height=3, fig.width=7}
 qplot(day, rate, geom = "boxplot", data = tips)
 ```
 
+## Your Turn Solutions
 ### Average Tip Value for Smokers
 ```{r}
 mean(tips$tip[tips$smoker == "Yes"])
+```
+
+
+
+# R Basics
+
+## Getting Help in R
+The `help()` function is useful for getting help with a function:
+
+```{r, eval = F}
+help(head)
+```
+
+The `?` function also works:
+
+```{r, eval = F}
+?head
+```
+
+When searching for results online, it is helpful to use R + CRAN + <query> to get good results.
+
+## R Reference Card
+
+A copy of the R reference card is available at: 
+
+http://cran.r-project.org/doc/contrib/Short-refcard.pdf
+
+This card contains short versions of the most common functions used in R.
+
+## R as an Overgrown Calculator
+
+R can perform simple mathematical operations.
+```{r}
+# Addition and Subtraction
+2 + 5 - 1
+
+# Multiplication
+109*23452
+
+# Division
+3/7
+```
+
+## R as an Overgrown Calculator
+
+Here are a few more complex operations:
+```{r}
+# Integer division
+7 %/% 2
+
+# Modulo operator (Remainder)
+7 %% 2
+
+# Powers
+1.5 ^ 3
+```
+
+## R as an Overgrown Calculator
+
+```{r}
+# Exponentiation
+exp(3)
+
+# Logarithms
+log(3)
+log(3, base = 10)
+```
+
+## R as an Overgrown Calculator
+
+```{r}
+# Trig functions
+sin(0)
+cos(0)
+tan(pi/4)
+```
+
+## Variables in R
+
+Variables in R are created using the assignment operator, `<-`:
+
+```{r}
+x <- 5
+R_awesomeness <- Inf
+MyAge <- 21 #Haha
+```
+
+These variables can then be used in computation:
+```{r}
+log(x)
+MyAge ^ 2
+```
+
+## Rules for Variable Names
+
+- Can't start with a number
+- Names are case-sensitive
+- Common letters are used internally by R and should be avoided as variable names    
+`c, q, t, C, D, F, T, I`
+- There are reserved words that R won't let you use for variable names.    
+`for, in, while, if, else, repeat, break, next`
+- R will let you use the name of a predefined function.    
+Try not to overwrite those!
+
+## Rules for Variable Names
+Error messages:
+```{r, error = T, collapse = F}
+# Variable starts with a number
+1age <- 3
+```
+
+## Rules for Variable Names
+Error messages:
+```{r, error = T, collapse = F}
+# Case Sensitive
+Age <- 3
+age
+```
+
+## Rules for Variable Names
+Error messages:
+```{r, error = T, collapse = F}
+# Special Words can't be variable names
+for <- 3
+```
+
+## Rules for Variable Names
+
+```{r, collapse = T}
+# This is a VERY bad idea:
+
+T <- FALSE
+F <- TRUE
+
+T == FALSE
+F == TRUE
+
+rm(T, F) # Fix it!
+
+T == FALSE
+```
+Note: In R, `T` and `F` are shorthand for `TRUE` and `FALSE` respectively. 
+
+## Vectors
+A variable can contain more than one value.    
+A _vector_ is a variable which contains a set of values of the same type.    
+The `c()` (combine) function is used to create vectors:
+
+```{r}
+y <- c(1, 5, 3, 2)
+z <- c(y, y)
+```
+
+R performs operations on the entire vector at once:
+```{r}
+y / 2
+z + 3
+```
+
+
+## Your Turn {data-background=#527a7a}
+
+Using the R Reference Card (and the Help pages, if needed), do the following:
+
+1. Find out how many rows and columns the `iris' data set has.  Figure out at least 2 ways to do this.    
+*Hint: "Variable Information" section on the first page of the reference card!*
+2. Use the `rep` function to construct the following vector:  `1 1 2 2 3 3 4 4 5 5`    
+*Hint: "Data Creation" section of the reference card*
+3. Use `rep` to construct this vector: `1 2 3 4 5 1 2 3 4 5 1 2 3 4 5`
+
+## Your Turn Solutions{data-background=#527a7a}
+
+1. Find out how many rows and columns the `iris' data set has.  Figure out at least 2 ways to do this.
+
+```{r}
+data(iris)
+
+# first way: 
+nrow(iris)
+ncol(iris)
+```
+
+## Your Turn Solutions{data-background=#527a7a}
+
+1. Find out how many rows and columns the `iris' data set has.  Figure out at least 2 ways to do this.
+```{r}
+# second way: 
+dim(iris)
+
+# third way: 
+str(iris) # look at the top line
+```
+
+## Your Turn Solutions{data-background=#527a7a}
+
+2. Use the `rep` function to construct the following vector:  1 1 2 2 3 3 4 4 5 5
+```{r}
+rep(c(1:5), each = 2)
+```
+
+3. Use `rep` to construct this vector: 1 2 3 4 5 1 2 3 4 5 1 2 3 4 5
+```{r}
+rep(c(1:5), times = 3)
 ```

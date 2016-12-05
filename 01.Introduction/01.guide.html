@@ -146,6 +146,20 @@ $(document).ready(function () {
 <li><a href="#solutions">Solutions</a></li>
 </ul></li>
 </ul></li>
+<li><a href="#r-basics">R Basics</a><ul>
+<li><a href="#getting-help-in-r">Getting Help in R</a></li>
+<li><a href="#r-reference-card">R Reference Card</a></li>
+<li><a href="#r-as-an-overgrown-calculator">R as an Overgrown Calculator</a></li>
+<li><a href="#variables-in-r">Variables in R</a></li>
+<li><a href="#rules-for-variable-names">Rules for Variable Names</a><ul>
+<li><a href="#error-messages">Error messages:</a></li>
+<li><a href="#cautionary-tale">Cautionary Tale</a></li>
+</ul></li>
+<li><a href="#vectors">Vectors</a></li>
+<li><a href="#your-turn-1">Your Turn</a><ul>
+<li><a href="#solutions-1">Solutions</a></li>
+</ul></li>
+</ul></li>
 </ul>
 </div>
 
@@ -208,8 +222,8 @@ $(document).ready(function () {
 <p>Lets use R to look at the top few rows of the tips data set. First, we load tip using <code>read.csv</code>:</p>
 <pre class="r"><code>tips &lt;- read.csv(&quot;http://srvanderplas.github.com/NPPD-Analytics-Workshop/01.Introduction/data/tips.csv&quot;)</code></pre>
 <p>Now, we use the <code>head</code> function to look at the first 6 rows of the data:</p>
-<pre class="r"><code>head(tips)</code></pre>
-<pre><code>##   total_bill  tip    sex smoker day   time size
+<pre class="r"><code>head(tips)
+##   total_bill  tip    sex smoker day   time size
 ## 1      16.99 1.01 Female     No Sun Dinner    2
 ## 2      10.34 1.66   Male     No Sun Dinner    3
 ## 3      21.01 3.50   Male     No Sun Dinner    3
@@ -217,8 +231,8 @@ $(document).ready(function () {
 ## 5      24.59 3.61 Female     No Sun Dinner    4
 ## 6      25.29 4.71   Male     No Sun Dinner    4</code></pre>
 <p>How big is this data set and what types of variables are in each column?</p>
-<pre class="r"><code>str(tips)</code></pre>
-<pre><code>## 'data.frame':    244 obs. of  7 variables:
+<pre class="r"><code>str(tips)
+## 'data.frame':    244 obs. of  7 variables:
 ##  $ total_bill: num  17 10.3 21 23.7 24.6 ...
 ##  $ tip       : num  1.01 1.66 3.5 3.31 3.61 4.71 2 3.12 1.96 3.23 ...
 ##  $ sex       : Factor w/ 2 levels &quot;Female&quot;,&quot;Male&quot;: 1 2 2 2 1 2 2 2 2 2 ...
@@ -227,8 +241,8 @@ $(document).ready(function () {
 ##  $ time      : Factor w/ 2 levels &quot;Dinner&quot;,&quot;Lunch&quot;: 1 1 1 1 1 1 1 1 1 1 ...
 ##  $ size      : int  2 3 3 2 4 4 2 4 2 2 ...</code></pre>
 <p>We can get a summary of the values for each variable in tips:</p>
-<pre class="r"><code>summary(tips)</code></pre>
-<pre><code>##    total_bill         tip             sex      smoker      day    
+<pre class="r"><code>summary(tips)
+##    total_bill         tip             sex      smoker      day    
 ##  Min.   : 3.07   Min.   : 1.000   Female: 87   No :151   Fri :19  
 ##  1st Qu.:13.35   1st Qu.: 2.000   Male  :157   Yes: 93   Sat :87  
 ##  Median :17.80   Median : 2.900                          Sun :76  
@@ -254,24 +268,24 @@ library(ggplot2)</code></pre>
 <p>Tipping is generally done using a rule of thumb based on a percentage of the total bill. We will make a new variable in the data set for the tipping rate = tip / total bill</p>
 <pre class="r"><code>tips$rate &lt;- tips$tip / tips$total_bill
 
-summary(tips$rate)</code></pre>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+summary(tips$rate)
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ## 0.03564 0.12910 0.15480 0.16080 0.19150 0.71030</code></pre>
 <p>What is the distribution of tip rate in this dataset? We can use R to create a histogram:</p>
 <pre class="r"><code>qplot(x = rate, data = tips, binwidth = .01)</code></pre>
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABIAAAAMACAMAAABrYew+AAAAjVBMVEUAAAAAACsAAFUAK4AAVaorAAArgNQzMzNNTU1NTWtNTYhNa6ZNiMRVAABVVVVVqv9ZWVlrTU1rpuGAKwCAgKqA1P+ITU2IpqaIxP+ma02miE2m4f+qVQCqgCuq///EiE3E///UgCvU///hpmvh///r6+v/qlX/xIj/1ID/4ab//6r//8T//9T//+H///+PDhYxAAAACXBIWXMAAB2HAAAdhwGP5fFlAAAgAElEQVR4nO2df4NcR5FlNQMMDZgFw44XL9oRGjESxljf/+NtV3dWh14p33NWVWTEzehz/kHSM+nbN+IdVdeP9pvPAABJvMkOAACvFwQEAGkgIABIAwEBQBoICADSQEAAkAYCAoA0EBAApIGAACANBAQAaSAgAEgDAQFAGggIANKYK6D/kUEpilKW7AAGtXQpVwsCyoZaulBLl3K1IKBsqKULtXQpVwsCyoZaulBLl3K1IKBsqKULtXQpVwsCyoZaulBLl3K1IKBsqKULtXQpVwsCyoZaulBLl3K1IKBsqKULtXQpVwsCyoZaulBLl3K1IKBsqKULtXQpVwsCyoZaulBLl3K1IKBsqKULtXQpVwsCyoZaulBLl3K1IKBsqKULtXQpVwsCyoZaulBLl3K1IKBsqKULtXQpVwsCyoZaulBLl3K1IKBsqKULtXQpVwsCyoZaulBLl3K1IKBsqKULtXQpVwsCyoZaulBLl3K1IKBsqKULtXQpVwsCyoZaulBLl3K1IKBsqKULtXQpVwsCyoZaulBLl3K1IKBsqKULtXQpVwsCyoZaulBLl3K1IKBsqKULtXQpVwsCyoZaulBLl3K1IKAx/rjBNcrKtcyDWrqUqwUBjYGAgqGWLuVqQUBjIKBgqKVLuVoQ0BgIKBhq6VKuFgQ0BgIKhlq6lKsFAY2BgIKhli7lakFAYyCgYKilS7laENAYCCgYaulSrhYENAYCCoZaupSrBQGNgYCCoZYu5WpBQGMgoGCopUu5WhDQGAgoGGrpUq4WBDQGAgqGWrqUqwUBjYGAgqGWLuVqQUBjIKBgqKVLuVoQ0BgIKBhq6VKuFgQ0BgIKhlq6lKsFAY2BgIKhli7lakFAYyCgYKilS7laENAYCCgYaulSrhYENAYCCoZaupSrBQGNgYCCoZYu5WpBQGMgoGCopUu5WhDQGH884M4oK9cyD2rpUq4WBDQGAgqGWrqUqwUBjYGAgqGWLuVqQUBjIKBgqKVLuVoQ0BgIKBhq6VKuFgQ0BgIKhlq6lKsFAY2BgIKhli7lakFAYyCgYKilS7laENAYCCgYaulSrhYENAYCCoZaupSrBQGNgYCCoZYu5WpBQGMgoGCopUu5WhDQGAgoGGrpUq4WBDQGAgqGWrqUqwUBjYGAgqGWLuVqQUBjIKBgqKVLuVoQ0BgIKBhq6VKuFgQ0BgIKhlq6lKsFAY2BgIKhli7lakFAYyCgYKilS7laENAYCCgYaulSrhYENAYCCoZaupSrJVRAC3MkoOxsAFXgEdAOPAIKhlq6lKsFAY2BgIKhli7lakFAYyCgYKilS7laENAYCCgYaulSrhYENAYCCoZaupSrBQGNgYCCoZYu5WpBQGMgoGCopUu5WhDQGAgoGGrpUq4WBDQGAgqGWrqUqwUBjYGAgqGWLuVqQUBjIKBgqKVLuVoQ0BgIKBhq6VKuFgQ0BgIKhlq6lKsFAY2BgIKhli7lakFAYyCgYKilS7laENAYCCgYaulSrhYENAYCCoZaupSrBQGNgYCCoZYu5WpBQGMgoGCopUu5WhDQGAgoGGrpUq4WBDQGAgqGWrqUqwUBjYGAgqGWLuVqQUBjIKBgqKVLuVoQ0BgIKBhq6VKuFgQ0BgIKhlq6lKsFAY2BgIKhli7lakFAYyCgYKilS7laENAYCCgYaulSrhYENAYCCoZaupSrBQGNgYCCoZYu5WpBQGMgoGCopUu5WhDQGAgoGGrpUq4WBDQGAgqGWrqUqwUBjYGAgqGWLuVqQUBjIKBgqKVLuVoQ0BgIKBhq6VKuFgQ0BgIKhlq6lKsFAY2BgIKhli7lakFAYyCgYKilS7laENAYCCgYaulSrhYENAYCCoZaupSrBQGNgYCCoZYu5WpBQGMgoGCopUu5WhDQGAgoGGrpUq4WBDQGAgqGWrqUqwUBjYGAgqGWLuVqQUBjIKBgqKVLuVoQ0BgIKBhq6VKuFgQ0BgIKhlq6lKsFAY2BgIKhli7lakFAYyCgYKilS7laENAYCCgYaulSrhYENAYCCoZaupSrBQGNgYCCoZYu5WpBQGMgoGCopUu5WhDQGAgoGGrpUq4WBDQGAgqGWrqUqwUBjYGAgqGWLuVqQUBjIKBgqKVLuVoQ0BgIKBhq6VKuFgQ0BgIKhlq6lKsFAY2BgIKhli7lakFAYyCgYKilS7laENAYCCgYaulSrhYENAYCCoZaupSrBQGNgYCCoZYu5WpBQGMgoGCopUu5WhDQGEcCulVHnhrzQWlCSlmyAxjlakFAYyCgYJbelnmUqwUBjYGAgll6W+ZRrhYENAYCCmbpbZlHuVoQ0BgIKJilt2Ue5WpBQGMgoGCW3pZ5lKsFAY2BgIJZelvmUa4WBDQGAgpm6W2ZR7laENAYCCiYpbdlHuVqQUBjIKBglt6WeZSrBQGNgYCCWXpb5lGuFgQ0BgIKZultmUe5WhDQGAgomKW3ZR7lakFAYyCgYJbelnmUqwUBjYGAgll6W+ZRrhYENAYCCmbpbZlHuVoQ0BgIKJilt2Ue5WpBQGMgoGCW3pZ5lKsFAY2BgIJZelvmUa4WBDQGAgpm6W2ZR7laENAYCCiYpbdlHuVqQUBjIKBglt6WeZSrBQGNgYCCWXpb5lGuFgQ0BgIKZultmUe5WhDQGAgomKW3ZR7lakFAYyCgYJbelnmUqwUBjYGAgll6W+ZRrhYENAYCCmbpbZlHuVoQ0BgIKJilt2Ue5WpBQGMgoGCW3pZ5lKsFAY2BgIJZelvmUa4WBDQGAgpm6W2ZR7laENAYCCiYpbdlHuVqQUBjIKBglt6WeZSrBQGNgYCCWXpb5lGuFgQ0BgIKZultmUe5WhDQGAgomKW3ZR7lakFAYyCgYJbelnmUq8VNQD98+/Dw8Nu/Pf/mx+8ef/MnBHTNmdcmmoHShJSyZAcwytXiJaB3D8/86UVGDw+/+zsCGj/z2kQzUJqQUpbsAEa5WpwE9OlZPe8efvPXp8c/3zxZ6PIxkEdgHxBQF6UJKWXJDmCUq8VJQO+abN6d1PPp+bHPD9+evyNDQANnXptoBkoTUsqSHcAoV4uPgH76/vTI5/PJPd+82Oin7x/+goCGz7w20QyUJqSUJTuAUa4WHwG9cBLQi40+XH4P5hHYBwTURWlCSlmyAxjlavEV0NODnh+/a996fTg9HDrx68Z9h6cyLqBbz5yXHWAV7hTQh9OzPy8C+oSArjhzXnaAVbhPQJ/ai2CXAjrj8ZDNB74F66I0IaUs2QGMcrV4CujZPwjotjOvTTQDpQkpZckOYJSrxVFAH57903kOCAENnHltohkoTUgpS3YAo1wtbgL66fvzBzF4FeymM69NNAOlCSllyQ5glKvFS0CP/nn55MW75/f/8D6gq868NtEMlCaklCU7gFGuFicBfekf3gl905nXJpqB0oSUsmQHMMrV4iSgD19+8pTPgt1y5rWJZqA0IaUs2QGMcrX4COjpx288vHwE/tMDn4a/+sxrE81AaUJKWbIDGOVq8RHQp4eNgPh5QDeceW2iGShNSClLdgCjXC0+AhrEI7APCKiL0oSUsmQHMMrVgoDGQEDBLL0t8yhXCwIaAwEFs/S2zKNcLQhoDAQUzNLbMo9ytSCgMRBQMEtvyzzK1YKAxkBAwSy9LfMoVwsCGgMBBbP0tsyjXC0IaAwEFMzS2zKPcrUgoDEQUDBLb8s8ytWCgMZAQMEsvS3zKFcLAhoDAQWz9LbMo1wtCGgMBBTM0tsyj3K1IKAxEFAwS2/LPMrVgoDGQEDBLL0t8yhXCwIaAwEFs/S2zKNcLQhoDAQUzNLbMo9ytSCgMRBQMEtvyzzK1YKAxkBAwSy9LfMoVwsCGgMBBbP0tsyjXC0IaAwEFMzS2zKPcrUgoDEQUDBLb8s8ytWCgMZAQMEsvS3zKFcLAhoDAQWz9LbMo1wtCGgMBBTM0tsyj3K1IKAxEFAwS2/LPMrVgoDGQEDBLL0t8yhXCwIaAwEFs/S2zKNcLQhoDAQUzNLbMo9ytSCgMRBQMEtvyzzK1YKAxkBAwSy9LfMoVwsCGgMBBbP0tsyjXC0IaAwEFMzS2zKPcrUgoDEQUDBLb8s8ytWCgMZAQMEsvS3zKFcLAhoDAQWz9LbMo1wtCGgMBBTM0tsyj3K1IKAxEFAwS2/LPMrVgoDGQEDBLL0t8yhXCwIaAwEFs/S2zKNcLQhoDAQUzNLbMo9ytSCgMRBQMEtvyzzK1YKAxkBAwSy9LfMoVwsCGgMBBbP0tsyjXC0IaAwEFMzS2zKPcrUgoDEQUDBLb8s8ytWCgMZAQMEsvS3zKFcLAhoDAQWz9LbMo1wtCGgMBBTM0tsyj3K1IKAxEFAwS2/LPMrVgoDGQEDBLL0t8yhXCwIaAwEFs/S2zKNcLQhoDAQUzNLbMo9ytSCgMRBQMEtvyzzK1YKAxkBAwSy9LfMoVwsCGgMBBbP0tsyjXC0IaAwEFMzS2zKPcrUgoDEQUDBLb8s8ytWCgIwjISCgYOS3JYdytSAgAwEpTUgpS3YAo1wtCMhAQEoTUsqSHcAoVwsCMhCQ0oSUsmQHMMrVgoAMBKQ0IaUs2QGMcrUgIAMBKU1IKUt2AKNcLQjIQEBKE1LKkh3AKFcLAjIQkNKElLJkBzDK1YKADASkNCGlLNkBjHK1ICADASlNSClLdgCjXC0IyEBAShNSypIdwChXCwIyEJDShJSyZAcwytWCgAwEpDQhpSzZAYxytSAgAwEpTUgpS3YAo1wtCMhAQEoTUsqSHcAoVwsCMhCQ0oSUsmQHMMrVgoAMBKQ0IaUs2QGMcrUgIAMBKU1IKUt2AKNcLQjIQEBKE1LKkh3AKFcLAjIQkNKElLJkBzDK1YKADASkNCGlLNkBjHK1ICADASlNSClLdgCjXC0IyEBAShNSypIdwChXCwIyZghohrjmoTQhpSzZAYxytSAgAwEpTUgpS3YAo1wtCMhAQEoTUsqSHcAoVwsCMhCQ0oSUsmQHMMrVgoAMBKQ0IaUs2QGMcrUgIAMBKU1IKUt2AKNcLQjIQEBKE1LKkh3AKFcLAjIQkNKElLJkBzDK1YKADASkNCGlLNkBjHK1ICADASlNSClLdgCjXC0IyEBAShNSypIdwChXCwIyEJDShJSyZAcwytWCgAwEpDQhpSzZAYxytSAgAwEpTUgpS3YAo1wtCMhAQEoTUsqSHcAoVwsCMhCQ0oSUsmQHMMrVgoAMBKQ0IaUs2QGMcrUgIAMBKU1IKUt2AKNcLQjIQEBKE1LKkh3AKFcLAjIQkNKElLJkBzDK1YKADASkNCGlLNkBjHK1ICADASlNSClLdgCjXC1XCOifv//3/3r5zfs3v/jvKZJKZCuEo2tH+Pz/AF4jwwJ6++aL34ziYUwfeATURWlCSlmyAxjlahkT0D9//+YrEBACmoj8tuRQrpYxAT1+x/UVv7zaP+rdISClCSllyQ5glKtlUEBfPwS65Skgj8A+IKAuShNSypIdwChXy6CAniV0w3ddCAgB3YT8tuRQrhYEZCAgpQkpZckOYJSr5QoB3Y9HYB8QUBelCSllyQ5glKsFARkISGlCSlmyAxjlarlOQG95GR4BxSC/LTmUq+UaAW1fCkNACGgi8tuSQ7larhHQ9s1ACAgBTUR+W3IoV8sVAvrXn9+8+cPV0kFACOgW5Lclh3K1XCGgx+/A/uMu/6h3h4CUJqSUJTuAUa6WqwT0b/+JgBBQDPLbkkO5Wq4Q0Oe3d34Hpt4dAlKakFKW7ABGuVquEdDHe38GkEdgHxBQF6UJKWXJDmCUq+UaAX1+f8tLXwgIAd2A/LbkUK6WKwR08Yl4XoZHQBOR35YcytWCgAwEpDQhpSzZAYxytSAgAwEpTUgpS3YAo1wtVwjofjwC+4CAuihNSClLdgCjXC0IyEBAShNSypIdwChXCwIyfERyKxFf9s+hNCGlLNkBjHK1ICADASlNSClLdgCjXC1XCIgnoRFQHPLbkkO5WhCQgYCUJqSUJTuAUa4WBGQgIKUJKWXJDmCUq+UKAW1cdNMH4z0C+4CAuihNSClLdgCjXC23Cejzv/58i4E8AvuAgLooTUgpS3YAo1wtNwro80f+08wIaCby25JDuVpuFdA/fsVzQAhoIvLbkkO5Wm4V0E0/mcMjsA8IqIvShJSyZAcwytVyo4A+vrnlh5N5BPYBAXVRmpBSluwARrlarhDQxcvwN/yAeo/APiCgLkoTUsqSHcAoV8vNArrlZyN6BPYBAXVRmpBSluwARrlabhXQDa+ByXeHgJQmpJQlO4BRrpYrBHQ/HoF9QEBdlCaklCU7gFGuFgRkICClCSllyQ5glKsFARkISGlCSlmyAxjlarlSQKf/Pvybm16CR0AI6BrktyWHcrVcJ6D3PAmNgGKQ35YcytVylYDef/Ey2A1vA1LvDgEpTUgpS3YAo1wt1wjoH786e+fRRHwaHgHNRH5bcihXyzUCemvWeXQRn4ZHQBOR35YcytVyhYD+9ecvvu96z2fBENBM5Lclh3K1XCGgzY9B5MdxIKCpyG9LDuVqQUAGAlKakFKW7ABGuVquEBDfgiGgOOS3JYdytVwhIJ6ERkBxyG9LDuVquUZAvAyPgMKQ35YcytVyjYB4IyICCkN+W3IoV8tVAuKjGAgoCvltyaFcLdcJiA+jIqAg5Lclh3K1XCmg+/AI7AMC6qI0IaUs2QGMcrUgIAMBKU1IKUt2AKNcLdcJ6J+/f3ru+eNNT0HLd4eAlCaklCU7gFGulqsE9LE9+fzxtv8ohnp3CEhpQkpZsgMY5Wq5RkCn9wE9Pf38nv8sDwKajPy25FCulmsE9Pbl3T+nF8P4DxMioInIb0sO5Wq5QkCbz4K95bNgCGgm8tuSQ7larhAQn4ZHQHHIb0sO5WpBQAYCUpqQUpbsAEa5Wq4Q0OO3YH94+c1HvgVDQDOR35YcytVyhYA+v7WXvh5lxI/jQEATkd+WHMrVco2ATi/DPz8G+vjmzRePhhAQAnJHfltyKFfLNQI6vQ5/18fhPQL7gIC6KE1IKUt2AKNcLVcJ6AsD8eM4ENBU5Lclh3K1XCegs4Jew4/jiCa6gh5KE1LKkh3AKFfLtQK6C4/APiCgLkoTUsqSHcAoVwsCMhCQ0oSUsmQHMMrVgoAMBKQ0IaUs2QGMcrUgIAMBKU1IKUt2AKNcLQjIQEBKE1LKkh3AKFcLAjIQkNKElLJkBzDK1YKADASkNCGlLNkBjHK1ICADASlNSClLdgCjXC0IyEBAShNSypIdwChXCwIyEJDShJSyZAcwytWCgAwEpDQhpSzZAYxytSAgAwEpTUgpS3YAo1wtCMhAQEoTUsqSHcAoVwsCMhCQ0oSUsmQHMMrVgoAMBKQ0IaUs2QGMcrUgIAMBKU1IKUt2AKNcLQjIQEBKE1LKkh3AKFcLAjIQkNKElLJkBzDK1YKADASkNCGlLNkBjHK1ICADASlNSClLdgCjXC0IyEBAShNSypIdwChXy2sT0NFNnyOefpYcFCbUkNiWhlIUpSwuhyCgnWvR5PSxRWFCDYltaShFUcricggC2rkWTU4fWxQm1JDYloZSFKUsLocgoJ1r0eT0sUVhQg2JbWkoRVHK4nIIAtq5Fk1OH1sUJtSQ2JaGUhSlLC6HIKCda9Hk9LFFYUINiW1pKEVRyuJyCALauRZNTh9bFCbUkNiWhlIUpSwuhyCgnWvR5PSxRWFCDYltaShFUcricggC2rkWTU4fWxQm1JDYloZSFKUsLocgoJ1r0eT0sUVhQg2JbWkoRVHK4nIIAtq5Fk1OH1sUJtSQ2JaGUhSlLC6HIKCda9Hk9LFFYUINiW1pKEVRyuJyCALauRZNTh9bFCbUkNiWhlIUpSwuhyCgnWvR5PSxRWFCDYltaShFUcricggC2rkWTU4fWxQm1JDYloZSFKUsLocgoJ1r0eT0sUVhQg2JbWkoRVHK4nKIo4B+/O6bl189PDz8CQFdQ04fWxQm1JDYloZSFKUsLoc4CujdQxPQD98+nPjd3xHQODl9bFGYUENiWxpKUZSyuBziJ6B3D01Aj49/vnmy0OVjII/Ad3J00+eIp58lB4UJNSS2paEURSmLyyFeAnp61PMsoE/Pj31++Pa3f0NAw+T0sUVhQg2JbWkoRVHK4nKIk4A+PNrnUxPQu+eHPj99//AXBDRMTh9bFCbUkNiWhlIUpSwuh3gJ6Dd//dwE9NP3j79+ltLF92Aege/k6KbPEU8/Sw4KE2pIbEtDKYpSFpdDnAR0ognox+/at14fzk9K/7pxz+FObG/6o2vR5PQBoISrgD4hoCvI6QNAiTkCOuPxkO1Otjf90bVocvrYojChhsS2NJSiKGVxOQQB7VyLJqePLQoTakhsS0MpilIWl0MmCugDArqCnD62KEyoIbEtDaUoSllcDvEXEK+C3UROH1sUJtSQ2JaGUhSlLC6H+Avo87vn9//wPqCryOlji8KEGhLb0lCKopTF5ZAJAuKd0LeQ08cWhQk1JLaloRRFKYvLIRMExGfBbiGnjy0KE2pIbEtDKYpSFpdDJgjo8Rd8Gv5qcvrYojChhsS2NJSiKGVxOWSGgPh5QDeQ08cWhQk1JLaloRRFKYvLIY4C+lk8At/J0U2fI55+lhwUJtSQ2JaGUhSlLC6HIKCda9Hk9LFFYUINiW1pKEVRyuJyCALauRZNTh9bFCbUkNiWhlIUpSwuhyCgnWvR5PSxRWFCDYltaShFUcricggC2rkWTU4fWxQm1JDYloZSFKUsLocgoJ1r0eT0sUVhQg2JbWkoRVHK4nIIAtq5Fk1OH1sUJtSQ2JaGUhSlLC6HIKCda9Hk9LFFYUINiW1pKEVRyuJyCALauRZNTh9bFCbUkNiWhlIUpSwuhyCgnWvR5PSxRWFCDYltaShFUcricggC2rkWTU4fWxQm1JDYloZSFKUsLocgoJ1r0eT0sUVhQg2JbWkoRVHK4nIIAtq5Fk1OH1sUJtSQ2JaGUhSlLC6HIKCda9Hk9LFFYUINiW1pKEVRyuJyCALauRZNTh9bFCbUkNiWhlIUpSwuhyCgnWvR5PSxRWFCDYltaShFUcricggC2rkWTU4fWxQm1JDYloZSFKUsLocgoJ1r0eT0sUVhQg2JbWkoRVHK4nIIAtq5Fk1OH1sUJtSQ2JaGUhSlLC6HIKCda9Hk9LFFYUINiW1pKEVRyuJyCALauRZNTh9bFCbUkNiWhlIUpSwuhyCgnWvR5PSxRWFCDYltaShFUcricggC2rkWTU4fWxQm1JDYloZSFKUsLocgoJ1r0eT0sUVhQg2JbWkoRVHK4nIIAtq5Fk1OH1sUJtSQ2JaGUhSlLC6HIKCda9Hk9LFFYUINiW1pKEVRyuJyCALauRZNTh9bFCbUkNiWhlIUpSwuhyCgnWvR5PSxRWFCDYltaShFUcricggC2rkWTU4fWxQm1JDYloZSFKUsLocgoJ1r0eT0sUVhQg2JbWkoRVHK4nIIAtq5Fk1OH1sUJtSQ2JaGUhSlLC6HIKCda9Hk9LFFYUINiW1pKEVRyuJyCALauRZNTh9bFCbUkNiWhlIUpSwuhyCgnWvR5PSxRWFCDYltaShFUcricggC2rkWTU4fWxQm1JDYloZSFKUsLocUFNDRjT1+LZqgcg5R2m6lLNkBjHK1IKC9a9EElXOI0nYrZckOYJSrBQHtXYsmqJxDlLZbKUt2AKNcLQho71o0QeUcorTdSlmyAxjlakFAe9eiCSrnEKXtVsqSHcAoVwsC2rsWTVA5hyhtt1KW7ABGuVoQ0N61aILKOURpu5WyZAcwytWCgPauRRNUziFK262UJTuAUa4WBLR3LZqgcg5R2m6lLNkBjHK1IKC9a9EElXOI0nYrZckOYJSrBQHtXYsmqJxDlLZbKUt2AKNcLQho71o0QeUcorTdSlmyAxjlakFAe9eiCSrnEKXtVsqSHcAoVwsC2rsWTVA5hyhtt1KW7ABGuVoQ0N61aILKOURpu5WyZAcwytWCgPauRRNUziFK262UJTuAUa4WBLR3LZqgcg5R2m6lLNkBjHK1IKC9a9EElXOI0nYrZckOYJSrBQHtXYsmqJxDlLZbKUt2AKNcLQho71o0QeUcorTdSlmyAxjlakFAe9eiCSrnEKXtVsqSHcAoVwsC2rsWTVA5hyhtt1KW7ABGuVpet4B0CarqAqXtVsqSHcAoVwsC0iSoqguUtlspS3YAo1wtCEiToKouUNpupSzZAYxytSAgTYKqukBpu5WyZAcwytWCgDQJquoCpe1WypIdwChXCwLSJKiqC5S2WylLdgCjXC0ISJOgqi5Q2m6lLNkBjHK1ICBNgqq6QGm7lbJkBzDK1YKANAmq6gKl7VbKkh3AKFcLAtIkqKoLlLZbKUt2AKNcLQhIk6CqLlDabqUs2QGMcrUgIE2CqrpAabuVsmQHMMrVgoA0CarqAqXtVsqSHcAoVwsC0iSoqguUtlspS3YAo1wtCEiToKouUNpupSzZAYxytSAgTYKqukBpu5WyZAcwytWCgDQJquoCpe1WypIdwChXCwLSJKiqC5S2WylLdgCjXC0ISJOgqi5Q2m6lLNkBjHK1ICBNgqq6QGm7lbJkBzDK1YKANAmq6gKl7VbKkh3AKFcLAtIkqKoLlLZbKUt2AKNcLQhIk6CqLlDabqUs2QGMcrXUEND4rRwlEFem9XaJ0nYrZckOYJSrBQEtwLTeLlHabqUs2QGMcrUgoAWY1tslStutlCU7gFGuFgS0ANN6u0Rpu5WyZAcwytWCgBZgWm+XKG23UpbsAEa5WhDQAkzr7RKl7VbKkh3AKFcLAlqAab1dorTdSlmyAxjlakFACzCtt0uUtlspS3YAo1wtCGgBpvV2idJ2K2XJDmCUqwUBLcC03i5R2m6lLNkBjHK1IKAFmNbbJUrbrZQlO4BRrhYEtADTertEabuVsmQHMMrVgoAWYFpvlyhtt1KW7HNtcDsAAA65SURBVABGuVoQ0AJM6+0Spe1WypIdwChXCwJagGm9XaK03UpZsgMY5WpBQAswrbdLlLZbKUt2AKNcLQhoAab1donSditlyQ5glKsFAS3AtN4uUdpupSzZAYxytSCgBZjW2yVK262UJTuAUa4WBLQA03q7RGm7lbJkBzDK1YKAFmBab5cobbdSluwARrlaENACTOvtEqXtVsqSHcAoV0uogKZxdPeO/5OyHH0JcSUDTIdHQIocfQmuPSr99aqUJTuAUa4WBLQAR1+Ca49K262UJTuAUa4WBLQAR1+Ca49K262UJTuAUa4WBLQAR1+Ca49K262UJTuAUa4WBLQAR1+Ca49K262UJTuAUa4WBLQAR1+Ca49K262UJTuAUa4WBLQAR1+Ca49K262UJTuAUa4WBLQAR1+Ca49K262UJTuAUa4WBLQAR1+Ca49K262UJTuAUa4WBLQAR1+Ca49K262UJTuAUa4WBLQAR1+Ca49K262UJTuAUa4WBLQAR1+Ca49K262UJTuAUa4WBLQAR1+Ca49K262UJTuAUa4WBLQAR1+Ca49K262UJTuAUa4WBLQAR1+Ca49K262UJTuAUa4WBLQAR1+Ca49K262UJTuAUa4WBLQAR1+Ca49K262UJTuAUa4WBLQAR1+Ca49K262UJTuAUa4WBLQAR1+Ca49K262UJTuAUa4WBLQAR1+Ca49K262UJTuAUa4WBLQAR1+Ca49K262UJTuAUa4WBLQAR1+Ca49K262UJTuAUa6W+gIqjmuPStutlCU7gFGuFgS0OK49Km23UpbsAEa5WhDQ4rj2qLTdSlmyAxjlakFAi+Pao9J2K2XJDmCUqwUBLY5rj0rbrZQlO4BRrhYEtDiuPSptt1KW7ABGuVoQ0OK49qi03UpZsgMY5WpBQIvj2qPSditlyQ5glKsFAS2Oa49K262UJTuAUa4WBLQ4rj0qbbdSluwARrlaENDiuPaotN1KWbIDGOVqQUCL49qj0nYrZckOYJSrBQEtjmuPStutlCU7gFGuFgS0OK49Km23UpbsAEa5WhDQ4rj2qLTdSlmyAxjlakFAi+Pao9J2K2XJDmCUqwUBLY5rj0rbrZQlO4BRrhYEtDiuPSptt1KW7ABGuVoQ0OK49qi03UpZsgMY5WpBQIvj2qPSditlyQ5glKsFAS2Oa49K262UJTuAUa4WBLQ4rj0qbbdSluwARrlaVhVQ9n0vg2On3Gk7KEVRyuJyCAJaG8dOudN2UIqilMXlEAS0No6dcqftoBRFKYvLIQhobRw75U7bQSmKUhaXQxDQ2jh2yp22g1IUpSwuhyCgtXHslDttB6UoSllcDkFAa+PYKXfaDkpRlLK4HIKA1saxU+60HZSiKGVxOQQBrY1jp9xpOyhFUcricggCWhvHTrnTdlCKopTF5RAEtDaOnXKn7aAURSmLyyEIaG0cO+VO20EpilIWl0MQ0No4dsqdtoNSFKUsLocgoLVx7JQ7bQelKEpZXA5BQGvj2Cl32g5KUZSyuByCgNbGsVPutB2UoihlcTkEAa2NY6fcaTsoRVHK4nIIAlobx06503ZQiqKUxeUQBLQ2jp1yp+2gFEUpi8shCGhtHDvlTttBKYpSFpdDENDaOHbKnbaDUhSlLC6HIKC1ceyUO20HpShKWVwOQUBr49gpd9oOSlGUsrgcgoDW5qiW8WvnbXCc0J2Uu9N8KFcLAlqco1rGr523wXFCd1LuTvOhXC0IaHGOahm/dt4GxwndSbk7zYdytSCgxTmqZfzaeRscJ3Qn5e40H8rVgoAW56iW8WvnbXCc0J2Uu9N8KFcLAlqco1rGr523wXFCd1LuTvOhXC0IaHGOahm/dt4GxwndSbk7zYdytSCgxTmqZfzaeRscJ3Qn5e40H8rVgoAW56iW8WvnbXCc0J2Uu9N8KFcLAlqco1rGr523wXFCd1LuTvOhXC0IaHGOahm/dt4GxwndSbk7zYdytSCgxTmqZfzaeRscJ3Qn5e40H8rVgoAW56iW8WvnbXCc0J2Uu9N8KFcLAlqco1rGr523wXFCd1LuTvOhXC0IaHGOahm/dt4GxwndSbk7zYdytSCgxTmqZfzaeRscJ3Qn5e40H8rVgoAW56iW8WvnbXCc0J2Uu9N8KFcLAlqco1rGr523wXFCd1LuTvOhXC0IaHGOahm/dt4GxwndSbk7zYdytSCgxTmqZfzaeRscJ3Qn5e40H8rVgoAW56iW8WvnbXCc0J2Uu9N8KFcLAlqco1rGr523wXFCd1LuTvOhXC3KAhq/m+BOxleq+/+bQH9bov7tF1mi/kU/j6CA7psJAoI/IqCfyRL1L/p5EBACqsh2pW4diicIqAsCQkAV2a7UrUPxBAF1QUAIqCLblbp1KJ4goC4ICAFVZLtStw7FEwTUBQEhoIpsV+rWoXiCgLogIARUke1K3ToUTxBQFwSEgCqyXalbh+IJAuqCgBBQRbYrdetQPEFAXRAQAqrIdqVuHYonCKgLAkJAFdmu1K1D8QQBdUFACKgi25W6dSieIKAuCAgBVWS7UrcOxRME1AUBIaCKbFfq1qF4goC6ICAEVJHtSt06FE8QUBcENMSP3z08PPwJAS3DdqVuHYonCKgLAhrhh28fTvzu7whoEbYrdetQPEFAXRDQAI+Pf755stDlY6Arsx19Zf734Ktmu1K3DsUTBNQFAQ3w6fmxzw/f/vZvCGgNtit161A8QUBdENAA754f+vz0/cNfENAabFfq1qF4goC6IKCf56fvf/PXp198uPwe7MpsR1+Z/z34qtmu1K1D8QQBdUFAP8+P37VvvT6cngo68evGlQdtv7Kja3AnPkOZT+6/HXq4zsRVQJ/uFBAAvC7mCOiM92PA21GKopQlO4BBLV3K1YKAsqGWLtTSpVwtMwX0AQENQC1dqKVLuVomCMjtVbCJKEVRypIdwKCWLuVqmSCgz++e3/9z9/uAJqIURSlLdgCDWrqUq2WGgLzeCT0RpShKWbIDGNTSpVwtMwTk9VmwiShFUcqSHcCgli7lapkhoMeHQC6fhp+IUhSlLNkBDGrpUq6WKQJy+nlAE1GKopQlO4BBLV3K1TJHQDt4BPZBKYpSluwABrV0KVcLAsqGWrpQS5dytSCgbKilC7V0KVcLAsqGWrpQS5dytSCgbKilC7V0KVcLAsqGWrpQS5dytSCgbKilC7V0KVcLAsqGWrpQS5dytSCgbKilC7V0KVcLAsqGWrpQS5dytSCgbKilC7V0KVcLAsqGWrpQS5dytSCgbKilC7V0KVcLAsqGWrpQS5dytSCgbKilC7V0KVcLAsqGWrpQS5dytSCgbKilC7V0KVcLAsqGWrpQS5dytSCgbKilC7V0KVcLAsqGWrpQS5dytYQKCDr8+tfZCSShli7Va0FA4VRfqRuhli7Va0FA4VRfqRuhli7Va0FA4VRfqRuhli7Va0FA4VRfqRuhli7Va0FA4VRfqRuhli7Va0FA4VRfqRuhli7Va0FA4VRfqRuhli7Va0FAAJAGAgKANBAQAKSBgAAgDQQEAGkgIABIAwEBQBoIKIQfv3t4ePjT5o9++Pbxj377t6RAGnRqOfHDt7/7e0IaGXq1vHv8o4e/5OSZCQKK4Ek2Dw9f3lZPC9W9/V4PnVpO/PT9V3/0qujU8qSkR77JSzUJBBTA4/p887RXZptPz+p59/Cbv+blSqZTyxMfvnbSa6JTy6OST7/5UHBbEFAAn55vqB++te+43rX1elfwL7VROrV8/vz8AOA1C6hTS/ujRwOV2xYEFECzzePfY+dv4n/6vv1d9qneSg3zdS3tt//nVT8H1NuWis/+PIOA5vNimw9fP+PzigW0U8vjY8JX/SR0p5Yfv6v7YgUCms/L/nz9CLry320/R7+W03cbr1pAnVpOfXx6eCj4DBACiuBlpb5+uPPhFT/b0a3lx+8e7zIEdOLTlwL6v1VfM0VA89kX0KeSf6kN0q3l6QkQBHTCavnUXoCvuC4IaD67Aqq4UOP0anl+RIiATmwE9PzQh1fB4Ab2ngOq+LaOK+g+2fHUCAI68VUtJYtBQPPpv9zz0/ev/IMYnVo+PLzwarvp1PLylqDLt0wVAAEF8O75pa7NS16v/fMGn3u1IKDPvVpenMQjILiFzntb8c/uO6FL3mdX0H3f/PN3Y503kq0OAgqg8+me1/z6+5m9z4K9cgF1amm/qfiiBQKK4NODfb756RnF86ebO58Ff0V8VUvjdQuoV0v7o4LvWkVAIXzxE16eVurTAwL6/HUtjVcuoF4tj9+y13xeDAEBQBoICADSQEAAkAYCAoA0EBAApIGAACANBAQAaSAgAEgDAQFAGggIANJAQACQBgICgDQQEACkgYAAIA0EBFF8/MV/Z0cANRAQBPH2DQKCSxAQBIGA4GsQEASBgOBrEBAEgYDgaxAQePKvP7/5wz9+9ebNmz88/uafv39z4j9OF96/sV8//kOPoCNAQODLo1v+18ku//5fp4c8jdNvvhDQ+/Of/zI7LaSDgMCT04Obf/vPz//630+eOenm9DDoyTTnb8Hetwc/bzEQICBw5SSgPzz96lE8vzz/ognn6X8ev0Fr3nl/UhW8bhAQePIooNM3XI98POvl/EdNQO/P/8DpAg+BXjsICDx5lMpXTy6//VJAX1qH18UAAYEnXz2qeXrF6wsBtVfGvnh6Gl4zCAg8+VJAH7eeQUDwNQgIPDEBPb/Z5/SU9NsLAfHED7yAgMATE1B7Ff7z188B8cQPvICAwJMXAZloHh/zfPkq2NuXF99xESAgcKUjoPeb54BO7wNqFz6e3zIErxcEBJ5svgU7/erpSeenxzzn9x2+f/k9D4AAAYEnJqCXl7t+8f+eH+l8PH/86+WzYPgHEBB4sn2f4fML7ecXvj6enfP8AhmfwwAEBACJICAASAMBAUAaCAgA0kBAAJAGAgKANBAQAKSBgAAgDQQEAGkgIABIAwEBQBoICADSQEAAkAYCAoA0EBAApIGAACANBAQAaSAgAEgDAQFAGggIANL4//6XfEZt/xkYAAAAAElFTkSuQmCC" width="576" /></p>
 <p>One person tipped over 70%, who are they?</p>
-<pre class="r"><code>tips[which.max(tips$rate),]</code></pre>
-<pre><code>##     total_bill  tip  sex smoker day   time size      rate
+<pre class="r"><code>tips[which.max(tips$rate),]
+##     total_bill  tip  sex smoker day   time size      rate
 ## 173       7.25 5.15 Male    Yes Sun Dinner    2 0.7103448</code></pre>
 <p>We can also calculate the average tipping rate for men and women separately:</p>
-<pre class="r"><code>mean(tips$rate[tips$sex == &quot;Male&quot;])</code></pre>
-<pre><code>## [1] 0.1576505</code></pre>
-<pre class="r"><code>mean(tips$rate[tips$sex == &quot;Female&quot;])</code></pre>
-<pre><code>## [1] 0.1664907</code></pre>
+<pre class="r"><code>mean(tips$rate[tips$sex == &quot;Male&quot;])
+## [1] 0.1576505
+mean(tips$rate[tips$sex == &quot;Female&quot;])
+## [1] 0.1664907</code></pre>
 <p>Is the difference between the two groups statistically significant? We can calculate a t-test to examine whether the average tip rate for men is the same as the average tip rate for women.</p>
-<pre class="r"><code>t.test(rate ~ sex, data = tips)</code></pre>
-<pre><code>## 
+<pre class="r"><code>t.test(rate ~ sex, data = tips)
+## 
 ##  Welch Two Sample t-test
 ## 
 ## data:  rate by sex
@@ -300,8 +314,8 @@ summary(tips$rate)</code></pre>
 <ol style="list-style-type: decimal">
 <li>Get a summary of the total bill values</li>
 </ol>
-<pre class="r"><code>summary(tips$total_bill)</code></pre>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+<pre class="r"><code>summary(tips$total_bill)
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##    3.07   13.35   17.80   19.79   24.13   50.81</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Make side by side boxplots of tip rates for different days of the week</li>
@@ -311,8 +325,198 @@ summary(tips$rate)</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Find the average tip value for smokers</li>
 </ol>
-<pre class="r"><code>mean(tips$tip[tips$smoker == &quot;Yes&quot;])</code></pre>
-<pre><code>## [1] 3.00871</code></pre>
+<pre class="r"><code>mean(tips$tip[tips$smoker == &quot;Yes&quot;])
+## [1] 3.00871</code></pre>
+</div>
+</div>
+</div>
+<div id="r-basics" class="section level1">
+<h1>R Basics</h1>
+<div id="getting-help-in-r" class="section level2">
+<h2>Getting Help in R</h2>
+<p>The <code>help()</code> function is useful for getting help with a function:</p>
+<pre class="r"><code>help(head)</code></pre>
+<p>The <code>?</code> function also works:</p>
+<pre class="r"><code>?head</code></pre>
+<p>When searching for results online, it is helpful to use R + CRAN + <query> to get good results.</p>
+</div>
+<div id="r-reference-card" class="section level2">
+<h2>R Reference Card</h2>
+<p>A copy of the R reference card is available at:</p>
+<p><a href="http://cran.r-project.org/doc/contrib/Short-refcard.pdf" class="uri">http://cran.r-project.org/doc/contrib/Short-refcard.pdf</a></p>
+<p>This card contains short versions of the most common functions used in R.</p>
+</div>
+<div id="r-as-an-overgrown-calculator" class="section level2">
+<h2>R as an Overgrown Calculator</h2>
+<p>R can perform simple mathematical operations.</p>
+<pre class="r"><code># Addition and Subtraction
+2 + 5 - 1
+## [1] 6
+
+# Multiplication
+109*23452
+## [1] 2556268
+
+# Division
+3/7
+## [1] 0.4285714</code></pre>
+<p>Here are a few more complex operations:</p>
+<pre class="r"><code># Integer division
+7 %/% 2
+## [1] 3
+
+# Modulo operator (Remainder)
+7 %% 2
+## [1] 1
+
+# Powers
+1.5 ^ 3
+## [1] 3.375</code></pre>
+<pre class="r"><code># Exponentiation
+exp(3)
+## [1] 20.08554
+
+# Logarithms
+log(3)
+## [1] 1.098612
+log(3, base = 10)
+## [1] 0.4771213
+
+# Trig functions
+sin(0)
+## [1] 0
+cos(0)
+## [1] 1
+tan(pi/4)
+## [1] 1
+
+asin(0)
+## [1] 0
+acos(1)
+## [1] 0
+atan(1)
+## [1] 0.7853982</code></pre>
+</div>
+<div id="variables-in-r" class="section level2">
+<h2>Variables in R</h2>
+<p>Variables in R are created using the assignment operator, <code>&lt;-</code>:</p>
+<pre class="r"><code>x &lt;- 5
+R_awesomeness &lt;- Inf
+MyAge &lt;- 21 #Haha</code></pre>
+<p>These variables can then be used in computation:</p>
+<pre class="r"><code>log(x)
+## [1] 1.609438
+MyAge ^ 2
+## [1] 441</code></pre>
+</div>
+<div id="rules-for-variable-names" class="section level2">
+<h2>Rules for Variable Names</h2>
+<ul>
+<li>Variable names can’t start with a number</li>
+<li>Names are case-sensitive</li>
+<li>Common letters are used internally by R and should be avoided as variable names<br />
+<code>c, q, t, C, D, F, T, I</code></li>
+<li>There are reserved words that R won’t let you use for variable names.<br />
+<code>for, in, while, if, else, repeat, break, next</code></li>
+<li>R will let you use the name of a predefined function.<br />
+Try not to overwrite those!</li>
+</ul>
+<div id="error-messages" class="section level3">
+<h3>Error messages:</h3>
+<pre class="r"><code># Variable starts with a number
+1age &lt;- 3
+## Error: &lt;text&gt;:2:2: unexpected symbol
+## 1: # Variable starts with a number
+## 2: 1age
+##     ^</code></pre>
+<pre class="r"><code># Case Sensitive
+Age &lt;- 3
+age
+## Error in eval(expr, envir, enclos): object 'age' not found</code></pre>
+<pre class="r"><code># Special Words can't be variable names
+for &lt;- 3
+## Error: &lt;text&gt;:2:5: unexpected assignment
+## 1: # Special Words can't be variable names
+## 2: for &lt;-
+##        ^</code></pre>
+</div>
+<div id="cautionary-tale" class="section level3">
+<h3>Cautionary Tale</h3>
+<pre class="r"><code># This is a VERY bad idea:
+
+T &lt;- FALSE
+F &lt;- TRUE
+
+T == FALSE
+## [1] TRUE
+F == TRUE
+## [1] TRUE
+
+rm(T, F) # Fix it!
+
+T == FALSE
+## [1] FALSE</code></pre>
+<p>Note: In R, <code>T</code> and <code>F</code> are shorthand for <code>TRUE</code> and <code>FALSE</code> respectively.</p>
+</div>
+</div>
+<div id="vectors" class="section level2">
+<h2>Vectors</h2>
+<p>A variable can contain more than one value.<br />
+A <em>vector</em> is a variable which contains a set of values of the same type.<br />
+The <code>c()</code> (combine) function is used to create vectors:</p>
+<pre class="r"><code>y &lt;- c(1, 5, 3, 2)
+z &lt;- c(y, y)</code></pre>
+<p>R performs operations on the entire vector at once:</p>
+<pre class="r"><code>y / 2
+## [1] 0.5 2.5 1.5 1.0
+z + 3
+## [1] 4 8 6 5 4 8 6 5</code></pre>
+</div>
+<div id="your-turn-1" class="section level2" data-background="#527a7a">
+<h2>Your Turn</h2>
+<p>Using the R Reference Card (and the Help pages, if needed), do the following:</p>
+<ol style="list-style-type: decimal">
+<li>Find out how many rows and columns the `iris’ data set has. Figure out at least 2 ways to do this.<br />
+<em>Hint: “Variable Information” section on the first page of the reference card!</em></li>
+<li>Use the <code>rep</code> function to construct the following vector: <code>1 1 2 2 3 3 4 4 5 5</code><br />
+<em>Hint: “Data Creation” section of the reference card</em></li>
+<li>Use <code>rep</code> to construct this vector: <code>1 2 3 4 5 1 2 3 4 5 1 2 3 4 5</code></li>
+</ol>
+<div id="solutions-1" class="section level3">
+<h3>Solutions</h3>
+<ol style="list-style-type: decimal">
+<li>Find out how many rows and columns the `iris’ data set has. Figure out at least 2 ways to do this.</li>
+</ol>
+<pre class="r"><code>data(iris)
+
+# first way: 
+nrow(iris)
+## [1] 150
+ncol(iris)
+## [1] 5
+
+# second way: 
+dim(iris)
+## [1] 150   5
+
+# third way: 
+str(iris) # look at the top line
+## 'data.frame':    150 obs. of  5 variables:
+##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+##  $ Species     : Factor w/ 3 levels &quot;setosa&quot;,&quot;versicolor&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Use the <code>rep</code> function to construct the following vector: 1 1 2 2 3 3 4 4 5 5</li>
+</ol>
+<pre class="r"><code>rep(c(1:5), each = 2)
+##  [1] 1 1 2 2 3 3 4 4 5 5</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Use <code>rep</code> to construct this vector: 1 2 3 4 5 1 2 3 4 5 1 2 3 4 5</li>
+</ol>
+<pre class="r"><code>rep(c(1:5), times = 3)
+##  [1] 1 2 3 4 5 1 2 3 4 5 1 2 3 4 5</code></pre>
 </div>
 </div>
 </div>

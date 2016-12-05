@@ -173,31 +173,31 @@ code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
 <span class="co"># Short link:</span>
 tips &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;http://bit.ly/2fQoMP1&quot;</span>)</code></pre></div>
 <p>The <code>head()</code> function shows the first few rows of the data:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(tips)</code></pre></div>
-<pre><code>##   total_bill  tip    sex smoker day   time size
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(tips)
+##   total_bill  tip    sex smoker day   time size
 ## 1      16.99 1.01 Female     No Sun Dinner    2
 ## 2      10.34 1.66   Male     No Sun Dinner    3
 ## 3      21.01 3.50   Male     No Sun Dinner    3
 ## 4      23.68 3.31   Male     No Sun Dinner    2
 ## 5      24.59 3.61 Female     No Sun Dinner    4
-## 6      25.29 4.71   Male     No Sun Dinner    4</code></pre>
+## 6      25.29 4.71   Male     No Sun Dinner    4</code></pre></div>
 </section><section id="data-set-attributes" class="slide level2">
 <h1>Data Set Attributes</h1>
 <p>How big is the dataset? What types of variables are in each column?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(tips)</code></pre></div>
-<pre><code>## 'data.frame':    244 obs. of  7 variables:
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(tips)
+## 'data.frame':    244 obs. of  7 variables:
 ##  $ total_bill: num  17 10.3 21 23.7 24.6 ...
 ##  $ tip       : num  1.01 1.66 3.5 3.31 3.61 4.71 2 3.12 1.96 3.23 ...
 ##  $ sex       : Factor w/ 2 levels &quot;Female&quot;,&quot;Male&quot;: 1 2 2 2 1 2 2 2 2 2 ...
 ##  $ smoker    : Factor w/ 2 levels &quot;No&quot;,&quot;Yes&quot;: 1 1 1 1 1 1 1 1 1 1 ...
 ##  $ day       : Factor w/ 4 levels &quot;Fri&quot;,&quot;Sat&quot;,&quot;Sun&quot;,..: 3 3 3 3 3 3 3 3 3 3 ...
 ##  $ time      : Factor w/ 2 levels &quot;Dinner&quot;,&quot;Lunch&quot;: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ size      : int  2 3 3 2 4 4 2 4 2 2 ...</code></pre>
+##  $ size      : int  2 3 3 2 4 4 2 4 2 2 ...</code></pre></div>
 </section><section id="summary-of-variables" class="slide level2">
 <h1>Summary of Variables</h1>
 <p>R can easily summarize each variable in the dataset:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(tips)</code></pre></div>
-<pre><code>##    total_bill         tip             sex      smoker      day    
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(tips)
+##    total_bill         tip             sex      smoker      day    
 ##  Min.   : 3.07   Min.   : 1.000   Female: 87   No :151   Fri :19  
 ##  1st Qu.:13.35   1st Qu.: 2.000   Male  :157   Yes: 93   Sat :87  
 ##  Median :17.80   Median : 2.900                          Sun :76  
@@ -210,7 +210,7 @@ tips &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 ##               Median :2.00  
 ##               Mean   :2.57  
 ##               3rd Qu.:3.00  
-##               Max.   :6.00</code></pre>
+##               Max.   :6.00</code></pre></div>
 </section><section id="plotting-the-data" class="slide level2">
 <h1>Plotting the data</h1>
 <p>First, we need to install and load <code>ggplot2</code>, a library for plotting the data</p>
@@ -240,9 +240,9 @@ tips &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <span class="co"># other variables in the tips dataset</span>
 tips$rate &lt;-<span class="st"> </span>tips$tip /<span class="st"> </span>tips$total_bill
 
-<span class="kw">summary</span>(tips$rate)</code></pre></div>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-## 0.03564 0.12910 0.15480 0.16080 0.19150 0.71030</code></pre>
+<span class="kw">summary</span>(tips$rate)
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+## 0.03564 0.12910 0.15480 0.16080 0.19150 0.71030</code></pre></div>
 </section><section id="tipping-rate-histogram" class="slide level2">
 <h1>Tipping Rate Histogram</h1>
 <p>What is the distribution of tipping rates?</p>
@@ -251,21 +251,21 @@ tips$rate &lt;-<span class="st"> </span>tips$tip /<span class="st"> </span>tips$
 </section><section id="someone-is-an-amazing-tipper" class="slide level2">
 <h1>Someone is an AMAZING tipper…</h1>
 <p>One person tipped over 70%, who are they?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tips[<span class="kw">which.max</span>(tips$rate),]</code></pre></div>
-<pre><code>##     total_bill  tip  sex smoker day   time size      rate
-## 173       7.25 5.15 Male    Yes Sun Dinner    2 0.7103448</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tips[<span class="kw">which.max</span>(tips$rate),]
+##     total_bill  tip  sex smoker day   time size      rate
+## 173       7.25 5.15 Male    Yes Sun Dinner    2 0.7103448</code></pre></div>
 </section><section id="rates-by-gender" class="slide level2">
 <h1>Rates by Gender</h1>
 <p>Look at the average tipping rate for men and women seperately</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(tips$rate[tips$sex ==<span class="st"> &quot;Male&quot;</span>])</code></pre></div>
-<pre><code>## [1] 0.1576505</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(tips$rate[tips$sex ==<span class="st"> &quot;Female&quot;</span>])</code></pre></div>
-<pre><code>## [1] 0.1664907</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(tips$rate[tips$sex ==<span class="st"> &quot;Male&quot;</span>])
+## [1] 0.1576505
+<span class="kw">mean</span>(tips$rate[tips$sex ==<span class="st"> &quot;Female&quot;</span>])
+## [1] 0.1664907</code></pre></div>
 </section><section id="statistical-significance" class="slide level2">
 <h1>Statistical Significance</h1>
 <p>There is a difference but is it statistically significant?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">t.test</span>(rate ~<span class="st"> </span>sex, <span class="dt">data =</span> tips)</code></pre></div>
-<pre><code>## 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">t.test</span>(rate ~<span class="st"> </span>sex, <span class="dt">data =</span> tips)
+## 
 ##  Welch Two Sample t-test
 ## 
 ## data:  rate by sex
@@ -275,7 +275,7 @@ tips$rate &lt;-<span class="st"> </span>tips$tip /<span class="st"> </span>tips$
 ##  -0.006404119  0.024084498
 ## sample estimates:
 ## mean in group Female   mean in group Male 
-##            0.1664907            0.1576505</code></pre>
+##            0.1664907            0.1576505</code></pre></div>
 </section><section id="boxplots" class="slide level2">
 <h1>Boxplots</h1>
 <p>Boxplots are useful for comparing the distribution of data. Do smokers tip at different rates than non-smokers?</p>
@@ -292,15 +292,208 @@ tips$rate &lt;-<span class="st"> </span>tips$tip /<span class="st"> </span>tips$
 </section><section id="your-turn-solutions" class="slide level2">
 <h1>Your Turn Solutions</h1>
 <h3 id="summary-of-total-bill-values">Summary of Total Bill Values</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(tips$total_bill)</code></pre></div>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##    3.07   13.35   17.80   19.79   24.13   50.81</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(tips$total_bill)
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    3.07   13.35   17.80   19.79   24.13   50.81</code></pre></div>
+</section><section id="your-turn-solutions-1" class="slide level2">
+<h1>Your Turn Solutions</h1>
 <h3 id="tip-values-by-day-of-the-week">Tip Values by Day of the Week</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(day, rate, <span class="dt">geom =</span> <span class="st">&quot;boxplot&quot;</span>, <span class="dt">data =</span> tips)</code></pre></div>
 <p><img src="data:image/png;base64,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" width="672" /></p>
+</section><section id="your-turn-solutions-2" class="slide level2">
+<h1>Your Turn Solutions</h1>
 <h3 id="average-tip-value-for-smokers">Average Tip Value for Smokers</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(tips$tip[tips$smoker ==<span class="st"> &quot;Yes&quot;</span>])</code></pre></div>
-<pre><code>## [1] 3.00871</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(tips$tip[tips$smoker ==<span class="st"> &quot;Yes&quot;</span>])
+## [1] 3.00871</code></pre></div>
+</section></section>
+<section><section id="r-basics" class="titleslide slide level1"><h1>R Basics</h1></section><section id="getting-help-in-r" class="slide level2">
+<h1>Getting Help in R</h1>
+<p>The <code>help()</code> function is useful for getting help with a function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help</span>(head)</code></pre></div>
+<p>The <code>?</code> function also works:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?head</code></pre></div>
+<p>When searching for results online, it is helpful to use R + CRAN + <query> to get good results.</p>
+</section><section id="r-reference-card" class="slide level2">
+<h1>R Reference Card</h1>
+<p>A copy of the R reference card is available at:</p>
+<p><a href="http://cran.r-project.org/doc/contrib/Short-refcard.pdf" class="uri">http://cran.r-project.org/doc/contrib/Short-refcard.pdf</a></p>
+<p>This card contains short versions of the most common functions used in R.</p>
+</section><section id="r-as-an-overgrown-calculator" class="slide level2">
+<h1>R as an Overgrown Calculator</h1>
+<p>R can perform simple mathematical operations.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Addition and Subtraction</span>
+<span class="dv">2</span> +<span class="st"> </span><span class="dv">5</span> -<span class="st"> </span><span class="dv">1</span>
+## [1] 6
+
+<span class="co"># Multiplication</span>
+<span class="dv">109</span>*<span class="dv">23452</span>
+## [1] 2556268
+
+<span class="co"># Division</span>
+<span class="dv">3</span>/<span class="dv">7</span>
+## [1] 0.4285714</code></pre></div>
+</section><section id="r-as-an-overgrown-calculator-1" class="slide level2">
+<h1>R as an Overgrown Calculator</h1>
+<p>Here are a few more complex operations:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Integer division</span>
+<span class="dv">7</span> %/%<span class="st"> </span><span class="dv">2</span>
+## [1] 3
+
+<span class="co"># Modulo operator (Remainder)</span>
+<span class="dv">7</span> %%<span class="st"> </span><span class="dv">2</span>
+## [1] 1
+
+<span class="co"># Powers</span>
+<span class="fl">1.5</span> ^<span class="st"> </span><span class="dv">3</span>
+## [1] 3.375</code></pre></div>
+</section><section id="r-as-an-overgrown-calculator-2" class="slide level2">
+<h1>R as an Overgrown Calculator</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Exponentiation</span>
+<span class="kw">exp</span>(<span class="dv">3</span>)
+## [1] 20.08554
+
+<span class="co"># Logarithms</span>
+<span class="kw">log</span>(<span class="dv">3</span>)
+## [1] 1.098612
+<span class="kw">log</span>(<span class="dv">3</span>, <span class="dt">base =</span> <span class="dv">10</span>)
+## [1] 0.4771213</code></pre></div>
+</section><section id="r-as-an-overgrown-calculator-3" class="slide level2">
+<h1>R as an Overgrown Calculator</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Trig functions</span>
+<span class="kw">sin</span>(<span class="dv">0</span>)
+## [1] 0
+<span class="kw">cos</span>(<span class="dv">0</span>)
+## [1] 1
+<span class="kw">tan</span>(pi/<span class="dv">4</span>)
+## [1] 1</code></pre></div>
+</section><section id="variables-in-r" class="slide level2">
+<h1>Variables in R</h1>
+<p>Variables in R are created using the assignment operator, <code>&lt;-</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">5</span>
+R_awesomeness &lt;-<span class="st"> </span><span class="ot">Inf</span>
+MyAge &lt;-<span class="st"> </span><span class="dv">21</span> <span class="co">#Haha</span></code></pre></div>
+<p>These variables can then be used in computation:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">log</span>(x)
+## [1] 1.609438
+MyAge ^<span class="st"> </span><span class="dv">2</span>
+## [1] 441</code></pre></div>
+</section><section id="rules-for-variable-names" class="slide level2">
+<h1>Rules for Variable Names</h1>
+<ul>
+<li>Can’t start with a number</li>
+<li>Names are case-sensitive</li>
+<li>Common letters are used internally by R and should be avoided as variable names<br />
+<code>c, q, t, C, D, F, T, I</code></li>
+<li>There are reserved words that R won’t let you use for variable names.<br />
+<code>for, in, while, if, else, repeat, break, next</code></li>
+<li>R will let you use the name of a predefined function.<br />
+Try not to overwrite those!</li>
+</ul>
+</section><section id="rules-for-variable-names-1" class="slide level2">
+<h1>Rules for Variable Names</h1>
+<p>Error messages:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Variable starts with a number</span>
+1age &lt;-<span class="st"> </span><span class="dv">3</span></code></pre></div>
+<pre><code>## Error: &lt;text&gt;:2:2: unexpected symbol
+## 1: # Variable starts with a number
+## 2: 1age
+##     ^</code></pre>
+</section><section id="rules-for-variable-names-2" class="slide level2">
+<h1>Rules for Variable Names</h1>
+<p>Error messages:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Case Sensitive</span>
+Age &lt;-<span class="st"> </span><span class="dv">3</span>
+age</code></pre></div>
+<pre><code>## Error in eval(expr, envir, enclos): object 'age' not found</code></pre>
+</section><section id="rules-for-variable-names-3" class="slide level2">
+<h1>Rules for Variable Names</h1>
+<p>Error messages:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Special Words can't be variable names</span>
+for &lt;-<span class="st"> </span><span class="dv">3</span></code></pre></div>
+<pre><code>## Error: &lt;text&gt;:2:5: unexpected assignment
+## 1: # Special Words can't be variable names
+## 2: for &lt;-
+##        ^</code></pre>
+</section><section id="rules-for-variable-names-4" class="slide level2">
+<h1>Rules for Variable Names</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># This is a VERY bad idea:</span>
+
+T &lt;-<span class="st"> </span><span class="ot">FALSE</span>
+F &lt;-<span class="st"> </span><span class="ot">TRUE</span>
+
+T ==<span class="st"> </span><span class="ot">FALSE</span>
+## [1] TRUE
+F ==<span class="st"> </span><span class="ot">TRUE</span>
+## [1] TRUE
+
+<span class="kw">rm</span>(T, F) <span class="co"># Fix it!</span>
+
+T ==<span class="st"> </span><span class="ot">FALSE</span>
+## [1] FALSE</code></pre></div>
+<p>Note: In R, <code>T</code> and <code>F</code> are shorthand for <code>TRUE</code> and <code>FALSE</code> respectively.</p>
+</section><section id="vectors" class="slide level2">
+<h1>Vectors</h1>
+<p>A variable can contain more than one value.<br />
+A <em>vector</em> is a variable which contains a set of values of the same type.<br />
+The <code>c()</code> (combine) function is used to create vectors:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">2</span>)
+z &lt;-<span class="st"> </span><span class="kw">c</span>(y, y)</code></pre></div>
+<p>R performs operations on the entire vector at once:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y /<span class="st"> </span><span class="dv">2</span>
+## [1] 0.5 2.5 1.5 1.0
+z +<span class="st"> </span><span class="dv">3</span>
+## [1] 4 8 6 5 4 8 6 5</code></pre></div>
+</section><section id="your-turn-1" class="slide level2" data-background="#527a7a">
+<h1>Your Turn</h1>
+<p>Using the R Reference Card (and the Help pages, if needed), do the following:</p>
+<ol type="1">
+<li>Find out how many rows and columns the `iris’ data set has. Figure out at least 2 ways to do this.<br />
+<em>Hint: “Variable Information” section on the first page of the reference card!</em></li>
+<li>Use the <code>rep</code> function to construct the following vector: <code>1 1 2 2 3 3 4 4 5 5</code><br />
+<em>Hint: “Data Creation” section of the reference card</em></li>
+<li>Use <code>rep</code> to construct this vector: <code>1 2 3 4 5 1 2 3 4 5 1 2 3 4 5</code></li>
+</ol>
+</section><section id="your-turn-solutions-3" class="slide level2" data-background="#527a7a">
+<h1>Your Turn Solutions</h1>
+<ol type="1">
+<li>Find out how many rows and columns the `iris’ data set has. Figure out at least 2 ways to do this.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(iris)
+
+<span class="co"># first way: </span>
+<span class="kw">nrow</span>(iris)
+## [1] 150
+<span class="kw">ncol</span>(iris)
+## [1] 5</code></pre></div>
+</section><section id="your-turn-solutions-4" class="slide level2" data-background="#527a7a">
+<h1>Your Turn Solutions</h1>
+<ol type="1">
+<li>Find out how many rows and columns the `iris’ data set has. Figure out at least 2 ways to do this.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># second way: </span>
+<span class="kw">dim</span>(iris)
+## [1] 150   5
+
+<span class="co"># third way: </span>
+<span class="kw">str</span>(iris) <span class="co"># look at the top line</span>
+## 'data.frame':    150 obs. of  5 variables:
+##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+##  $ Species     : Factor w/ 3 levels &quot;setosa&quot;,&quot;versicolor&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...</code></pre></div>
+</section><section id="your-turn-solutions-5" class="slide level2" data-background="#527a7a">
+<h1>Your Turn Solutions</h1>
+<ol start="2" type="1">
+<li>Use the <code>rep</code> function to construct the following vector: 1 1 2 2 3 3 4 4 5 5</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rep</span>(<span class="kw">c</span>(<span class="dv">1</span>:<span class="dv">5</span>), <span class="dt">each =</span> <span class="dv">2</span>)
+##  [1] 1 1 2 2 3 3 4 4 5 5</code></pre></div>
+<ol start="3" type="1">
+<li>Use <code>rep</code> to construct this vector: 1 2 3 4 5 1 2 3 4 5 1 2 3 4 5</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rep</span>(<span class="kw">c</span>(<span class="dv">1</span>:<span class="dv">5</span>), <span class="dt">times =</span> <span class="dv">3</span>)
+##  [1] 1 2 3 4 5 1 2 3 4 5 1 2 3 4 5</code></pre></div>
 </section></section>
     </div>
   </div>

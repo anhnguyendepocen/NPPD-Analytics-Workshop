@@ -1,18 +1,18 @@
 ---
 title: "Introduction to R"
 output:
+  word_document:
+    reference_docx: U:\Templates\Rmarkdown Word\word_template.docx
   html_document:
     code_folding: show
     fig_caption: yes
+    self_contained: yes
     theme: cerulean
-    toc: true
-    self_contained: true
-  word_document:
-    reference_docx: U:\Templates\Rmarkdown Word\word_template.docx
+    toc: yes
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, collapse = T, error = T)
 ```
 
 Who has worked with software designed to store, summarize, visualize, or analyze data? 
@@ -187,13 +187,13 @@ mean(tips$tip[tips$smoker == "Yes"])
 ## Getting Help in R
 The `help()` function is useful for getting help with a function:
 
-```{r}
+```{r, eval = F}
 help(head)
 ```
 
 The `?` function also works:
 
-```{r}
+```{r, eval = F}
 ?head
 ```
 
@@ -271,26 +271,33 @@ MyAge ^ 2
 ## Rules for Variable Names
 
 - Variable names can't start with a number
-- Variables in R are case-sensitive
-- Some common letters are used internally by R and should be avoided as variable names (c, q, t, C, D, F, T, I)
-- There are reserved words that R won't let you use for variable names. (for, in, while, if, else, repeat, break, next)
-- R will let you use the name of a predefined function.  Try not to overwrite those though!
+- Names are case-sensitive
+- Common letters are used internally by R and should be avoided as variable names    
+`c, q, t, C, D, F, T, I`
+- There are reserved words that R won't let you use for variable names.    
+`for, in, while, if, else, repeat, break, next`
+- R will let you use the name of a predefined function.    
+Try not to overwrite those!
 
-## Rules for Variable Names
-Error messages:
-```{r, error = T}
+### Error messages:
+```{r}
+# Variable starts with a number
 1age <- 3
+```
 
+```{r}
 # Case Sensitive
 Age <- 3
 age
+```
 
+```{r}
+# Special Words can't be variable names
 for <- 3
 ```
 
-## Rules for Variable Names
-
-```{r, eval = F}
+### Cautionary Tale
+```{r, eval = T}
 # This is a VERY bad idea:
 
 T <- FALSE
@@ -300,10 +307,15 @@ T == FALSE
 F == TRUE
 
 rm(T, F) # Fix it!
+
+T == FALSE
 ```
+Note: In R, `T` and `F` are shorthand for `TRUE` and `FALSE` respectively. 
 
 ## Vectors
-A variable can contain more than one value. A _vector_ is a variable which contains a set of values of the same type. the `c` (combine) function is used to create vectors:
+A variable can contain more than one value.    
+A _vector_ is a variable which contains a set of values of the same type.    
+The `c()` (combine) function is used to create vectors:
 
 ```{r}
 y <- c(1, 5, 3, 2)
@@ -312,8 +324,8 @@ z <- c(y, y)
 
 R performs operations on the entire vector at once:
 ```{r}
-z + 3
 y / 2
+z + 3
 ```
 
 
@@ -321,17 +333,17 @@ y / 2
 
 Using the R Reference Card (and the Help pages, if needed), do the following:
 
-1. Find out how many rows and columns the `iris' data set has.  Figure out at least 2 ways to do this.
+1. Find out how many rows and columns the `iris' data set has.  Figure out at least 2 ways to do this.    
 *Hint: "Variable Information" section on the first page of the reference card!*
-2. Use the `rep` function to construct the following vector:  1 1 2 2 3 3 4 4 5 5
+2. Use the `rep` function to construct the following vector:  `1 1 2 2 3 3 4 4 5 5`    
 *Hint: "Data Creation" section of the reference card*
-3. Use `rep` to construct this vector: 1 2 3 4 5 1 2 3 4 5 1 2 3 4 5
+3. Use `rep` to construct this vector: `1 2 3 4 5 1 2 3 4 5 1 2 3 4 5`
 
 ### Solutions
 
 1. Find out how many rows and columns the `iris' data set has.  Figure out at least 2 ways to do this.
 
-```{r}
+```{r, collapse = T}
 data(iris)
 
 # first way: 
