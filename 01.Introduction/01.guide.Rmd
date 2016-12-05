@@ -1,14 +1,14 @@
 ---
 title: "Introduction to R"
 output:
-  word_document:
-    reference_docx: U:\Templates\Rmarkdown Word\word_template.docx
   html_document:
     code_folding: show
     fig_caption: yes
     self_contained: yes
     theme: cerulean
     toc: yes
+  word_document:
+    reference_docx: U:\Templates\Rmarkdown Word\word_template.docx
 ---
 
 ```{r setup, include=FALSE}
@@ -366,3 +366,94 @@ rep(c(1:5), each = 2)
 ```{r}
 rep(c(1:5), times = 3)
 ```
+
+## Indexing Vectors
+
+A vector is a list of values that are all the same type. Vectors can be created using the `c()` or `rep()` function. To create a vector of consecutive values, use the `:` function:
+
+```{r}
+a <- 10:15
+a
+```
+
+Different elements of a vector can be extracted using brackets:
+
+```{r}
+a[1]
+a[2]
+a[5]
+```
+
+Indexes can also be more complicated: 
+```{r}
+a[c(1, 3, 5)]
+a[1:5]
+```
+
+## Logical Values
+
+- R has built in support for logical values
+- TRUE and FALSE are built in.  T (for TRUE) and F (for FALSE) are supported but can be modified
+- Logicals can result from a comparison using
+    - $<$
+    - $>$
+    - $<=$
+    - $>=$
+    - $==$
+    - $!=$
+    
+## Indexing with Logicals
+
+Logical vectors can be used for indexing as well:
+
+```{r}
+x <- c(2, 3, 5, 7)
+x[c(TRUE, FALSE, FALSE, TRUE)]
+x > 3.5
+x[x > 3.5]
+```
+
+### Logical Examples
+
+```{r}
+# Get the rate variable out of the tips dataset
+rate <- tips$rate 
+
+head(rate)
+
+sad_tip <- rate < 0.10
+
+rate[sad_tip]
+```
+
+## Data Frames
+
+A collection of vectors, similar to a table in an Excel spreadsheet
+
+- A data set is stored in a data frame
+- Each column is a vector of the same length
+- Each column can be a different type of data
+- Each element in the vector/column has to have the same type of data
+- columns can be accessed using `$`
+
+
+`tips` is a data frame:
+```{r}
+head(tips)
+```
+
+`tips$sex` shows the `sex` column of `tips`
+```{r}
+tips$sex[1:20]
+# Show the first 20 items in the sex column of tips
+```
+
+
+## Your Turn {data-background=#527a7a}
+
+1. Find out how many people tipped over 20%.    
+*Hint: use the `sum` function on a logical vector to calculate how many TRUEs are in the vector:*
+```{r}
+sum(c(TRUE, TRUE, FALSE, TRUE, FALSE))
+```
+2. **More Challenging**: Calculate the sum of the total bills of anyone who tipped over 20%
