@@ -5,7 +5,7 @@ output:
     fig_caption: yes
     self_contained: yes
     theme: cerulean
-    toc: yes
+    toc: no
 ---
 
 # Day 1: Introduction
