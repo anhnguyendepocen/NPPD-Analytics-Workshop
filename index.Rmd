@@ -15,3 +15,9 @@ output:
     - [Web-based](01.Introduction/01.guide.html)
     - [Word Document](01.Introduction/01.guide.docx)
 - [Code Files](01.Introduction/code/Code.html)
+
+# Day 2: Graphics
+
+# Day 3: Manipulating Data
+
+# Bonus Material: Reporting with R and Markdown
