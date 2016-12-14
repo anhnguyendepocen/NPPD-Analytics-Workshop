@@ -18,6 +18,20 @@ output:
 
 # Day 2: Graphics
 
+- [Slides](02.Graphics/02.slides.html)
+- Lesson Material
+    - [Web-based](02.Graphics/02.guide.html)
+    - [Word Document](02.Graphics/02.guide.docx)
+- [Code Files](02.Graphics/code/Code.html)
+
+
 # Day 3: Manipulating Data
+
+- [Slides](03.ManipulatingData/03.slides.html)
+- Lesson Material
+    - [Web-based](03.ManipulatingData/03.guide.html)
+    - [Word Document](03.ManipulatingData/03.guide.docx)
+- [Code Files](03.ManipulatingData/code/Code.html)
+
 
 # Bonus Material: Reporting with R and Markdown

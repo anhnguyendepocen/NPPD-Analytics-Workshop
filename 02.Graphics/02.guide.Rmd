@@ -1,0 +1,18 @@
+---
+title: "Graphics in R"
+output:
+  html_document:
+    code_folding: show
+    fig_caption: yes
+    self_contained: yes
+    theme: cerulean
+    toc: yes
+  word_document:
+    reference_docx: U:\Templates\Rmarkdown Word\word_template.docx
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, collapse = T, error = T)
+```
+
+
