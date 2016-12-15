@@ -1,14 +1,14 @@
 ---
 title: "Introduction to R"
 output:
-  word_document:
-    reference_docx: U:\Templates\Rmarkdown Word\word_template.docx
   html_document:
     code_folding: show
     fig_caption: yes
     self_contained: yes
     theme: cerulean
     toc: yes
+  word_document:
+    reference_docx: U:\Templates\Rmarkdown Word\word_template.docx
 ---
 
 ```{r setup, include=FALSE}
