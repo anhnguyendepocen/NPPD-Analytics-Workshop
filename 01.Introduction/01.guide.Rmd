@@ -329,6 +329,36 @@ y / 2
 z + 3
 ```
 
+Vectors can be created using the `c()` or `rep()` function. To create a vector of consecutive values, use the `:` function:
+
+```{r}
+a <- 10:15
+a
+```
+
+### Modifying Vectors
+
+Vectors can be modified using indexing:
+
+```{r}
+# Get the total bill out of the tips dataset
+bill <- tips$total_bill
+
+x <- bill[1:5]
+x
+x[1] <- 20
+x
+```
+
+Elements of a vector must all be the same type:
+
+```{r}
+head(bill)
+bill[5] <- ":-("
+head(bill)
+```
+
+By changing a value to a string, all the other values were changed to strings as well.
 
 ### Your Turn
 
@@ -368,14 +398,7 @@ rep(c(1:5), each = 2)
 rep(c(1:5), times = 3)
 ```
 
-## Indexing Vectors
-
-A vector is a list of values that are all the same type. Vectors can be created using the `c()` or `rep()` function. To create a vector of consecutive values, use the `:` function:
-
-```{r}
-a <- 10:15
-a
-```
+Vectors can be manipulated by indexing. 
 
 Different elements of a vector can be extracted using brackets:
 
@@ -459,29 +482,19 @@ sum(c(TRUE, TRUE, FALSE, TRUE, FALSE))
 ```
 2. **More Challenging**: Calculate the sum of the total bills of anyone who tipped over 20%
 
-
-## Modifying Vectors
-
-Vectors can be modified using indexing:
+#### Solutions
+1. How many people tipped over 20%?
 
 ```{r}
-x <- bill[1:5]
-x
-x[1] <- 20
-x
+sum(tips$rate > .2)
 ```
 
-### Vector Elements
-
-Elements of a vector must all be the same type:
+2. Sum of the total bills where the tip was over 20%
 
 ```{r}
-head(rate)
-rate[sad_tip] <- ":-("
-head(rate)
+sum(tips$total_bill[tips$rate > .2])
 ```
 
-By changing a value to a string, all the other values were changed to strings as well.
 
 ## Data Types in R
 
@@ -549,7 +562,7 @@ id <- (bill > 40 & rate < .10)
 tips[id,]
 ```
 
-## Your Turn {data-background=#527a7a}
+## Your Turn
 
 1. Read up on the dataset (`?diamonds`)
 2. Plot price by carat (use qplot - go back to the motivating example for help with the syntax)
