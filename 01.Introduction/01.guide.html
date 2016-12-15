@@ -156,33 +156,47 @@ $(document).ready(function () {
 <li><a href="#r-as-an-overgrown-calculator">R as an Overgrown Calculator</a></li>
 <li><a href="#variables-in-r">Variables in R</a></li>
 <li><a href="#rules-for-variable-names">Rules for Variable Names</a><ul>
-<li><a href="#error-messages">Error messages:</a></li>
-<li><a href="#cautionary-tale">Cautionary Tale</a></li>
+<li><a href="#error-messages">Error messages</a></li>
 </ul></li>
-<li><a href="#vectors">Vectors</a></li>
-<li><a href="#your-turn-1">Your Turn</a><ul>
-<li><a href="#solutions-1">Solutions</a></li>
+<li><a href="#vectors">Vectors</a><ul>
+<li><a href="#modifying-vectors">Modifying Vectors</a></li>
+<li><a href="#your-turn-1">Your Turn</a></li>
 </ul></li>
-<li><a href="#indexing-vectors">Indexing Vectors</a></li>
-<li><a href="#logical-values">Logical Values</a></li>
-<li><a href="#indexing-with-logicals">Indexing with Logicals</a><ul>
-<li><a href="#logical-examples">Logical Examples</a></li>
+<li><a href="#logical-values">Logical Values</a><ul>
+<li><a href="#indexing-with-logicals">Indexing with Logicals</a></li>
 </ul></li>
-<li><a href="#data-frames">Data Frames</a></li>
+<li><a href="#data-frames">Data Frames</a><ul>
 <li><a href="#your-turn-2">Your Turn</a></li>
-<li><a href="#modifying-vectors">Modifying Vectors</a><ul>
-<li><a href="#vector-elements">Vector Elements</a></li>
 </ul></li>
 <li><a href="#data-types-in-r">Data Types in R</a><ul>
 <li><a href="#converting-between-types">Converting Between Types</a></li>
 </ul></li>
-<li><a href="#some-useful-functions">Some useful functions</a><ul>
-<li><a href="#statistical-functions">Statistical Functions</a></li>
-<li><a href="#built-in-statistical-functions">Built-in Statistical Functions</a></li>
-</ul></li>
+<li><a href="#some-useful-functions">Some useful functions</a></li>
 <li><a href="#element-wise-logical-operators">Element-wise Logical Operators</a></li>
 <li><a href="#your-turn-3">Your Turn</a><ul>
-<li><a href="#solutions-2">Solutions</a></li>
+<li><a href="#solutions-3">Solutions</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#data-structures">Data Structures</a><ul>
+<li><a href="#data-frames-1">Data Frames</a><ul>
+<li><a href="#example">Example</a></li>
+<li><a href="#creating-a-data-frame">Creating a Data Frame</a></li>
+<li><a href="#your-turn-4">Your Turn</a></li>
+</ul></li>
+<li><a href="#lists">Lists</a><ul>
+<li><a href="#example-1">Example</a></li>
+<li><a href="#your-turn-5">Your Turn</a></li>
+</ul></li>
+<li><a href="#examining-objects">Examining Objects</a><ul>
+<li><a href="#example-2">Example</a></li>
+<li><a href="#your-turn-6">Your Turn</a></li>
+</ul></li>
+<li><a href="#working-with-output-from-a-function">Working with Output from a Function</a><ul>
+<li><a href="#demo-saving-output">Demo: Saving Output</a></li>
+</ul></li>
+<li><a href="#importing-data">Importing Data</a><ul>
+<li><a href="#importing-data-demo">Importing Data Demo</a></li>
+<li><a href="#your-turn-7">Your Turn</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -447,7 +461,7 @@ MyAge ^ 2
 Try not to overwrite those!</li>
 </ul>
 <div id="error-messages" class="section level3">
-<h3>Error messages:</h3>
+<h3>Error messages</h3>
 <pre class="r"><code># Variable starts with a number
 1age &lt;- 3
 ## Error: &lt;text&gt;:2:2: unexpected symbol
@@ -464,9 +478,8 @@ for &lt;- 3
 ## 1: # Special Words can't be variable names
 ## 2: for &lt;-
 ##        ^</code></pre>
-</div>
-<div id="cautionary-tale" class="section level3">
-<h3>Cautionary Tale</h3>
+<div id="a-cautionary-tale" class="section level4">
+<h4>A Cautionary Tale</h4>
 <pre class="r"><code># This is a VERY bad idea:
 
 T &lt;- FALSE
@@ -484,6 +497,7 @@ T == FALSE
 <p>Note: In R, <code>T</code> and <code>F</code> are shorthand for <code>TRUE</code> and <code>FALSE</code> respectively.</p>
 </div>
 </div>
+</div>
 <div id="vectors" class="section level2">
 <h2>Vectors</h2>
 <p>A variable can contain more than one value.<br />
@@ -496,9 +510,32 @@ z &lt;- c(y, y)</code></pre>
 ## [1] 0.5 2.5 1.5 1.0
 z + 3
 ## [1] 4 8 6 5 4 8 6 5</code></pre>
+<p>Vectors can be created using the <code>c()</code> or <code>rep()</code> function. To create a vector of consecutive values, use the <code>:</code> function:</p>
+<pre class="r"><code>a &lt;- 10:15
+a
+## [1] 10 11 12 13 14 15</code></pre>
+<div id="modifying-vectors" class="section level3">
+<h3>Modifying Vectors</h3>
+<p>Vectors can be modified using indexing:</p>
+<pre class="r"><code># Get the total bill out of the tips dataset
+bill &lt;- tips$total_bill
+
+x &lt;- bill[1:5]
+x
+## [1] 16.99 10.34 21.01 23.68 24.59
+x[1] &lt;- 20
+x
+## [1] 20.00 10.34 21.01 23.68 24.59</code></pre>
+<p>Elements of a vector must all be the same type:</p>
+<pre class="r"><code>head(bill)
+## [1] 16.99 10.34 21.01 23.68 24.59 25.29
+bill[5] &lt;- &quot;:-(&quot;
+head(bill)
+## [1] &quot;16.99&quot; &quot;10.34&quot; &quot;21.01&quot; &quot;23.68&quot; &quot;:-(&quot;   &quot;25.29&quot;</code></pre>
+<p>By changing a value to a string, all the other values were changed to strings as well.</p>
 </div>
-<div id="your-turn-1" class="section level2" data-background="#527a7a">
-<h2>Your Turn</h2>
+<div id="your-turn-1" class="section level3">
+<h3>Your Turn</h3>
 <p>Using the R Reference Card (and the Help pages, if needed), do the following:</p>
 <ol style="list-style-type: decimal">
 <li>Find out how many rows and columns the `iris’ data set has. Figure out at least 2 ways to do this.<br />
@@ -507,8 +544,8 @@ z + 3
 <em>Hint: “Data Creation” section of the reference card</em></li>
 <li>Use <code>rep</code> to construct this vector: <code>1 2 3 4 5 1 2 3 4 5 1 2 3 4 5</code></li>
 </ol>
-<div id="solutions-1" class="section level3">
-<h3>Solutions</h3>
+<div id="solutions-1" class="section level4">
+<h4>Solutions</h4>
 <ol style="list-style-type: decimal">
 <li>Find out how many rows and columns the `iris’ data set has. Figure out at least 2 ways to do this.</li>
 </ol>
@@ -542,14 +579,7 @@ str(iris) # look at the top line
 </ol>
 <pre class="r"><code>rep(c(1:5), times = 3)
 ##  [1] 1 2 3 4 5 1 2 3 4 5 1 2 3 4 5</code></pre>
-</div>
-</div>
-<div id="indexing-vectors" class="section level2">
-<h2>Indexing Vectors</h2>
-<p>A vector is a list of values that are all the same type. Vectors can be created using the <code>c()</code> or <code>rep()</code> function. To create a vector of consecutive values, use the <code>:</code> function:</p>
-<pre class="r"><code>a &lt;- 10:15
-a
-## [1] 10 11 12 13 14 15</code></pre>
+<p>Vectors can be manipulated by indexing.</p>
 <p>Different elements of a vector can be extracted using brackets:</p>
 <pre class="r"><code>a[1]
 ## [1] 10
@@ -562,6 +592,8 @@ a[5]
 ## [1] 10 12 14
 a[1:5]
 ## [1] 10 11 12 13 14</code></pre>
+</div>
+</div>
 </div>
 <div id="logical-values" class="section level2">
 <h2>Logical Values</h2>
@@ -578,9 +610,8 @@ a[1:5]
 <li><span class="math inline">\(!=\)</span></li>
 </ul></li>
 </ul>
-</div>
-<div id="indexing-with-logicals" class="section level2">
-<h2>Indexing with Logicals</h2>
+<div id="indexing-with-logicals" class="section level3">
+<h3>Indexing with Logicals</h3>
 <p>Logical vectors can be used for indexing as well:</p>
 <pre class="r"><code>x &lt;- c(2, 3, 5, 7)
 x[c(TRUE, FALSE, FALSE, TRUE)]
@@ -589,8 +620,8 @@ x &gt; 3.5
 ## [1] FALSE FALSE  TRUE  TRUE
 x[x &gt; 3.5]
 ## [1] 5 7</code></pre>
-<div id="logical-examples" class="section level3">
-<h3>Logical Examples</h3>
+<div id="examples" class="section level4">
+<h4>Examples</h4>
 <pre class="r"><code># Get the rate variable out of the tips dataset
 rate &lt;- tips$rate 
 
@@ -605,6 +636,7 @@ rate[sad_tip]
 ## [13] 0.07717751 0.07398274 0.06565988 0.09560229 0.09001406 0.07745933
 ## [19] 0.08364236 0.06653360 0.08527132 0.08329863 0.07936508 0.03563814
 ## [25] 0.07358352 0.08822232 0.09820426</code></pre>
+</div>
 </div>
 </div>
 <div id="data-frames" class="section level2">
@@ -632,9 +664,8 @@ rate[sad_tip]
 ## [11] Male   Female Male   Male   Female Male   Female Male   Female Male  
 ## Levels: Female Male
 # Show the first 20 items in the sex column of tips</code></pre>
-</div>
-<div id="your-turn-2" class="section level2" data-background="#527a7a">
-<h2>Your Turn</h2>
+<div id="your-turn-2" class="section level3">
+<h3>Your Turn</h3>
 <ol style="list-style-type: decimal">
 <li>Find out how many people tipped over 20%.<br />
 <em>Hint: use the <code>sum</code> function on a logical vector to calculate how many TRUEs are in the vector:</em></li>
@@ -644,27 +675,19 @@ rate[sad_tip]
 <ol start="2" style="list-style-type: decimal">
 <li><strong>More Challenging</strong>: Calculate the sum of the total bills of anyone who tipped over 20%</li>
 </ol>
+<div id="solutions-2" class="section level4">
+<h4>Solutions</h4>
+<ol style="list-style-type: decimal">
+<li>How many people tipped over 20%?</li>
+</ol>
+<pre class="r"><code>sum(tips$rate &gt; .2)
+## [1] 39</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Sum of the total bills where the tip was over 20%</li>
+</ol>
+<pre class="r"><code>sum(tips$total_bill[tips$rate &gt; .2])
+## [1] 619.23</code></pre>
 </div>
-<div id="modifying-vectors" class="section level2">
-<h2>Modifying Vectors</h2>
-<p>Vectors can be modified using indexing:</p>
-<pre class="r"><code>x &lt;- bill[1:5]
-## Error in eval(expr, envir, enclos): object 'bill' not found
-x
-## [1] 2 3 5 7
-x[1] &lt;- 20
-x
-## [1] 20  3  5  7</code></pre>
-<div id="vector-elements" class="section level3">
-<h3>Vector Elements</h3>
-<p>Elements of a vector must all be the same type:</p>
-<pre class="r"><code>head(rate)
-## [1] 0.05944673 0.16054159 0.16658734 0.13978041 0.14680765 0.18623962
-rate[sad_tip] &lt;- &quot;:-(&quot;
-head(rate)
-## [1] &quot;:-(&quot;               &quot;0.160541586073501&quot; &quot;0.166587339362208&quot;
-## [4] &quot;0.139780405405405&quot; &quot;0.146807645384303&quot; &quot;0.186239620403321&quot;</code></pre>
-<p>By changing a value to a string, all the other values were changed to strings as well.</p>
 </div>
 </div>
 <div id="data-types-in-r" class="section level2">
@@ -705,20 +728,17 @@ length(x) # Number of elements of a vector
 ## [1] 5
 sum(x) # Sum of elements in a vector
 ## [1] 13.09</code></pre>
-<div id="statistical-functions" class="section level3">
-<h3>Statistical Functions</h3>
 <p>Using the basic functions it wouldn’t be hard to compute some basic statistics.</p>
-<pre class="r"><code>(n &lt;- length(tip))
+<pre class="r"><code># Homemade Statistical Functions
+(n &lt;- length(tip))
 ## [1] 244
 (meantip &lt;- sum(tip) / n)
 ## [1] 2.998279
 (standdev &lt;- sqrt(sum((tip - meantip)^2) / (n - 1)))
 ## [1] 1.383638</code></pre>
 <p>But these functions are already built in to R.</p>
-</div>
-<div id="built-in-statistical-functions" class="section level3">
-<h3>Built-in Statistical Functions</h3>
-<pre class="r"><code>mean(tip)
+<pre class="r"><code># Built in statistical functions
+mean(tip)
 ## [1] 2.998279
 sd(tip)
 ## [1] 1.383638
@@ -728,7 +748,6 @@ summary(tip)
 quantile(tip, c(.025, .975))
 ##   2.5%  97.5% 
 ## 1.1760 6.4625</code></pre>
-</div>
 </div>
 <div id="element-wise-logical-operators" class="section level2">
 <h2>Element-wise Logical Operators</h2>
@@ -742,11 +761,13 @@ c(T, T, F, F) | c(T, F, T, F)
 ## [1]  TRUE  TRUE  TRUE FALSE
 # Which are big bills with a poor tip rate?
 id &lt;- (bill &gt; 40 &amp; rate &lt; .10)
-## Error in eval(expr, envir, enclos): object 'bill' not found
 tips[id,]
-## Error in `[.data.frame`(tips, id, ): object 'id' not found</code></pre>
+##     total_bill tip    sex smoker day   time size       rate
+## 103      44.30 2.5 Female    Yes Sat Dinner    3 0.05643341
+## 183      45.35 3.5   Male    Yes Sun Dinner    3 0.07717751
+## 185      40.55 3.0   Male    Yes Sun Dinner    2 0.07398274</code></pre>
 </div>
-<div id="your-turn-3" class="section level2" data-background="#527a7a">
+<div id="your-turn-3" class="section level2">
 <h2>Your Turn</h2>
 <ol style="list-style-type: decimal">
 <li>Read up on the dataset (<code>?diamonds</code>)</li>
@@ -755,7 +776,7 @@ tips[id,]
 <li>Make a histogram of all ppc values that exceed $10000 per carat.</li>
 <li>Explore any other interesting relationships you find</li>
 </ol>
-<div id="solutions-2" class="section level3">
+<div id="solutions-3" class="section level3">
 <h3>Solutions</h3>
 <ol start="2" style="list-style-type: decimal">
 <li>Plot price by carat (use qplot - go back to the motivating example for help with the syntax)</li>
@@ -775,6 +796,355 @@ tips[id,]
 <ol start="5" style="list-style-type: decimal">
 <li>Explore any other interesting relationships you find</li>
 </ol>
+</div>
+</div>
+</div>
+<div id="data-structures" class="section level1">
+<h1>Data Structures</h1>
+<div id="data-frames-1" class="section level2">
+<h2>Data Frames</h2>
+<ul>
+<li>Data Frames are the work horse of R objects</li>
+<li>Structured by rows and columns and can be indexed</li>
+<li>Each column is a specified variable type</li>
+<li>Columns names can be used to index a variable</li>
+<li>Advice for naming variable applies to editing columns names</li>
+<li>Can be specified by grouping vectors of equal length as columns</li>
+</ul>
+<p>Data frames can be indexed in several ways:</p>
+<ul>
+<li>Elements indexed similar to a vector using <code>[</code> <code>]</code></li>
+<li><code>df[i,j]</code> will select the element in the <span class="math inline">\(i^{th}\)</span> row and <span class="math inline">\(j^{th}\)</span> column</li>
+<li><code>df[ ,j]</code> will select the entire <span class="math inline">\(j^{th}\)</span> column and treat it as a vector</li>
+<li><code>df[i ,]</code> will select the entire <span class="math inline">\(i^{th}\)</span> row and treat it as a vector</li>
+<li>Logical vectors can be used in place of i and j used to subset the row and columns</li>
+</ul>
+<p>New variables can be added to a data frame: 1. Create a new vector that is the same length as other columns 2. Append new column to the data frame using the <code>$</code> operator 3. The new data frame column will adopt the name of the vector</p>
+<div id="example" class="section level3">
+<h3>Example</h3>
+<p>The following demonstration will use Edgar Anderson’s Iris Data:</p>
+<pre class="r"><code>flower &lt;- iris</code></pre>
+<p>Select Species column (5th column):</p>
+<pre class="r"><code>head(flower[,5])
+## [1] setosa setosa setosa setosa setosa setosa
+## Levels: setosa versicolor virginica</code></pre>
+<p>Select Species column with the <code>$</code> operator:</p>
+<pre class="r"><code>head(flower$Species)
+## [1] setosa setosa setosa setosa setosa setosa
+## Levels: setosa versicolor virginica</code></pre>
+<p>Logical indexing:</p>
+<pre class="r"><code>head(flower$Species == &quot;setosa&quot;)
+## [1] TRUE TRUE TRUE TRUE TRUE TRUE
+
+head(flower[flower$Species==&quot;setosa&quot;, ])
+##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
+</div>
+<div id="creating-a-data-frame" class="section level3">
+<h3>Creating a Data Frame</h3>
+<p>Create a data frame using <code>data.frame</code> function</p>
+<pre class="r"><code>mydf &lt;- data.frame(NUMS = 1:5, 
+                   lets = letters[1:5],
+                   vehicle = c(&quot;car&quot;, &quot;boat&quot;, &quot;car&quot;, &quot;car&quot;, &quot;boat&quot;))
+mydf
+##   NUMS lets vehicle
+## 1    1    a     car
+## 2    2    b    boat
+## 3    3    c     car
+## 4    4    d     car
+## 5    5    e    boat</code></pre>
+<p>Column names can be accessed with the <code>names</code> function. They can also be changed by assigning values to <code>names(df)</code>, as shown below.</p>
+<pre class="r"><code># Use the `names` function to set that first column to lowercase:
+names(mydf)[1] &lt;- &quot;nums&quot;
+mydf
+##   nums lets vehicle
+## 1    1    a     car
+## 2    2    b    boat
+## 3    3    c     car
+## 4    4    d     car
+## 5    5    e    boat</code></pre>
+</div>
+<div id="your-turn-4" class="section level3">
+<h3>Your Turn</h3>
+<ol style="list-style-type: decimal">
+<li>Make a data frame with column 1: 1,2,3,4,5,6 and column 2: a,b,a,b,a,b</li>
+<li>Select only rows with value “a” in column 2 using logical vector</li>
+<li><code>mtcars</code> is a built in data set like <code>iris</code>: Extract the 4th row of the <code>mtcars</code> data.</li>
+</ol>
+<div id="solutions-4" class="section level4">
+<h4>Solutions</h4>
+<ol style="list-style-type: decimal">
+<li>Make a data frame with column 1: 1,2,3,4,5,6 and column 2: a,b,a,b,a,b</li>
+</ol>
+<pre class="r"><code>mydf &lt;- data.frame(col1 = 1:6, col2 = rep(c(&quot;a&quot;, &quot;b&quot;), times = 3))
+
+mydf
+##   col1 col2
+## 1    1    a
+## 2    2    b
+## 3    3    a
+## 4    4    b
+## 5    5    a
+## 6    6    b</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Select only rows with value “a” in column 2 using logical vector</li>
+</ol>
+<pre class="r"><code>mydf[mydf$col2 == &quot;a&quot;,]
+##   col1 col2
+## 1    1    a
+## 3    3    a
+## 5    5    a</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Extract the 4th row of the <code>mtcars</code> data.</li>
+</ol>
+<pre class="r"><code>data(mtcars)
+
+mtcars[4,]
+##                 mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Hornet 4 Drive 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1</code></pre>
+</div>
+</div>
+</div>
+<div id="lists" class="section level2">
+<h2>Lists</h2>
+<ul>
+<li>Lists are a structured collection of R objects</li>
+<li>R objects in a list need not be the same type</li>
+<li>Create lists using the <code>list</code> function</li>
+<li>Lists indexed using double square brackets <code>[[ ]]</code> to select an object</li>
+</ul>
+<div id="example-1" class="section level3">
+<h3>Example</h3>
+<p>Create a list containing a vector and a matrix:</p>
+<pre class="r"><code>mylist &lt;- list(matrix(letters[1:10], nrow = 2, ncol = 5),
+               seq(0, 49, by = 7))
+mylist
+## [[1]]
+##      [,1] [,2] [,3] [,4] [,5]
+## [1,] &quot;a&quot;  &quot;c&quot;  &quot;e&quot;  &quot;g&quot;  &quot;i&quot; 
+## [2,] &quot;b&quot;  &quot;d&quot;  &quot;f&quot;  &quot;h&quot;  &quot;j&quot; 
+## 
+## [[2]]
+## [1]  0  7 14 21 28 35 42 49</code></pre>
+<p>Use indexing to select the second list element:</p>
+<pre class="r"><code>mylist[[2]]
+## [1]  0  7 14 21 28 35 42 49</code></pre>
+</div>
+<div id="your-turn-5" class="section level3">
+<h3>Your Turn</h3>
+<ol style="list-style-type: decimal">
+<li>Create a list containing a vector and a 2x3 data frame</li>
+<li>Use indexing to select the data frame from your list</li>
+<li>Use further indexing to select the first row from the data frame in your list</li>
+</ol>
+<div id="solutions-5" class="section level4">
+<h4>Solutions</h4>
+<ol style="list-style-type: decimal">
+<li>Create a list containing a vector and a 2x3 data frame</li>
+</ol>
+<pre class="r"><code>mylist &lt;- list(vec = 1:6, df = data.frame(x = 1:2, y = 3:4, z = 5:6))</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Use indexing to select the data frame from your list</li>
+</ol>
+<pre class="r"><code>mylist[[2]]
+##   x y z
+## 1 1 3 5
+## 2 2 4 6</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Select the first row from the data frame in your list</li>
+</ol>
+<pre class="r"><code>mylist[[2]][1,]
+##   x y z
+## 1 1 3 5</code></pre>
+</div>
+</div>
+</div>
+<div id="examining-objects" class="section level2">
+<h2>Examining Objects</h2>
+<ul>
+<li><code>head(x)</code> - View top 6 rows of a data frame</li>
+<li><code>tail(x)</code> - View bottom 6 rows of a data frame</li>
+<li><code>summary(x)</code> - Summary statistics<br />
+</li>
+<li><code>str(x)</code> - View structure of object<br />
+</li>
+<li><code>dim(x)</code> - View dimensions of object</li>
+<li><code>length(x)</code> - Returns the length of a vector</li>
+</ul>
+<div id="example-2" class="section level3">
+<h3>Example</h3>
+<p>Examine the first two values of an object by passing the <code>n</code> parameter to the <code>head</code> function:</p>
+<pre class="r"><code>head(iris, n = 2)
+##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa</code></pre>
+<p>What’s its structure?</p>
+<pre class="r"><code>str(iris)
+## 'data.frame':    150 obs. of  5 variables:
+##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+##  $ Species     : Factor w/ 3 levels &quot;setosa&quot;,&quot;versicolor&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
+</div>
+<div id="your-turn-6" class="section level3">
+<h3>Your Turn</h3>
+<ol style="list-style-type: decimal">
+<li>View the top 8 rows of mtcars data</li>
+<li>What type of object is the mtcars data set?</li>
+<li>How many rows are in iris data set? (try finding this using dim or indexing + length)</li>
+<li>Summarize the values in each column in iris data set</li>
+</ol>
+<div id="solutions-6" class="section level4">
+<h4>Solutions</h4>
+<ol style="list-style-type: decimal">
+<li>View the top 8 rows of mtcars data</li>
+</ol>
+<pre class="r"><code>head(mtcars, n = 8)
+##                    mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4         21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag     21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710        22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive    21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout 18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
+## Valiant           18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
+## Duster 360        14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
+## Merc 240D         24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>What type of object is the mtcars data set?</li>
+</ol>
+<pre class="r"><code>str(mtcars)
+## 'data.frame':    32 obs. of  11 variables:
+##  $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
+##  $ cyl : num  6 6 4 6 8 6 8 4 4 6 ...
+##  $ disp: num  160 160 108 258 360 ...
+##  $ hp  : num  110 110 93 110 175 105 245 62 95 123 ...
+##  $ drat: num  3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...
+##  $ wt  : num  2.62 2.88 2.32 3.21 3.44 ...
+##  $ qsec: num  16.5 17 18.6 19.4 17 ...
+##  $ vs  : num  0 0 1 1 0 1 0 1 1 1 ...
+##  $ am  : num  1 1 1 0 0 0 0 0 0 0 ...
+##  $ gear: num  4 4 4 3 3 3 3 4 4 4 ...
+##  $ carb: num  4 4 1 1 2 1 4 2 2 4 ...</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>How many rows are in iris data set? (try finding this using dim or indexing + length)</li>
+</ol>
+<pre class="r"><code>dim(iris)
+## [1] 150   5</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Summarize the values in each column in iris data set</li>
+</ol>
+<pre class="r"><code>summary(iris)
+##   Sepal.Length    Sepal.Width     Petal.Length    Petal.Width   
+##  Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100  
+##  1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300  
+##  Median :5.800   Median :3.000   Median :4.350   Median :1.300  
+##  Mean   :5.843   Mean   :3.057   Mean   :3.758   Mean   :1.199  
+##  3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800  
+##  Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500  
+##        Species  
+##  setosa    :50  
+##  versicolor:50  
+##  virginica :50  
+##                 
+##                 
+## </code></pre>
+</div>
+</div>
+</div>
+<div id="working-with-output-from-a-function" class="section level2">
+<h2>Working with Output from a Function</h2>
+<ul>
+<li>Can save output from a function as an object</li>
+<li>Object is generally a list of output objects</li>
+<li>Can use items from the output for further computing</li>
+<li>Examine object using functions like <code>str(x)</code></li>
+</ul>
+<div id="demo-saving-output" class="section level3">
+<h3>Demo: Saving Output</h3>
+<p>Conduct a t-test using iris data to see if petal lengths for setosa and versicolor are the same. The <code>t.test</code> function can only handle two groups, so subset out the virginica species.</p>
+<pre class="r"><code>iris.subset &lt;- iris[iris$Species != &quot;virginica&quot;, ]
+t.test(Petal.Length ~ Species, data = iris.subset)
+## 
+##  Welch Two Sample t-test
+## 
+## data:  Petal.Length by Species
+## t = -39.493, df = 62.14, p-value &lt; 2.2e-16
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -2.939618 -2.656382
+## sample estimates:
+##     mean in group setosa mean in group versicolor 
+##                    1.462                    4.260</code></pre>
+<p>Save the output of the t-test to an object:</p>
+<pre class="r"><code>tout &lt;- t.test(Petal.Length ~ Species, data = iris[iris$Species != &quot;virginica&quot;, ])</code></pre>
+<p>Look at the structure of the t-test object:</p>
+<pre class="r"><code>str(tout)
+## List of 9
+##  $ statistic  : Named num -39.5
+##   ..- attr(*, &quot;names&quot;)= chr &quot;t&quot;
+##  $ parameter  : Named num 62.1
+##   ..- attr(*, &quot;names&quot;)= chr &quot;df&quot;
+##  $ p.value    : num 9.93e-46
+##  $ conf.int   : atomic [1:2] -2.94 -2.66
+##   ..- attr(*, &quot;conf.level&quot;)= num 0.95
+##  $ estimate   : Named num [1:2] 1.46 4.26
+##   ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;mean in group setosa&quot; &quot;mean in group versicolor&quot;
+##  $ null.value : Named num 0
+##   ..- attr(*, &quot;names&quot;)= chr &quot;difference in means&quot;
+##  $ alternative: chr &quot;two.sided&quot;
+##  $ method     : chr &quot;Welch Two Sample t-test&quot;
+##  $ data.name  : chr &quot;Petal.Length by Species&quot;
+##  - attr(*, &quot;class&quot;)= chr &quot;htest&quot;</code></pre>
+<p>Since this is simply a list, use regular indexing to access the p-value.</p>
+<pre class="r"><code>tout$p.value
+## [1] 9.934433e-46
+tout[[3]]
+## [1] 9.934433e-46</code></pre>
+</div>
+</div>
+<div id="importing-data" class="section level2">
+<h2>Importing Data</h2>
+<p>It is generally necessary to import data in to R rather than just using built-in datasets.</p>
+<ul>
+<li>Tell R where the data is saved using <code>setwd()</code> (or an appropriate file path)</li>
+<li>Read in data using R functions such as:
+<ul>
+<li><code>read.table()</code> for reading in .txt files</li>
+<li><code>read.csv()</code> for reading in .csv files</li>
+<li>the <code>readr</code> package has “smarter” versions of these functions and may be more useful</li>
+</ul></li>
+<li>Assign the data to new R object when reading in the file</li>
+</ul>
+<div id="importing-data-demo" class="section level3">
+<h3>Importing Data Demo</h3>
+<p>First, create a csv file. We can use a text editor, excel… Then we load it in:</p>
+<pre class="r"><code>littledata &lt;- read.csv(&quot;PretendData.csv&quot;)</code></pre>
+</div>
+<div id="your-turn-7" class="section level3">
+<h3>Your Turn</h3>
+<ul>
+<li>Make 5 rows of data in an excel spreadsheet and save it as a <em>tab-delimited txt file</em>.</li>
+<li>Import this new .txt file into R with <code>read.table</code>. You may need to look at the help page for <code>read.table</code> in order to properly do this.</li>
+</ul>
+<div id="solutions-7" class="section level4">
+<h4>Solutions</h4>
+<p><a href="./data/Fun%20Webcomics.xlsx">Excel Spreadsheet</a> (also at <a href="http://bit.ly/2hAKtFi" class="uri">http://bit.ly/2hAKtFi</a>)</p>
+<pre class="r"><code>webcomics &lt;- read.table(&quot;./data/FunWebcomics.txt&quot;)
+webcomics
+##                     V1                                            V2
+## 1        Fun Webcomics                                      \\t&quot;URL&quot;
+## 2                 xkcd                         \\t&quot;http://xkcd.com/&quot;
+## 3    sarah's scribbles \\t&quot;http://www.gocomics.com/sarahs-scribbles&quot;
+## 4          the oatmeal                   \\t&quot;http://theoatmeal.com/&quot;
+## 5      dinosaur comics                   \\t&quot;http://www.qwantz.com/&quot;
+## 6 hyperbole and a half   \\t&quot;http://hyperboleandahalf.blogspot.com/&quot;</code></pre>
+</div>
 </div>
 </div>
 </div>

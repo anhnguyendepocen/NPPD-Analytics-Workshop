@@ -446,6 +446,26 @@ z &lt;-<span class="st"> </span><span class="kw">c</span>(y, y)</code></pre></di
 ## [1] 0.5 2.5 1.5 1.0
 z +<span class="st"> </span><span class="dv">3</span>
 ## [1] 4 8 6 5 4 8 6 5</code></pre></div>
+</section><section id="modifying-vectors" class="slide level2">
+<h1>Modifying Vectors</h1>
+<p>Vectors can be modified using indexing:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bill &lt;-<span class="st"> </span>tips$total_bill
+x &lt;-<span class="st"> </span>bill[<span class="dv">1</span>:<span class="dv">5</span>]
+x
+## [1] 16.99 10.34 21.01 23.68 24.59
+x[<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">20</span>
+x
+## [1] 20.00 10.34 21.01 23.68 24.59</code></pre></div>
+</section><section id="vector-elements" class="slide level2">
+<h1>Vector Elements</h1>
+<p>Elements of a vector must all be the same type:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(rate)
+## Error in head(rate): object 'rate' not found
+rate[sad_tip] &lt;-<span class="st"> &quot;:-(&quot;</span>
+## Error in rate[sad_tip] &lt;- &quot;:-(&quot;: object 'rate' not found
+<span class="kw">head</span>(rate)
+## Error in head(rate): object 'rate' not found</code></pre></div>
+<p>By changing a value to a string, all the other values were changed to strings as well.</p>
 </section><section id="your-turn-1" class="slide level2" data-background="#527a7a">
 <h1>Your Turn</h1>
 <p>Using the R Reference Card (and the Help pages, if needed), do the following:</p>
@@ -599,26 +619,6 @@ rate[sad_tip]
 <h4 id="sum-of-the-total-bills-where-the-tip-was-over-20">Sum of the total bills where the tip was over 20%</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(tips$total_bill[tips$rate &gt;<span class="st"> </span>.<span class="dv">2</span>])
 ## [1] 619.23</code></pre></div>
-</section><section id="modifying-vectors" class="slide level2">
-<h1>Modifying Vectors</h1>
-<p>Vectors can be modified using indexing:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bill &lt;-<span class="st"> </span>tips$total_bill
-x &lt;-<span class="st"> </span>bill[<span class="dv">1</span>:<span class="dv">5</span>]
-x
-## [1] 16.99 10.34 21.01 23.68 24.59
-x[<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">20</span>
-x
-## [1] 20.00 10.34 21.01 23.68 24.59</code></pre></div>
-</section><section id="vector-elements" class="slide level2">
-<h1>Vector Elements</h1>
-<p>Elements of a vector must all be the same type:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(rate)
-## [1] 0.05944673 0.16054159 0.16658734 0.13978041 0.14680765 0.18623962
-rate[sad_tip] &lt;-<span class="st"> &quot;:-(&quot;</span>
-<span class="kw">head</span>(rate)
-## [1] &quot;:-(&quot;               &quot;0.160541586073501&quot; &quot;0.166587339362208&quot;
-## [4] &quot;0.139780405405405&quot; &quot;0.146807645384303&quot; &quot;0.186239620403321&quot;</code></pre></div>
-<p>By changing a value to a string, all the other values were changed to strings as well.</p>
 </section><section id="data-types-in-r" class="slide level2">
 <h1>Data Types in R</h1>
 <ul>
@@ -719,6 +719,461 @@ tips[id,]
       <span class="dt">data =</span> diamonds[diamonds$ppc &gt;<span class="st"> </span><span class="dv">10000</span>,])
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre></div>
 <p><img src="data:image/png;base64,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WhTQmcSPazpx9ap0xAD6qo8BndyfpunE1StxKGLa+4NVfa6lmeo0vYPCnPdNb6EwO9P0DqID3s81vYdCZ6rpHUQHvZ/u6QOaCyhP4ReTOBTBU3jBU3iLp/CiRU/hCehiEociCKggoBYBFQS05RKHIgioIKAWARUEtOUShyIIqCCgFgEVBLTlEociCKggoBYBFQS05RKHIgioIKAWARUEtOUShyIIqCCgFgEVBLTlEociCKggoBYBFQS05RKHIgioIKAWARUEtOUShyIIqCCgFgEVBLTlEociCKggoBYBFQS05RKHIgioIKAWARUEtOUShyIIqCCgFgEVBLTlEociCKggoBYBFQS05RKHIgioIKAWARUEtOUShyIIqCCgFgEVBLTlEociCKggoBYBFQS05RKHIgioIKAWARUEtOUShyIIqCCgFgEVBLTlEociCKggoBYBFQS05RKHIgioIKAWARUEtOUShyIIqCCgFgEVBLTlEociCKggoBYBFQS05RKHIgioIKAWARUEtOUShyIIqCCgFgEVBLTlEociCKggoBYBFQS05RKHIgioIKAWARUEtOUShyIIqCCgFgEVBLTlEociCKggoBYBFQS05RKHIgioIKAWARUEtOUShyIIqCCgFgEVBLTlEociCKggoBYBFQS05RKHIgioIKAWARUEtOUShyIIqCCgFgEVBLTlEociCKggoBYBFQS05RKHIgioIKAWARUEtOUShyIIqCCgFgEVBLTlEociCKggoBYBFQS05RKHIgioIKAWARUEtOUShyIIqCCgFgEVBLTlEociCKggoBYBFQS05RKHIgioIKAWARUEtOUShyIIqCCgFgEVBLTlEociCKggoBYBFQS05RKHIgioIKAWARUEtOUShyIIqCCgFgEVBLTlEociCKggoBYBFQS05RKHIgioIKAWARUEtOUShyIIqCCgFgEVBLTlEociCKggoBYBFQS05RKHIgioIKAWARUEtOUShyIIqCCgFgEVBLTlEociCKggoBYBFQS05RKHIgioIKAWARUEtOUShyIIqCCgFgEVBLTlEociCKggoBYBFQS05RKHIgioIKAWARUEtOUShyIIqCCgFgEVBLTlEociCKggoBYBFQS05RKHIgioIKAWARUEtOUShyIIqCCgFgEVBLTlEociCKggoBYBFTGqTy8AABVISURBVAS0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" width="672" /></p>
+</section></section>
+<section><section id="data-structures" class="titleslide slide level1"><h1>Data Structures</h1></section><section id="data-frames-2" class="slide level2">
+<h1>Data Frames</h1>
+<ul>
+<li>Data Frames are the work horse of R objects</li>
+<li>Structured by rows and columns and can be indexed</li>
+<li>Each column is a specified variable type</li>
+<li>Columns names can be used to index a variable</li>
+<li>Advice for naming variable applies to editing columns names</li>
+<li>Can be specified by grouping vectors of equal length as columns</li>
+</ul>
+</section><section id="data-frame-indexing" class="slide level2">
+<h1>Data Frame Indexing</h1>
+<ul>
+<li>Elements indexed similar to a vector using <code>[</code> <code>]</code></li>
+<li><code>df[i,j]</code> will select the element in the <span class="math inline">\(i^{th}\)</span> row and <span class="math inline">\(j^{th}\)</span> column</li>
+<li><code>df[ ,j]</code> will select the entire <span class="math inline">\(j^{th}\)</span> column and treat it as a vector</li>
+<li><code>df[i ,]</code> will select the entire <span class="math inline">\(i^{th}\)</span> row and treat it as a vector</li>
+<li>Logical vectors can be used in place of i and j used to subset the row and columns</li>
+</ul>
+</section><section id="adding-a-new-variable-to-a-data-frame" class="slide level2">
+<h1>Adding a new Variable to a Data Frame</h1>
+<ul>
+<li>Create a new vector that is the same length as other columns</li>
+<li>Append new column to the data frame using the <code>$</code> operator</li>
+<li>The new data frame column will adopt the name of the vector</li>
+</ul>
+</section><section id="data-frame-demo" class="slide level2">
+<h1>Data Frame Demo</h1>
+<p>Use Edgar Anderson’s Iris Data:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flower &lt;-<span class="st"> </span>iris</code></pre></div>
+<p>Select Species column (5th column):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flower[,<span class="dv">5</span>]
+##   [1] setosa     setosa     setosa     setosa     setosa     setosa    
+##   [7] setosa     setosa     setosa     setosa     setosa     setosa    
+##  [13] setosa     setosa     setosa     setosa     setosa     setosa    
+##  [19] setosa     setosa     setosa     setosa     setosa     setosa    
+##  [25] setosa     setosa     setosa     setosa     setosa     setosa    
+##  [31] setosa     setosa     setosa     setosa     setosa     setosa    
+##  [37] setosa     setosa     setosa     setosa     setosa     setosa    
+##  [43] setosa     setosa     setosa     setosa     setosa     setosa    
+##  [49] setosa     setosa     versicolor versicolor versicolor versicolor
+##  [55] versicolor versicolor versicolor versicolor versicolor versicolor
+##  [61] versicolor versicolor versicolor versicolor versicolor versicolor
+##  [67] versicolor versicolor versicolor versicolor versicolor versicolor
+##  [73] versicolor versicolor versicolor versicolor versicolor versicolor
+##  [79] versicolor versicolor versicolor versicolor versicolor versicolor
+##  [85] versicolor versicolor versicolor versicolor versicolor versicolor
+##  [91] versicolor versicolor versicolor versicolor versicolor versicolor
+##  [97] versicolor versicolor versicolor versicolor virginica  virginica 
+## [103] virginica  virginica  virginica  virginica  virginica  virginica 
+## [109] virginica  virginica  virginica  virginica  virginica  virginica 
+## [115] virginica  virginica  virginica  virginica  virginica  virginica 
+## [121] virginica  virginica  virginica  virginica  virginica  virginica 
+## [127] virginica  virginica  virginica  virginica  virginica  virginica 
+## [133] virginica  virginica  virginica  virginica  virginica  virginica 
+## [139] virginica  virginica  virginica  virginica  virginica  virginica 
+## [145] virginica  virginica  virginica  virginica  virginica  virginica 
+## Levels: setosa versicolor virginica</code></pre></div>
+</section><section id="demo-continued" class="slide level2">
+<h1>Demo (Continued)</h1>
+<p>Select Species column with the <code>$</code> operator:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flower$Species
+##   [1] setosa     setosa     setosa     setosa     setosa     setosa    
+##   [7] setosa     setosa     setosa     setosa     setosa     setosa    
+##  [13] setosa     setosa     setosa     setosa     setosa     setosa    
+##  [19] setosa     setosa     setosa     setosa     setosa     setosa    
+##  [25] setosa     setosa     setosa     setosa     setosa     setosa    
+##  [31] setosa     setosa     setosa     setosa     setosa     setosa    
+##  [37] setosa     setosa     setosa     setosa     setosa     setosa    
+##  [43] setosa     setosa     setosa     setosa     setosa     setosa    
+##  [49] setosa     setosa     versicolor versicolor versicolor versicolor
+##  [55] versicolor versicolor versicolor versicolor versicolor versicolor
+##  [61] versicolor versicolor versicolor versicolor versicolor versicolor
+##  [67] versicolor versicolor versicolor versicolor versicolor versicolor
+##  [73] versicolor versicolor versicolor versicolor versicolor versicolor
+##  [79] versicolor versicolor versicolor versicolor versicolor versicolor
+##  [85] versicolor versicolor versicolor versicolor versicolor versicolor
+##  [91] versicolor versicolor versicolor versicolor versicolor versicolor
+##  [97] versicolor versicolor versicolor versicolor virginica  virginica 
+## [103] virginica  virginica  virginica  virginica  virginica  virginica 
+## [109] virginica  virginica  virginica  virginica  virginica  virginica 
+## [115] virginica  virginica  virginica  virginica  virginica  virginica 
+## [121] virginica  virginica  virginica  virginica  virginica  virginica 
+## [127] virginica  virginica  virginica  virginica  virginica  virginica 
+## [133] virginica  virginica  virginica  virginica  virginica  virginica 
+## [139] virginica  virginica  virginica  virginica  virginica  virginica 
+## [145] virginica  virginica  virginica  virginica  virginica  virginica 
+## Levels: setosa versicolor virginica</code></pre></div>
+</section><section id="demo-continued-1" class="slide level2">
+<h1>Demo (Continued)</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flower$Species ==<span class="st"> &quot;setosa&quot;</span>
+##   [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+##  [12]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+##  [23]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+##  [34]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+##  [45]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE
+##  [56] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [67] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [78] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [89] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [100] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [111] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [122] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [133] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [144] FALSE FALSE FALSE FALSE FALSE FALSE FALSE</code></pre></div>
+</section><section id="demo-continued-2" class="slide level2">
+<h1>Demo (Continued)</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flower[flower$Species==<span class="st">&quot;setosa&quot;</span>, ]
+##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1           5.1         3.5          1.4         0.2  setosa
+## 2           4.9         3.0          1.4         0.2  setosa
+## 3           4.7         3.2          1.3         0.2  setosa
+## 4           4.6         3.1          1.5         0.2  setosa
+## 5           5.0         3.6          1.4         0.2  setosa
+## 6           5.4         3.9          1.7         0.4  setosa
+## 7           4.6         3.4          1.4         0.3  setosa
+## 8           5.0         3.4          1.5         0.2  setosa
+## 9           4.4         2.9          1.4         0.2  setosa
+## 10          4.9         3.1          1.5         0.1  setosa
+## 11          5.4         3.7          1.5         0.2  setosa
+## 12          4.8         3.4          1.6         0.2  setosa
+## 13          4.8         3.0          1.4         0.1  setosa
+## 14          4.3         3.0          1.1         0.1  setosa
+## 15          5.8         4.0          1.2         0.2  setosa
+## 16          5.7         4.4          1.5         0.4  setosa
+## 17          5.4         3.9          1.3         0.4  setosa
+## 18          5.1         3.5          1.4         0.3  setosa
+## 19          5.7         3.8          1.7         0.3  setosa
+## 20          5.1         3.8          1.5         0.3  setosa
+## 21          5.4         3.4          1.7         0.2  setosa
+## 22          5.1         3.7          1.5         0.4  setosa
+## 23          4.6         3.6          1.0         0.2  setosa
+## 24          5.1         3.3          1.7         0.5  setosa
+## 25          4.8         3.4          1.9         0.2  setosa
+## 26          5.0         3.0          1.6         0.2  setosa
+## 27          5.0         3.4          1.6         0.4  setosa
+## 28          5.2         3.5          1.5         0.2  setosa
+## 29          5.2         3.4          1.4         0.2  setosa
+## 30          4.7         3.2          1.6         0.2  setosa
+## 31          4.8         3.1          1.6         0.2  setosa
+## 32          5.4         3.4          1.5         0.4  setosa
+## 33          5.2         4.1          1.5         0.1  setosa
+## 34          5.5         4.2          1.4         0.2  setosa
+## 35          4.9         3.1          1.5         0.2  setosa
+## 36          5.0         3.2          1.2         0.2  setosa
+## 37          5.5         3.5          1.3         0.2  setosa
+## 38          4.9         3.6          1.4         0.1  setosa
+## 39          4.4         3.0          1.3         0.2  setosa
+## 40          5.1         3.4          1.5         0.2  setosa
+## 41          5.0         3.5          1.3         0.3  setosa
+## 42          4.5         2.3          1.3         0.3  setosa
+## 43          4.4         3.2          1.3         0.2  setosa
+## 44          5.0         3.5          1.6         0.6  setosa
+## 45          5.1         3.8          1.9         0.4  setosa
+## 46          4.8         3.0          1.4         0.3  setosa
+## 47          5.1         3.8          1.6         0.2  setosa
+## 48          4.6         3.2          1.4         0.2  setosa
+## 49          5.3         3.7          1.5         0.2  setosa
+## 50          5.0         3.3          1.4         0.2  setosa</code></pre></div>
+</section><section id="creating-a-data-frame" class="slide level2">
+<h1>Creating a Data Frame</h1>
+<p>Create a data frame using <code>data.frame</code> function</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydf &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">NUMS =</span> <span class="dv">1</span>:<span class="dv">5</span>, 
+                   <span class="dt">lets =</span> letters[<span class="dv">1</span>:<span class="dv">5</span>],
+                   <span class="dt">vehicle =</span> <span class="kw">c</span>(<span class="st">&quot;car&quot;</span>, <span class="st">&quot;boat&quot;</span>, <span class="st">&quot;car&quot;</span>, <span class="st">&quot;car&quot;</span>, <span class="st">&quot;boat&quot;</span>))
+mydf
+##   NUMS lets vehicle
+## 1    1    a     car
+## 2    2    b    boat
+## 3    3    c     car
+## 4    4    d     car
+## 5    5    e    boat</code></pre></div>
+</section><section id="renaming-columns" class="slide level2">
+<h1>Renaming columns</h1>
+<p>Use the <code>names</code> function to set that first column to lowercase:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(mydf)[<span class="dv">1</span>] &lt;-<span class="st"> &quot;nums&quot;</span>
+mydf
+##   nums lets vehicle
+## 1    1    a     car
+## 2    2    b    boat
+## 3    3    c     car
+## 4    4    d     car
+## 5    5    e    boat</code></pre></div>
+</section><section id="your-turn-4" class="slide level2" data-background="#527a7a">
+<h1>Your Turn</h1>
+<ol type="1">
+<li>Make a data frame with column 1: 1,2,3,4,5,6 and column 2: a,b,a,b,a,b</li>
+<li>Select only rows with value “a” in column 2 using logical vector</li>
+<li><code>mtcars</code> is a built in data set like <code>iris</code>: Extract the 4th row of the <code>mtcars</code> data.</li>
+</ol>
+</section><section id="solutions-8" class="slide level2" data-background="#527a7a">
+<h1>Solutions</h1>
+<h3 id="make-a-data-frame-with-column-1-123456-and-column-2-ababab">Make a data frame with column 1: 1,2,3,4,5,6 and column 2: a,b,a,b,a,b</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydf &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">col1 =</span> <span class="dv">1</span>:<span class="dv">6</span>, <span class="dt">col2 =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>), <span class="dt">times =</span> <span class="dv">3</span>))
+
+mydf
+##   col1 col2
+## 1    1    a
+## 2    2    b
+## 3    3    a
+## 4    4    b
+## 5    5    a
+## 6    6    b</code></pre></div>
+</section><section id="solutions-9" class="slide level2" data-background="#527a7a">
+<h1>Solutions</h1>
+<h3 id="select-only-rows-with-value-a-in-column-2-using-logical-vector">Select only rows with value “a” in column 2 using logical vector</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydf[mydf$col2 ==<span class="st"> &quot;a&quot;</span>,]
+##   col1 col2
+## 1    1    a
+## 3    3    a
+## 5    5    a
+
+mydf
+##   col1 col2
+## 1    1    a
+## 2    2    b
+## 3    3    a
+## 4    4    b
+## 5    5    a
+## 6    6    b</code></pre></div>
+</section><section id="solutions-10" class="slide level2" data-background="#527a7a">
+<h1>Solutions</h1>
+<h3 id="extract-the-4th-row-of-the-mtcars-data.">Extract the 4th row of the <code>mtcars</code> data.</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(mtcars)
+
+mtcars[<span class="dv">4</span>,]
+##                 mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Hornet 4 Drive 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1</code></pre></div>
+</section><section id="lists" class="slide level2">
+<h1>Lists</h1>
+<ul>
+<li>Lists are a structured collection of R objects</li>
+<li>R objects in a list need not be the same type</li>
+<li>Create lists using the <code>list</code> function</li>
+<li>Lists indexed using double square brackets <code>[[ ]]</code> to select an object</li>
+</ul>
+</section><section id="list-example" class="slide level2">
+<h1>List Example</h1>
+<p>Creating a list containing a vector and a matrix:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mylist &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">matrix</span>(letters[<span class="dv">1</span>:<span class="dv">10</span>], <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> <span class="dv">5</span>),
+               <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">49</span>, <span class="dt">by =</span> <span class="dv">7</span>))
+mylist
+## [[1]]
+##      [,1] [,2] [,3] [,4] [,5]
+## [1,] &quot;a&quot;  &quot;c&quot;  &quot;e&quot;  &quot;g&quot;  &quot;i&quot; 
+## [2,] &quot;b&quot;  &quot;d&quot;  &quot;f&quot;  &quot;h&quot;  &quot;j&quot; 
+## 
+## [[2]]
+## [1]  0  7 14 21 28 35 42 49</code></pre></div>
+<p>Use indexing to select the second list element:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mylist[[<span class="dv">2</span>]]
+## [1]  0  7 14 21 28 35 42 49</code></pre></div>
+</section><section id="your-turn-5" class="slide level2" data-background="#527a7a">
+<h1>Your Turn</h1>
+<ol type="1">
+<li>Create a list containing a vector and a 2x3 data frame</li>
+<li>Use indexing to select the data frame from your list</li>
+<li>Use further indexing to select the first row from the data frame in your list</li>
+</ol>
+</section><section id="your-turn-solutions-2" class="slide level2" data-background="#527a7a">
+<h1>Your Turn Solutions</h1>
+<h3 id="create-a-list-containing-a-vector-and-a-2x3-data-frame">Create a list containing a vector and a 2x3 data frame</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mylist &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">vec =</span> <span class="dv">1</span>:<span class="dv">6</span>, <span class="dt">df =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span>:<span class="dv">2</span>, <span class="dt">y =</span> <span class="dv">3</span>:<span class="dv">4</span>, <span class="dt">z =</span> <span class="dv">5</span>:<span class="dv">6</span>))</code></pre></div>
+</section><section id="your-turn-solutions-3" class="slide level2" data-background="#527a7a">
+<h1>Your Turn Solutions</h1>
+<h3 id="use-indexing-to-select-the-data-frame-from-your-list">Use indexing to select the data frame from your list</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mylist[[<span class="dv">2</span>]]
+##   x y z
+## 1 1 3 5
+## 2 2 4 6</code></pre></div>
+</section><section id="your-turn-solutions-4" class="slide level2" data-background="#527a7a">
+<h1>Your Turn Solutions</h1>
+<h3 id="select-the-first-row-from-the-data-frame-in-your-list">Select the first row from the data frame in your list</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mylist[[<span class="dv">2</span>]][<span class="dv">1</span>,]
+##   x y z
+## 1 1 3 5</code></pre></div>
+</section><section id="examining-objects" class="slide level2">
+<h1>Examining Objects</h1>
+<ul>
+<li><code>head(x)</code> - View top 6 rows of a data frame</li>
+<li><code>tail(x)</code> - View bottom 6 rows of a data frame</li>
+<li><code>summary(x)</code> - Summary statistics<br />
+</li>
+<li><code>str(x)</code> - View structure of object<br />
+</li>
+<li><code>dim(x)</code> - View dimensions of object</li>
+<li><code>length(x)</code> - Returns the length of a vector</li>
+</ul>
+</section><section id="examining-objects-example" class="slide level2">
+<h1>Examining Objects Example</h1>
+<p>Examine the first two values of an object by passing the <code>n</code> parameter to the <code>head</code> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(iris, <span class="dt">n =</span> <span class="dv">2</span>)
+##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa</code></pre></div>
+<p>What’s its structure?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(iris)
+## 'data.frame':    150 obs. of  5 variables:
+##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+##  $ Species     : Factor w/ 3 levels &quot;setosa&quot;,&quot;versicolor&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...</code></pre></div>
+</section><section id="your-turn-6" class="slide level2" data-background="#527a7a">
+<h1>Your Turn</h1>
+<ol type="1">
+<li>View the top 8 rows of mtcars data</li>
+<li>What type of object is the mtcars data set?</li>
+<li>How many rows are in iris data set? (try finding this using dim or indexing + length)</li>
+<li>Summarize the values in each column in iris data set</li>
+</ol>
+</section><section id="your-turn-solutions-5" class="slide level2" data-background="#527a7a">
+<h1>Your Turn Solutions</h1>
+<h3 id="view-the-top-8-rows-of-mtcars-data">View the top 8 rows of mtcars data</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(mtcars, <span class="dt">n =</span> <span class="dv">8</span>)
+##                    mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4         21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag     21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710        22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive    21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout 18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
+## Valiant           18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
+## Duster 360        14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
+## Merc 240D         24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2</code></pre></div>
+</section><section id="your-turn-solutions-6" class="slide level2" data-background="#527a7a">
+<h1>Your Turn Solutions</h1>
+<h3 id="what-type-of-object-is-the-mtcars-data-set">What type of object is the mtcars data set?</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(mtcars)
+## 'data.frame':    32 obs. of  11 variables:
+##  $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
+##  $ cyl : num  6 6 4 6 8 6 8 4 4 6 ...
+##  $ disp: num  160 160 108 258 360 ...
+##  $ hp  : num  110 110 93 110 175 105 245 62 95 123 ...
+##  $ drat: num  3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...
+##  $ wt  : num  2.62 2.88 2.32 3.21 3.44 ...
+##  $ qsec: num  16.5 17 18.6 19.4 17 ...
+##  $ vs  : num  0 0 1 1 0 1 0 1 1 1 ...
+##  $ am  : num  1 1 1 0 0 0 0 0 0 0 ...
+##  $ gear: num  4 4 4 3 3 3 3 4 4 4 ...
+##  $ carb: num  4 4 1 1 2 1 4 2 2 4 ...</code></pre></div>
+</section><section id="your-turn-solutions-7" class="slide level2" data-background="#527a7a">
+<h1>Your Turn Solutions</h1>
+<h3 id="how-many-rows-are-in-iris-data-set-try-finding-this-using-dim-or-indexing-length">How many rows are in iris data set? (try finding this using dim or indexing + length)</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(iris)
+## [1] 150   5</code></pre></div>
+</section><section id="your-turn-solutions-8" class="slide level2" data-background="#527a7a">
+<h1>Your Turn Solutions</h1>
+<h3 id="summarize-the-values-in-each-column-in-iris-data-set">Summarize the values in each column in iris data set</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(iris)
+##   Sepal.Length    Sepal.Width     Petal.Length    Petal.Width   
+##  Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100  
+##  1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300  
+##  Median :5.800   Median :3.000   Median :4.350   Median :1.300  
+##  Mean   :5.843   Mean   :3.057   Mean   :3.758   Mean   :1.199  
+##  3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800  
+##  Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500  
+##        Species  
+##  setosa    :50  
+##  versicolor:50  
+##  virginica :50  
+##                 
+##                 
+## </code></pre></div>
+</section><section id="working-with-output-from-a-function" class="slide level2">
+<h1>Working with Output from a Function</h1>
+<ul>
+<li>Can save output from a function as an object</li>
+<li>Object is generally a list of output objects</li>
+<li>Can use items from the output for further computing</li>
+<li>Examine object using functions like <code>str(x)</code></li>
+</ul>
+</section><section id="saving-output-demo" class="slide level2">
+<h1>Saving Output Demo</h1>
+<ul>
+<li>t-test using iris data to see if petal lengths for setosa and versicolor are the same</li>
+<li>t.test function can only handle two groups, so we subset out the virginica species</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">iris.subset &lt;-<span class="st"> </span>iris[iris$Species !=<span class="st"> &quot;virginica&quot;</span>, ]
+<span class="kw">t.test</span>(Petal.Length ~<span class="st"> </span>Species, <span class="dt">data =</span> iris.subset)
+## 
+##  Welch Two Sample t-test
+## 
+## data:  Petal.Length by Species
+## t = -39.493, df = 62.14, p-value &lt; 2.2e-16
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -2.939618 -2.656382
+## sample estimates:
+##     mean in group setosa mean in group versicolor 
+##                    1.462                    4.260</code></pre></div>
+</section><section id="demo-continued-3" class="slide level2">
+<h1>Demo (Continued)</h1>
+<p>Save the output of the t-test to an object</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tout &lt;-<span class="st"> </span><span class="kw">t.test</span>(Petal.Length ~<span class="st"> </span>Species, <span class="dt">data =</span> iris[iris$Species !=<span class="st"> &quot;virginica&quot;</span>, ])</code></pre></div>
+<p>Look at the structure of the t-test object:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(tout)
+## List of 9
+##  $ statistic  : Named num -39.5
+##   ..- attr(*, &quot;names&quot;)= chr &quot;t&quot;
+##  $ parameter  : Named num 62.1
+##   ..- attr(*, &quot;names&quot;)= chr &quot;df&quot;
+##  $ p.value    : num 9.93e-46
+##  $ conf.int   : atomic [1:2] -2.94 -2.66
+##   ..- attr(*, &quot;conf.level&quot;)= num 0.95
+##  $ estimate   : Named num [1:2] 1.46 4.26
+##   ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;mean in group setosa&quot; &quot;mean in group versicolor&quot;
+##  $ null.value : Named num 0
+##   ..- attr(*, &quot;names&quot;)= chr &quot;difference in means&quot;
+##  $ alternative: chr &quot;two.sided&quot;
+##  $ method     : chr &quot;Welch Two Sample t-test&quot;
+##  $ data.name  : chr &quot;Petal.Length by Species&quot;
+##  - attr(*, &quot;class&quot;)= chr &quot;htest&quot;</code></pre></div>
+</section><section id="demo-extracting-the-p-value" class="slide level2">
+<h1>Demo: Extracting the P-Value</h1>
+<p>Since this is simply a list, use regular indexing to access the p-value.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tout$p.value
+## [1] 9.934433e-46
+tout[[<span class="dv">3</span>]]
+## [1] 9.934433e-46</code></pre></div>
+</section><section id="importing-data" class="slide level2">
+<h1>Importing Data</h1>
+<p>It is generally necessary to import data in to R rather than just using built-in datasets.</p>
+<ul>
+<li>Tell R where the data is saved using <code>setwd()</code> (or an appropriate file path)</li>
+<li>Read in data using R functions such as:
+<ul>
+<li><code>read.table()</code> for reading in .txt files</li>
+<li><code>read.csv()</code> for reading in .csv files</li>
+<li>the <code>readr</code> package has “smarter” versions of these functions and may be more useful</li>
+</ul></li>
+<li>Assign the data to new R object when reading in the file</li>
+</ul>
+</section><section id="importing-data-demo" class="slide level2">
+<h1>Importing Data Demo</h1>
+<p>First, create a csv file. We can use a text editor, excel… Then we load it in:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">littledata &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;PretendData.csv&quot;</span>)</code></pre></div>
+</section><section id="your-turn-7" class="slide level2" data-background="#527a7a">
+<h1>Your Turn</h1>
+<ul>
+<li>Make 5 rows of data in an excel spreadsheet and save it as a <em>tab-delimited txt file</em>.</li>
+<li>Import this new .txt file into R with <code>read.table</code>. You may need to look at the help page for <code>read.table</code> in order to properly do this.</li>
+</ul>
+</section><section id="your-turn-solutions-9" class="slide level2" data-background="#527a7a">
+<h1>Your Turn Solutions</h1>
+<p><a href="./data/Fun%20Webcomics.xlsx">Excel Spreadsheet</a></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">webcomics &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;./data/FunWebcomics.txt&quot;</span>)
+webcomics
+##                     V1                                            V2
+## 1        Fun Webcomics                                      \\t&quot;URL&quot;
+## 2                 xkcd                         \\t&quot;http://xkcd.com/&quot;
+## 3    sarah's scribbles \\t&quot;http://www.gocomics.com/sarahs-scribbles&quot;
+## 4          the oatmeal                   \\t&quot;http://theoatmeal.com/&quot;
+## 5      dinosaur comics                   \\t&quot;http://www.qwantz.com/&quot;
+## 6 hyperbole and a half   \\t&quot;http://hyperboleandahalf.blogspot.com/&quot;</code></pre></div>
 </section></section>
     </div>
   </div>
