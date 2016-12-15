@@ -1,0 +1,6 @@
+"Fun Webcomics"\t"URL"
+"xkcd"\t"http://xkcd.com/"
+"sarah's scribbles"\t"http://www.gocomics.com/sarahs-scribbles"
+"the oatmeal"\t"http://theoatmeal.com/"
+"dinosaur comics"\t"http://www.qwantz.com/"
+"hyperbole and a half"\t"http://hyperboleandahalf.blogspot.com/"
