@@ -11,3 +11,98 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = T, comments = T, collapse = T)
 ```
+
+```{r, echo=FALSE}
+library(ggplot2)
+```
+
+# Basic Plots
+
+## Setup
+
+Run the [Setup.R](./code/Setup.R) file.
+
+If everything works correctly, you should see a plot:
+```{r, echo = F, fig.width = 7, fig.height = 4}
+qplot(rnorm(100), rnorm(100), colour = rbinom(100, 5, 0.2))
+```
+
+## ggplot2 In a Nutshell
+
+- Package for statistical graphics
+- Developed by Hadley Wickham
+- Designed to adhere to good graphical practices
+- Supports a wide variety plot types
+- Constructs plots using the concept of layers\medskip
+- http://had.co.nz/ggplot2/ or Hadley's book *ggplot2: Elegant Graphics for Data Analysis}* for reference material
+
+
+## *qplot* Function
+
+The *qplot()* function is the basic workhorse of ggplot2
+
+- Produces all plot types available with ggplot2
+- Allows for plotting options within the function statement
+- Creates an object that can be saved
+- Plot layers can be added to modify plot complexity
+
+## *qplot* Structure
+
+The *qplot()* function has a basic syntax:
+
+*qplot(variables, plot type, dataset, options)*
+
+- variables: list of variables used for the plot
+- plot type: specified with a *geom =* statement
+- dataset: specified with a *data =* statement
+- options: there are so, so many options!
+
+
+## Diamonds Data
+
+Objective: Explore the diamonds data set (preloaded along with ggplot2) using `qplot` for basic plotting.
+
+The data set was scraped from a diamond exchange company data base.  It contains the prices and attributes of over 50,000 diamonds.
+
+
+## Examining the Diamonds Data
+
+What does the data look like?
+
+Look at the top few rows of the diamond data frame to find out!
+
+```{r}
+head(diamonds)
+```
+
+
+## Basic Scatterplot
+
+Basic scatter plot of diamond price vs. carat weight
+
+```{r, fig.height=4, fig.width=7}
+qplot(carat, price, geom = "point", data = diamonds)
+```
+
+## Another Scatterplot
+
+Scatter plot of diamond price vs carat weight showing versitility of options in `qplot`
+
+```{r, fig.height=3, fig.width=7}
+qplot(carat, log(price), geom = "point", data = diamonds, 
+	alpha = I(0.2), colour = color, 
+	main = "Log price by carat weight, grouped by color") + 
+    xlab("Carat Weight") + ylab("Log Price")
+```
+
+## Your Turn {data-background=#527a7a}
+
+All of the your turns for this section will use the tips data set:
+
+```{r}
+tips <- read.csv("http://srvanderplas.github.io/NPPD-Analytics-Workshop/02.Graphics/data/tips.csv")
+```
+
+1. Use qplot to build a scatterplot of variables tips and total bill
+2. Use options within qplot to color points by smokers
+3. Clean up axis labels and add main plot title

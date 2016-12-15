@@ -8,3 +8,5 @@ output:
     theme: cerulean
     toc: yes
 ---
+
+- [Setup](Setup.R)
