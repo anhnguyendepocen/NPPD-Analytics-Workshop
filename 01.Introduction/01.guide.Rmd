@@ -1,21 +1,23 @@
 ---
 title: "Introduction to R"
 output:
+  word_document:
+    reference_docx: U:\Templates\Rmarkdown Word\word_template.docx
+    toc: yes
   html_document:
     code_folding: show
     fig_caption: yes
     self_contained: yes
     theme: cerulean
     toc: yes
-  word_document:
-    reference_docx: U:\Templates\Rmarkdown Word\word_template.docx
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, collapse = T, error = T)
+knitr::opts_chunk$set(echo = TRUE, collapse = T, error = T,
+                      tidy.opts = list(width.cutoff = 50))
 ```
 
-Who has worked with software designed to store, summarize, visualize, or analyze data? 
+There are many software programs designed to store, summarize, visualize, or analyze data:
 
 - Spreadsheets: Microsoft Excel, Google Sheets, etc.
 - Data Analysis and Statistical programs: SAS, SPSS, Minitab
@@ -26,7 +28,7 @@ Who has worked with software designed to store, summarize, visualize, or analyze
 
 # Setting Up
 
-This guide will help you set up R and RStudio on your machine. It is included for reference. 
+This guide will help set up R and RStudio on your machine. It is included for reference. 
 
 ## Installing R:
 
@@ -71,7 +73,7 @@ Follow along using [Tips-Example.R](code/Tips-Example.R)
 Lets use R to look at the top few rows of the tips data set. First, we load tip using `read.csv`:
 
 ```{r}
-tips <- read.csv("http://srvanderplas.github.com/NPPD-Analytics-Workshop/01.Introduction/data/tips.csv")
+tips <- read.csv("https://srvanderplas.github.io/NPPD-Analytics-Workshop/01.Introduction/data/tips.csv")
 ```
 
 Now, we use the `head` function to look at the first 6 rows of the data:
@@ -457,3 +459,126 @@ tips$sex[1:20]
 sum(c(TRUE, TRUE, FALSE, TRUE, FALSE))
 ```
 2. **More Challenging**: Calculate the sum of the total bills of anyone who tipped over 20%
+
+
+## Modifying Vectors
+
+Vectors can be modified using indexing:
+
+```{r}
+x <- bill[1:5]
+x
+x[1] <- 20
+x
+```
+
+### Vector Elements
+
+Elements of a vector must all be the same type:
+
+```{r}
+head(rate)
+rate[sad_tip] <- ":-("
+head(rate)
+```
+
+By changing a value to a string, all the other values were changed to strings as well.
+
+## Data Types in R
+
+- Can use `mode` or `class` to find out information about variables
+- `str` is useful to find information about the structure of your data
+- Many data types: numeric, integer, character, Date, and factor most common
+    
+```{r}
+str(tips)
+```
+
+
+### Converting Between Types
+
+Convert variables to a different type using the `as` series of functions:
+
+```{r}
+size <- head(tips$size)
+size
+as.character(size)
+as.numeric("2")
+```
+
+
+## Some useful functions
+
+There are a whole variety of useful functions to operate on vectors. 
+
+```{r}
+tip <- tips$tip
+x <- tip[1:5]
+length(x) # Number of elements of a vector
+sum(x) # Sum of elements in a vector
+```
+
+### Statistical Functions
+
+Using the basic functions it wouldn't be hard to compute some basic statistics.
+
+```{r}
+(n <- length(tip))
+(meantip <- sum(tip) / n)
+(standdev <- sqrt(sum((tip - meantip)^2) / (n - 1)))
+```
+
+But these functions are already built in to R.
+
+### Built-in Statistical Functions
+
+```{r}
+mean(tip)
+sd(tip)
+summary(tip)
+quantile(tip, c(.025, .975))
+```
+
+## Element-wise Logical Operators
+
+- `&` (elementwise AND)
+- `|` (elementwise OR)
+
+```{r}
+c(T, T, F, F) & c(T, F, T, F)
+c(T, T, F, F) | c(T, F, T, F)
+# Which are big bills with a poor tip rate?
+id <- (bill > 40 & rate < .10)
+tips[id,]
+```
+
+## Your Turn {data-background=#527a7a}
+
+1. Read up on the dataset (`?diamonds`)
+2. Plot price by carat (use qplot - go back to the motivating example for help with the syntax)
+3. Create a variable `ppc` for price/carat. Store this variable as a column in the diamonds data
+4. Make a histogram of all ppc values that exceed $10000 per carat.
+5. Explore any other interesting relationships you find
+
+### Solutions
+2. Plot price by carat (use qplot - go back to the motivating example for help with the syntax)
+
+```{r}
+qplot(carat, price, data = diamonds)
+```
+
+
+3. Create a variable `ppc` for price/carat. Store this variable as a column in the diamonds data
+
+```{r}
+diamonds$ppc <- diamonds$price / diamonds$carat
+```
+
+
+4. Make a histogram of all ppc values that exceed $10000 per carat.
+
+```{r}
+qplot(ppc, geom = "histogram", data = diamonds[diamonds$ppc > 10000,])
+```
+
+5. Explore any other interesting relationships you find

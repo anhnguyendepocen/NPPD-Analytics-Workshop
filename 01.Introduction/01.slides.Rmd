@@ -9,7 +9,8 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = T, comments = T, collapse = T)
+knitr::opts_chunk$set(echo = TRUE, collapse = T, error = T,
+                      tidy.opts = list(width.cutoff = 50))
 ```
 
 # Setting up R for Data Analysis
@@ -68,9 +69,9 @@ Follow along using [Tips-Example.R](code/Tips-Example.R)
 Load the tips data using `read.csv()`
 
 ```{r, echo = T}
-tips <- read.csv("http://srvanderplas.github.com/NPPD-Analytics-Workshop/01.Introduction/data/tips.csv")
+tips <- read.csv("https://srvanderplas.github.io/NPPD-Analytics-Workshop/01.Introduction/data/tips.csv")
 # Short link:
-tips <- read.csv("http://bit.ly/2fQoMP1")
+tips <- read.csv("https://bit.ly/2fQoMP1")
 ```
 
 The `head()` function shows the first few rows of the data: 
@@ -194,20 +195,20 @@ Try playing with chunks of code from this session to further investigate the tip
 2. Make side by side boxplots of tip rates for different days of the week
 3. Find the average tip value for smokers
 
-## Your Turn Solutions
+## Solutions
 ### Summary  of Total Bill Values
 ```{r}
 summary(tips$total_bill)
 ```
 
-## Your Turn Solutions
+## Solutions
 ### Tip Values by Day of the Week
 
 ```{r, fig.height=3, fig.width=7}
 qplot(day, rate, geom = "boxplot", data = tips)
 ```
 
-## Your Turn Solutions
+## Solutions
 ### Average Tip Value for Smokers
 ```{r}
 mean(tips$tip[tips$smoker == "Yes"])
@@ -382,8 +383,7 @@ Using the R Reference Card (and the Help pages, if needed), do the following:
 3. Use `rep` to construct this vector: `1 2 3 4 5 1 2 3 4 5 1 2 3 4 5`
 
 ## Your Turn Solutions{data-background=#527a7a}
-
-1. Find out how many rows and columns the `iris' data set has.  Figure out at least 2 ways to do this.
+### Rows and Columns in the `iris` dataset {data-background=#527a7a}
 
 ```{r}
 data(iris)
@@ -394,8 +394,8 @@ ncol(iris)
 ```
 
 ## Your Turn Solutions{data-background=#527a7a}
+### Rows and Columns in the `iris` dataset {data-background=#527a7a}
 
-1. Find out how many rows and columns the `iris' data set has.  Figure out at least 2 ways to do this.
 ```{r}
 # second way: 
 dim(iris)
@@ -404,15 +404,18 @@ dim(iris)
 str(iris) # look at the top line
 ```
 
-## Your Turn Solutions{data-background=#527a7a}
+## Solutions{data-background=#527a7a}
+### Use `rep` {data-background=#527a7a}
 
-2. Use the `rep` function to construct the following vector:  1 1 2 2 3 3 4 4 5 5
 ```{r}
+# Use the `rep` function to construct the following vector:  
+# 1 1 2 2 3 3 4 4 5 5
 rep(c(1:5), each = 2)
 ```
 
-3. Use `rep` to construct this vector: 1 2 3 4 5 1 2 3 4 5 1 2 3 4 5
 ```{r}
+# Use `rep` to construct this vector: 
+# 1 2 3 4 5 1 2 3 4 5 1 2 3 4 5
 rep(c(1:5), times = 3)
 ```
 
@@ -510,3 +513,139 @@ tips$sex[1:20]
 sum(c(TRUE, TRUE, FALSE, TRUE, FALSE))
 ```
 2. **More Challenging**: Calculate the sum of the total bills of anyone who tipped over 20%
+
+## Solutions {data-background=#527a7a}
+#### How many people tipped over 20% 
+
+```{r}
+sum(tips$rate > .2)
+```
+
+#### Sum of the total bills where the tip was over 20%
+
+```{r}
+sum(tips$total_bill[tips$rate > .2])
+```
+
+## Modifying Vectors
+
+Vectors can be modified using indexing:
+
+```{r}
+bill <- tips$total_bill
+x <- bill[1:5]
+x
+x[1] <- 20
+x
+```
+
+## Vector Elements
+
+Elements of a vector must all be the same type:
+
+```{r}
+head(rate)
+rate[sad_tip] <- ":-("
+head(rate)
+```
+
+By changing a value to a string, all the other values were changed to strings as well.
+
+## Data Types in R
+
+- Can use `mode` or `class` to find out information about variables
+- `str` is useful to find information about the structure of your data
+- Many data types: numeric, integer, character, Date, and factor most common
+    
+```{r}
+str(tips)
+```
+
+
+## Converting Between Types
+
+Convert variables to a different type using the `as` series of functions:
+
+```{r}
+size <- head(tips$size)
+size
+as.character(size)
+as.numeric("2")
+```
+
+
+## Some useful functions
+
+There are a whole variety of useful functions to operate on vectors. 
+
+```{r}
+tip <- tips$tip
+x <- tip[1:5]
+length(x) # Number of elements of a vector
+sum(x) # Sum of elements in a vector
+```
+
+## Statistical Functions
+
+Using the basic functions it wouldn't be hard to compute some basic statistics.
+
+```{r}
+(n <- length(tip))
+(meantip <- sum(tip) / n)
+(standdev <- sqrt(sum((tip - meantip)^2) / (n - 1)))
+```
+
+But these functions are already built in to R.
+
+## Built-in Statistical Functions
+
+```{r}
+mean(tip)
+sd(tip)
+summary(tip)
+quantile(tip, c(.025, .975))
+```
+
+
+## Element-wise Logical Operators
+
+- `&` (elementwise AND)
+- `|` (elementwise OR)
+
+```{r}
+c(T, T, F, F) & c(T, F, T, F)
+c(T, T, F, F) | c(T, F, T, F)
+# Which are big bills with a poor tip rate?
+id <- (bill > 40 & rate < .10)
+tips[id,]
+```
+
+## Your Turn {data-background=#527a7a}
+
+1. Read up on the dataset (`?diamonds`)
+2. Plot price by carat (use qplot - go back to the motivating example for help with the syntax)
+3. Create a variable `ppc` for price/carat. Store this variable as a column in the diamonds data
+4. Make a histogram of all ppc values that exceed $10000 per carat.
+5. Explore any other interesting relationships you find
+
+## Solutions {data-background=#527a7a}
+### Plot price by carat 
+
+```{r, fig.height=4, fig.width=7}
+qplot(carat, price, data = diamonds)
+```
+
+## Solutions {data-background=#527a7a}
+### Create a variable `ppc` for price/carat
+
+```{r}
+diamonds$ppc <- diamonds$price / diamonds$carat
+```
+
+## Solutions {data-background=#527a7a}
+### Make a histogram of all ppc values that exceed $10000 per carat.
+
+```{r, fig.height=4, fig.width=7, tidy = F}
+qplot(ppc, geom = "histogram",     
+      data = diamonds[diamonds$ppc > 10000,])
+```
