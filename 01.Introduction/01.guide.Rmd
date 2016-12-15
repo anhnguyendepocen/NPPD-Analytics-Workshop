@@ -280,7 +280,7 @@ MyAge ^ 2
 - R will let you use the name of a predefined function.    
 Try not to overwrite those!
 
-### Error messages:
+### Error messages 
 ```{r}
 # Variable starts with a number
 1age <- 3
@@ -297,7 +297,7 @@ age
 for <- 3
 ```
 
-### Cautionary Tale
+#### A Cautionary Tale
 ```{r, eval = T}
 # This is a VERY bad idea:
 
@@ -330,7 +330,7 @@ z + 3
 ```
 
 
-## Your Turn {data-background=#527a7a}
+### Your Turn
 
 Using the R Reference Card (and the Help pages, if needed), do the following:
 
@@ -340,7 +340,7 @@ Using the R Reference Card (and the Help pages, if needed), do the following:
 *Hint: "Data Creation" section of the reference card*
 3. Use `rep` to construct this vector: `1 2 3 4 5 1 2 3 4 5 1 2 3 4 5`
 
-### Solutions
+#### Solutions
 
 1. Find out how many rows and columns the `iris' data set has.  Figure out at least 2 ways to do this.
 
@@ -403,7 +403,7 @@ a[1:5]
     - $==$
     - $!=$
     
-## Indexing with Logicals
+### Indexing with Logicals
 
 Logical vectors can be used for indexing as well:
 
@@ -414,7 +414,7 @@ x > 3.5
 x[x > 3.5]
 ```
 
-### Logical Examples
+#### Examples
 
 ```{r}
 # Get the rate variable out of the tips dataset
@@ -450,7 +450,7 @@ tips$sex[1:20]
 ```
 
 
-## Your Turn {data-background=#527a7a}
+### Your Turn
 
 1. Find out how many people tipped over 20%.    
 *Hint: use the `sum` function on a logical vector to calculate how many TRUEs are in the vector:*
@@ -517,11 +517,10 @@ length(x) # Number of elements of a vector
 sum(x) # Sum of elements in a vector
 ```
 
-### Statistical Functions
-
 Using the basic functions it wouldn't be hard to compute some basic statistics.
 
 ```{r}
+# Homemade Statistical Functions
 (n <- length(tip))
 (meantip <- sum(tip) / n)
 (standdev <- sqrt(sum((tip - meantip)^2) / (n - 1)))
@@ -529,9 +528,8 @@ Using the basic functions it wouldn't be hard to compute some basic statistics.
 
 But these functions are already built in to R.
 
-### Built-in Statistical Functions
-
 ```{r}
+# Built in statistical functions
 mean(tip)
 sd(tip)
 summary(tip)
