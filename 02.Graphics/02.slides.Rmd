@@ -37,18 +37,18 @@ qplot(rnorm(100), rnorm(100), colour = rbinom(100, 5, 0.2))
 - http://had.co.nz/ggplot2/ or Hadley's book *ggplot2: Elegant Graphics for Data Analysis}* for reference material
 
 
-## *qplot* Function
+## qplot Function
 
-The *qplot()* function is the basic workhorse of ggplot2
+The `qplot()` function is the basic workhorse of ggplot2
 
 - Produces all plot types available with ggplot2
 - Allows for plotting options within the function statement
 - Creates an object that can be saved
 - Plot layers can be added to modify plot complexity
 
-## *qplot* Structure
+## qplot Structure
 
-The *qplot()* function has a basic syntax:
+The `qplot()` function has a basic syntax:
 
 *qplot(variables, plot type, dataset, options)*
 
