@@ -231,7 +231,7 @@ The `?` function also works:
 ?head
 ```
 
-When searching for results online, it is helpful to use R + CRAN + <query> to get good results.
+When searching for results online, it is helpful to use R + CRAN + \<query\> to get good results.
 
 ## R Reference Card
 
