@@ -767,15 +767,31 @@ The following functions are useful to figure out the structure of objects in R.
 Examine the first two values of an object by passing the `n` parameter to the `head` function:
 
 ```{r}
-head(iris, n = 2)
+head(diamonds, n = 2) # first 2 rows of diamonds data frame
+tail(diamonds, n = 2) # last 2 rows of diamonds data frame
 ```
 
-What's its structure?
+What's the structure of the object?
 
 ```{r}
-str(iris)
+str(diamonds) # structure of diamonds data frame
+str(mylist) # structure of mylist list
 ```
 
+How does R summarize objects?
+```{r}
+summary(diamonds) # summarize each column in diamonds
+summary(mylist) # summarize mylist - # values in each item in the list
+```
+
+What are the dimensions of the object?
+```{r}
+dim(diamonds) # dimensions of diamonds data frame
+dim(mylist) # mylist doesn't have dimensions because it isn't a rectangular object
+
+length(diamonds) # diamonds is a data frame with 10 columns (or really, a list with 10 vectors that are the same length)
+length(mylist) # mylist has 2 objects
+```
 
 ### Your Turn
 
