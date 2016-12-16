@@ -906,7 +906,7 @@ t.test(Petal.Length ~ Species, data = iris.subset)
 Save the output of the t-test to an object
 
 ```{r}
-tout <- t.test(Petal.Length ~ Species, data = iris[iris$Species != "virginica", ])
+tout <- t.test(Petal.Length ~ Species, data = iris.subset)
 ```
 
 Look at the structure of the t-test object:

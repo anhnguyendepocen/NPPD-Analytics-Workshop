@@ -830,7 +830,7 @@ t.test(Petal.Length ~ Species, data = iris.subset)
 Save the output of the t-test to an object:
 
 ```{r}
-tout <- t.test(Petal.Length ~ Species, data = iris[iris$Species != "virginica", ])
+tout <- t.test(Petal.Length ~ Species, data = iris.subset)
 ```
 
 Look at the structure of the t-test object:
@@ -872,7 +872,7 @@ littledata <- read.csv("PretendData.csv")
 
 
 #### Solutions
-[Excel Spreadsheet](./data/Fun Webcomics.xlsx) (also at http://bit.ly/2hAKtFi)
+[Excel Spreadsheet](./data/Fun Webcomics.xlsx) (also at https://bit.ly/2hOYYYT)
 
 ```{r}
 webcomics <- read.table("./data/FunWebcomics.txt", header = T)
