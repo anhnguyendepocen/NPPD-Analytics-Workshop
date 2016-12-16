@@ -506,6 +506,12 @@ sum(tips$total_bill[tips$rate > .2])
 str(tips)
 ```
 
+Use `mode` and `class` to get more general information:
+```{r}
+class(tips)
+mode(tips)
+```
+tips is a data frame, which is a list of vectors that have the same length. 
 
 ### Converting Between Types
 

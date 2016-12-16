@@ -563,6 +563,12 @@ sum(tips$total_bill[tips$rate > .2])
 str(tips)
 ```
 
+## Data Types in R
+```{r}
+class(tips)
+
+mode(tips)
+```
 
 ## Converting Between Types
 
