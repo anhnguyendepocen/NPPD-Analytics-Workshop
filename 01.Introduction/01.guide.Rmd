@@ -711,7 +711,7 @@ mtcars[4,]
 
 ### Example
 
-Create a list containing a vector and a matrix:
+Create a list containing a matrix and a vector:
 
 ```{r}
 mylist <- list(matrix(letters[1:10], nrow = 2, ncol = 5),
