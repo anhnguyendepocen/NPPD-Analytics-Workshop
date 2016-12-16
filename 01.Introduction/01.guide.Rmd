@@ -752,6 +752,8 @@ mylist[[2]][1,]
 
 
 ## Examining Objects
+R objects can get very complicated very quickly (nesting lists inside of lists, for example). 
+The following functions are useful to figure out the structure of objects in R. 
 
 - `head(x)` - View top 6 rows of a data frame
 - `tail(x)` - View bottom 6 rows of a data frame
