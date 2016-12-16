@@ -269,7 +269,7 @@ log(x)
 MyAge ^ 2
 ```
 
-## Rules for Variable Names
+### Rules for Variable Names
 
 - Variable names can't start with a number
 - Names are case-sensitive
@@ -280,7 +280,7 @@ MyAge ^ 2
 - R will let you use the name of a predefined function.    
 Try not to overwrite those!
 
-### Error messages 
+#### Error messages 
 ```{r}
 # Variable starts with a number
 1age <- 3
