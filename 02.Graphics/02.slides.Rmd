@@ -85,7 +85,8 @@ Basic scatter plot of diamond price vs. carat weight
 qplot(carat, price, geom = "point", data = diamonds)
 ```
 
-## Another Scatterplot
+***
+### Another Scatterplot
 
 Scatter plot of diamond price vs carat weight showing versitility of options in `qplot`
 
@@ -108,32 +109,25 @@ tips <- read.csv("https://bit.ly/2gGoiLR")
 2. Use options within qplot to color points by smokers
 3. Clean up axis labels and add main plot title
 
-## Your Turn {data-background=#527a7a}
-### Solutions 
+## Solutions {data-background=#527a7a}
 #### Scatterplot of variables tips and total bill
 ```{r}
 qplot(data = tips, x = total_bill, y = tip)
 ```
 
-## Your Turn {data-background=#527a7a}
-### Solutions 
+## Solutions {data-background=#527a7a}
 #### Color points by smokers
 ```{r, tidy = F}
-qplot(data = tips, x = total_bill, y = tip, 
-      color = smoker)
+qplot(data = tips, x = total_bill, y = tip, color = smoker)
 ```
 
-## Your Turn {data-background=#527a7a}
-### Solutions 
-#### Pretty axis lables and title
-```{r, tidy = F}
-qplot(data = tips, x = total_bill, y = tip, 
-      color = smoker,
-      xlab = "Total Bill ($)",
-      ylab = "Tip ($)", 
+## Solutions {data-background=#527a7a}
+ Pretty axis lables and title
+```{r, tidy = F, fig.width = 7, fig.height = 3}
+qplot(data = tips, x = total_bill, y = tip, color = smoker,
+      xlab = "Total Bill ($)", ylab = "Tip ($)", 
       main = "Tip left by patrons' total bill and smoking status")
 ```
-
 
 # Plotting Map Data
 
@@ -292,8 +286,7 @@ states.health.stats <- read.csv("https://bit.ly/2hRBMq0")
 
 - Use `qplot` to create a map of child healthcare undercoverage rate by state
 
-## Your Turn {data-background=#527a7a}
-### Solutions 
+## Solutions {data-background=#527a7a}
 ```{r, eval = F}
 library(maps)
 library(dplyr)
@@ -699,8 +692,7 @@ library(lubridate)
 animal$month <- month(as.Date(animal$Date_))
 ```
 
-## Your Turn {data-background=#527a7a}
-### Solutions 
+## Solutions {data-background=#527a7a}
 
 2. Plot the location of animal sightings on a map
 
@@ -711,8 +703,7 @@ ggplot() +
   xlim(c(-91, -80)) + ylim(c(24,32)) + coord_map()
 ```
 
-## Your Turn {data-background=#527a7a}
-### Solutions 
+## Solutions {data-background=#527a7a}
 
 2. Plot the location of animal sightings on a map
 ```{r, echo=F, warning=FALSE}
@@ -723,8 +714,7 @@ ggplot() +
 ```
 
 
-## Your Turn {data-background=#527a7a}
-### Solutions 
+## Solutions {data-background=#527a7a}
 
 3. On this plot, try to color points by class of animal and/or status of animal
 ```{r, echo=TRUE, eval = F, warning=FALSE}
@@ -734,8 +724,7 @@ ggplot() +
                                 color = class)) + 
   xlim(c(-91, -80)) + ylim(c(24,32)) + coord_map()
 ```
-## Your Turn {data-background=#527a7a}
-### Solutions 
+## Solutions {data-background=#527a7a}
 
 3. On this plot, try to color points by class of animal and/or status of animal
 ```{r, echo=F, warning=FALSE}
@@ -746,8 +735,7 @@ ggplot() +
   xlim(c(-91, -80)) + ylim(c(24,32)) + coord_map()
 ```
 
-## Your Turn {data-background=#527a7a}
-### Solutions 
+## Solutions {data-background=#527a7a}
 
 3. On this plot, try to color points by class of animal and/or status of animal
 ```{r, echo=TRUE, eval = F, warning=FALSE}
@@ -757,8 +745,7 @@ ggplot() +
                                 color = Condition)) + 
   xlim(c(-91, -80)) + ylim(c(24,32)) + coord_map()
 ```
-## Your Turn {data-background=#527a7a}
-### Solutions 
+## Solutions{data-background=#527a7a}
 
 3. On this plot, try to color points by class of animal and/or status of animal
 ```{r, echo=F, warning=FALSE}
@@ -770,8 +757,7 @@ ggplot() +
 ```
 
 
-## Your Turn {data-background=#527a7a}
-### Solutions 
+## Solutions {data-background=#527a7a}
 4. **Advanced**: Could we indicate time somehow?
 ```{r, echo=TRUE, eval = F, warning=FALSE}
 ggplot() + 
@@ -782,8 +768,7 @@ ggplot() +
   facet_wrap(~month) + coord_map() 	
 ```
 
-## Your Turn {data-background=#527a7a}
-### Solutions 
+## Solutions {data-background=#527a7a}
 4. **Advanced**: Could we indicate time somehow?
 ```{r, echo=F, warning=FALSE}
 ggplot() + 
@@ -793,3 +778,10 @@ ggplot() +
   xlim(c(-91, -80)) + ylim(c(24,32)) +
   facet_wrap(~month) + coord_map() 	
 ```
+
+# Perception
+
+## Cost of an Education
+
+![](images/junkcharts.png)
+
