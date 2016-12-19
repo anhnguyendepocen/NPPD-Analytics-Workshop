@@ -10,7 +10,7 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = T, comments = T, collapse = T,
-                      fig.width = 7, fig.height = 4)
+                      fig.width = 7, fig.height = 4, cache = T)
 ```
 
 ```{r, echo=FALSE}
@@ -25,7 +25,7 @@ Run the [Setup.R](./code/Setup.R) file.
 
 If everything works correctly, you should see a plot:
 ```{r, echo = F, fig.width = 7, fig.height = 4}
-qplot(rnorm(100), rnorm(100), colour = rbinom(100, 5, 0.2))
+qplot(rnorm(100), rnorm(100), color = rbinom(100, 5, 0.2))
 ```
 
 ## ggplot2 In a Nutshell
@@ -91,7 +91,7 @@ Scatter plot of diamond price vs carat weight showing versitility of options in 
 
 ```{r, fig.height=3, fig.width=7}
 qplot(carat, log(price), geom = "point", data = diamonds, 
-	alpha = I(0.2), colour = color, 
+	alpha = I(0.2), color = color, 
 	main = "Log price by carat weight, grouped by color") + 
     xlab("Carat Weight") + ylab("Log Price")
 ```
@@ -108,21 +108,24 @@ tips <- read.csv("https://bit.ly/2gGoiLR")
 2. Use options within qplot to color points by smokers
 3. Clean up axis labels and add main plot title
 
-## Your Turn Solutions {data-background=#527a7a}
-### Scatterplot of variables tips and total bill
+## Your Turn {data-background=#527a7a}
+### Solutions 
+#### Scatterplot of variables tips and total bill
 ```{r}
 qplot(data = tips, x = total_bill, y = tip)
 ```
 
-## Your Turn Solutions {data-background=#527a7a}
-### Color points by smokers
+## Your Turn {data-background=#527a7a}
+### Solutions 
+#### Color points by smokers
 ```{r, tidy = F}
 qplot(data = tips, x = total_bill, y = tip, 
       color = smoker)
 ```
 
-## Your Turn Solutions {data-background=#527a7a}
-### Pretty axis lables and title
+## Your Turn {data-background=#527a7a}
+### Solutions 
+#### Pretty axis lables and title
 ```{r, tidy = F}
 qplot(data = tips, x = total_bill, y = tip, 
       color = smoker,
@@ -217,7 +220,7 @@ head(states.class.map)
 
 ```{r, fig.height=4, fig.width=7}
 qplot(long, lat, geom = "polygon", data = states.class.map, 
-      group = group, fill = StateGroups, colour = I("black")) + 
+      group = group, fill = StateGroups, color = I("black")) + 
     coord_map() 
 ```
 
@@ -289,8 +292,8 @@ states.health.stats <- read.csv("https://bit.ly/2hRBMq0")
 
 - Use `qplot` to create a map of child healthcare undercoverage rate by state
 
-## Your Turn Solutions {data-background=#527a7a}
-
+## Your Turn {data-background=#527a7a}
+### Solutions 
 ```{r, eval = F}
 library(maps)
 library(dplyr)
@@ -306,8 +309,8 @@ qplot(data = states.health.map, x = long, y = lat,
       fill = no.coverage) + coord_map()
 ```
 
-## Your Turn Solutions {data-background=#527a7a}
-
+## Your Turn {data-background=#527a7a}
+### Solutions 
 ```{r, eval = T, echo = F, message = F, warning = F}
 library(maps)
 library(dplyr)
@@ -320,6 +323,7 @@ states.health.map <- left_join(states, states.health.stats,
 qplot(data = states.health.map, x = long, y = lat, geom = 'polygon',
       group = group, fill = no.coverage) + coord_map()
 ```
+
 ## Cleaning Up Your Maps
 
 Use ggplot2 options to clean up your map!
@@ -366,8 +370,8 @@ qplot(long, lat, geom = "polygon", data = states.map,
 
 Use options to polish the look of your map of child healthcare undercoverage rate by state!
 
-## Your Turn Solutions {data-background=#527a7a}
-
+## Your Turn {data-background=#527a7a}
+### Solutions 
 ```{r, eval = F}
 qplot(data = states.health.map, x = long, y = lat, 
       geom = 'polygon', group = group, fill = no.coverage) + 
@@ -385,8 +389,8 @@ qplot(data = states.health.map, x = long, y = lat,
         axis.title = element_blank())	
 ```
 
-## Your Turn Solutions {data-background=#527a7a}
-
+## Your Turn {data-background=#527a7a}
+### Solutions 
 ```{r, echo = F}
 library(maps)
 library(dplyr)
@@ -403,4 +407,389 @@ qplot(data = states.health.map, x = long, y = lat,
   theme(panel.grid = element_blank(), 
         axis.text = element_blank(),
         axis.title = element_blank())	
+```
+
+
+# Plotting Using Layers
+
+```{r, echo=FALSE, message=FALSE}
+library(ggplot2)
+
+states <- map_data("state")
+```
+
+***
+
+### Deepwater Horizon Oil Spill
+![](images/satelitepicBPoilspill.png)
+
+## Datasets
+NOAA Data:
+- National Oceanic and Administration 
+- Temperature and Salinity Data in the Gulf of Mexico
+- Measured using Floats, Gliders and Boats
+
+
+US Fisheries and Wildlife Data:
+
+- Animal Sightings on the Gulf Coast
+- Birds, Turtles and Mammals
+- Status: Oil Covered or Not
+
+Both data sets have geographic coordinates for every observation
+
+
+## Loading NOAA Data
+
+NOAA data is a .rdata file so we need to read it specially:
+
+1. Download the data from http://heike.github.io/rwrks/02-r-graphics/data/noaa.rdata
+2. Run the `getwd()` command to find your current working directory
+3. Place noaa.rdata in the directory from step 2.
+4. Run the command below:
+
+```{r, eval=FALSE}
+load("noaa.rdata")
+```
+
+```{r, echo=FALSE, message = F}
+library(ggplot2)
+states <- map_data("state")
+load("./data/noaa.rdata")
+```
+
+
+## Floats
+
+Take a peek at the top of the floats NOAA data:
+
+```{r}
+head(floats, n = 2)[,1:5]
+head(floats, n = 2)[,6:10]
+head(floats, n = 2)[,11:14]
+```
+
+## Floats Plot
+
+```{r, fig.height=4, fig.width=7}
+qplot(Longitude, Latitude, color = callSign, data = floats) + 
+    coord_map()
+```
+
+## Gliders
+
+```{r, fig.height=4, fig.width=7}
+qplot(Longitude, Latitude, color = callSign, data = gliders) + 
+    coord_map()
+```
+
+## Boats
+
+```{r, fig.height=4, fig.width=7}
+qplot(Longitude, Latitude, color = callSign, data = boats) + 
+    coord_map()
+```
+
+## Layering
+
+This data has the same context - a common time and common place
+
+- Want to aggregate information from different sources onto a common plot
+- Start with a common background the lat/long grid
+- Superimpose data onto the grid in layers using `ggplot2`
+
+## Layers Preview
+
+```{r, fig.height=3, fig.width=7, warning=FALSE}
+ggplot() +
+    geom_path(data = states, aes(x = long, y = lat, group = group)) + 
+    geom_point(data = floats, aes(x = Longitude, y = Latitude, color = callSign)) +   
+    geom_point(aes(x, y), shape = "x", size = 5, data = rig) + 
+    geom_text(aes(x, y), label = "BP Oil Rig", 
+              size = 5, data = rig, hjust = -0.1) + 
+    xlim(c(-91, -80)) + ylim(c(22,32)) + coord_map()
+```
+
+
+## More Layering
+
+- Most maps (and many plots) have multiple layers of data. 
+- The layers may be from the same or different datasets.
+- ggplot2 makes it easy to add layers to a plot.
+
+To do this we need to understand a little more about the underlying theory...
+
+
+## What is a Plot?
+
+- A default dataset 
+- A coordinate system
+- layers of geometric objects (geoms)
+- A set of aesthetic mappings (taking information from the data and converting into an attribute of the plot)
+- A scale for each aesthetic
+- A facetting specification (multiple plots based on subsetting the data)
+
+
+## Floats Decomposed
+
+**Data**: floats, states
+
+<table>
+<tr>
+<td>
+**Mappings**: 
+<table>
+<tr>
+<td>aesthetic</td><td> mapping</td>
+</tr>
+<tr>
+<td>x</td><td>Longitude</td>
+</tr>
+<tr>
+<td>y</td><td>Latitude</td>
+</tr>
+<tr>
+<td>color</td><td>CallSign</td>
+</tr>
+</table>
+</td>
+<td>
+**Scales**:
+<table>
+<tr>
+<td>aesthetic</td><td> scale</td>
+</tr>
+<tr>
+<td>x</td><td>continuous</td>
+</tr>
+<tr>
+<td>y</td><td>continuous</td>
+</tr>
+<tr>
+<td>color</td><td>discrete</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+**Geoms**: Points (floats), lines (states)
+
+**Facetting**: None
+
+## `qplot` vs `ggplot`
+
+`qplot()` stands for "quickplot":
+
+- Automatically chooses default settings to make life easier
+- Less control over plot construction
+
+`ggplot()` stands for "grammar of graphics plot"
+
+- Contructs the plot using components listed in previous slides
+
+## `qplot` vs `ggplot`
+
+Two ways to construct the same plot for float locations:
+
+```{r, eval=FALSE}
+qplot(Longitude, Latitude, color = callSign, data = floats) 
+```
+
+Or:
+
+```{r, eval=FALSE}
+ggplot(data = floats, 
+       aes(x = Longitude, y = Latitude, color = callSign)) +
+  geom_point() + 
+  scale_x_continuous() + 
+  scale_y_continuous() + 
+  scale_color_discrete()
+```
+
+## Brevity
+Even `ggplot` will automatically pick default scales:
+
+```{r, fig.height=3, fig.width=7}
+ggplot(data = floats, 
+       aes(x = Longitude, y = Latitude, color = callSign)) +
+  geom_point()
+```
+
+
+## Your Turn {data-background=#527a7a}
+
+Find the `ggplot()` statement that creates this plot:
+
+```{r, fig.height=4, fig.width=7, echo=FALSE, warning=FALSE}
+ggplot(aes(x = Depth, y = Temperature, color = callSign), data = floats) + geom_point()
+```
+
+Hint: look at the Floats data for variable ideas
+
+## Your Turn {data-background=#527a7a}
+### Solutions 
+```{r, fig.height=4, fig.width=7, echo=TRUE, warning=FALSE}
+ggplot(aes(x = Depth, y = Temperature, color = callSign), 
+       data = floats) + 
+  geom_point()
+```
+
+
+## What is a Layer?
+
+A layer added `ggplot()` can be a geom...
+
+- The type of geometric object
+- The statistic mapped to that object
+- The data set from which to obtain the statistic
+
+... or a position adjustment to the scales
+
+- Changing the axes scale
+- Changing the color gradient
+
+
+## Layer Examples
+
+Plot               Geom             Stat
+------------------ ---------------- -----------------
+Scatterplot        point            identity
+Histogram          bar              bin count
+Smoother           line + ribbon    smoother function
+Binned Scatterplot rectange + color 2d bin count
+
+More geoms described at http://docs.ggplot2.org/current/
+
+## Piecing Things Together
+
+Build a map using NOAA data
+
+- Coordinate system (mapping Long-Lat to X-Y)
+- Add layer of state outlines
+- Add layer of points for float locations
+- Add layers for Oil Rig marker and label
+- Adjust the range of x and y scales
+
+
+## The Result
+
+```{r, fig.height=3, fig.width=7, warning=FALSE}
+ggplot() +
+    geom_path(data = states, aes(x = long, y = lat, group = group)) + 
+    geom_point(data = floats, aes(x = Longitude, y = Latitude, color = callSign)) +   
+    geom_point(aes(x, y), shape = "x", size = 5, data = rig) + 
+    geom_text(aes(x, y), label = "BP Oil Rig", size = 5, data = rig, hjust = -0.1) + 
+    xlim(c(-91, -80)) + 
+    ylim(c(22, 32)) + coord_map()
+```
+
+
+## Your Turn {data-background=#527a7a}
+```{r}
+animal <- read.csv("https://bit.ly/2hNlTUl")
+```
+1. Read in the animal.csv data:    
+(Data of animal sightings around the Deepwater Site)
+2. Plot the location of animal sightings on a map of the region
+3. On this plot, try to color points by class of animal and/or status of animal
+4. **Advanced**: Could we indicate time somehow?
+
+```{r}
+library(lubridate)
+animal$month <- month(as.Date(animal$Date_))
+```
+
+## Your Turn {data-background=#527a7a}
+### Solutions 
+
+2. Plot the location of animal sightings on a map
+
+```{r, echo=TRUE, warning=FALSE, eval = F}
+ggplot() + 
+  geom_path(data = states, aes(x = long, y = lat, group = group)) + 
+  geom_point(data = animal, aes(x = Longitude, y = Latitude)) + 
+  xlim(c(-91, -80)) + ylim(c(24,32)) + coord_map()
+```
+
+## Your Turn {data-background=#527a7a}
+### Solutions 
+
+2. Plot the location of animal sightings on a map
+```{r, echo=F, warning=FALSE}
+ggplot() + 
+  geom_path(data = states, aes(x = long, y = lat, group = group)) + 
+  geom_point(data = animal, aes(x = Longitude, y = Latitude)) + 
+  xlim(c(-91, -80)) + ylim(c(24,32)) + coord_map()
+```
+
+
+## Your Turn {data-background=#527a7a}
+### Solutions 
+
+3. On this plot, try to color points by class of animal and/or status of animal
+```{r, echo=TRUE, eval = F, warning=FALSE}
+ggplot() + 
+  geom_path(data = states, aes(x = long, y = lat, group = group)) + 
+  geom_point(data = animal, aes(x = Longitude, y = Latitude, 	
+                                color = class)) + 
+  xlim(c(-91, -80)) + ylim(c(24,32)) + coord_map()
+```
+## Your Turn {data-background=#527a7a}
+### Solutions 
+
+3. On this plot, try to color points by class of animal and/or status of animal
+```{r, echo=F, warning=FALSE}
+ggplot() + 
+  geom_path(data = states, aes(x = long, y = lat, group = group)) + 
+  geom_point(data = animal, aes(x = Longitude, y = Latitude, 	
+                                color = class)) + 
+  xlim(c(-91, -80)) + ylim(c(24,32)) + coord_map()
+```
+
+## Your Turn {data-background=#527a7a}
+### Solutions 
+
+3. On this plot, try to color points by class of animal and/or status of animal
+```{r, echo=TRUE, eval = F, warning=FALSE}
+ggplot() + 
+  geom_path(data = states, aes(x = long, y = lat, group = group)) + 
+  geom_point(data = animal, aes(x = Longitude, y = Latitude, 	
+                                color = Condition)) + 
+  xlim(c(-91, -80)) + ylim(c(24,32)) + coord_map()
+```
+## Your Turn {data-background=#527a7a}
+### Solutions 
+
+3. On this plot, try to color points by class of animal and/or status of animal
+```{r, echo=F, warning=FALSE}
+ggplot() + 
+  geom_path(data = states, aes(x = long, y = lat, group = group)) + 
+  geom_point(data = animal, aes(x = Longitude, y = Latitude, 	
+                                color = Condition)) + 
+  xlim(c(-91, -80)) + ylim(c(24,32)) + coord_map()
+```
+
+
+## Your Turn {data-background=#527a7a}
+### Solutions 
+4. **Advanced**: Could we indicate time somehow?
+```{r, echo=TRUE, eval = F, warning=FALSE}
+ggplot() + 
+  geom_path(data = states, aes(x = long, y = lat, group = group)) + 
+  geom_point(data = animal, aes(x = Longitude, y = Latitude, 	
+                                color = Condition), alpha = .5) +
+  xlim(c(-91, -80)) + ylim(c(24,32)) +
+  facet_wrap(~month) + coord_map() 	
+```
+
+## Your Turn {data-background=#527a7a}
+### Solutions 
+4. **Advanced**: Could we indicate time somehow?
+```{r, echo=F, warning=FALSE}
+ggplot() + 
+  geom_path(data = states, aes(x = long, y = lat, group = group)) + 
+  geom_point(data = animal, aes(x = Longitude, y = Latitude, 	
+                                color = Condition), alpha = .5) +
+  xlim(c(-91, -80)) + ylim(c(24,32)) +
+  facet_wrap(~month) + coord_map() 	
 ```
