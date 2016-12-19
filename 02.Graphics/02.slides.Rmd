@@ -9,7 +9,8 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = T, comments = T, collapse = T)
+knitr::opts_chunk$set(echo = T, comments = T, collapse = T,
+                      fig.width = 7, fig.height = 4)
 ```
 
 ```{r, echo=FALSE}
@@ -97,12 +98,309 @@ qplot(carat, log(price), geom = "point", data = diamonds,
 
 ## Your Turn {data-background=#527a7a}
 
-All of the your turns for this section will use the tips data set:
+All of the "Your Turns" for this section will use the tips data set:
 
 ```{r}
-tips <- read.csv("http://srvanderplas.github.io/NPPD-Analytics-Workshop/02.Graphics/data/tips.csv")
+tips <- read.csv("https://bit.ly/2gGoiLR")
 ```
 
 1. Use qplot to build a scatterplot of variables tips and total bill
 2. Use options within qplot to color points by smokers
 3. Clean up axis labels and add main plot title
+
+## Your Turn Solutions {data-background=#527a7a}
+### Scatterplot of variables tips and total bill
+```{r}
+qplot(data = tips, x = total_bill, y = tip)
+```
+
+## Your Turn Solutions {data-background=#527a7a}
+### Color points by smokers
+```{r, tidy = F}
+qplot(data = tips, x = total_bill, y = tip, 
+      color = smoker)
+```
+
+## Your Turn Solutions {data-background=#527a7a}
+### Pretty axis lables and title
+```{r, tidy = F}
+qplot(data = tips, x = total_bill, y = tip, 
+      color = smoker,
+      xlab = "Total Bill ($)",
+      ylab = "Tip ($)", 
+      main = "Tip left by patrons' total bill and smoking status")
+```
+
+
+# Plotting Map Data
+
+## States Data
+
+To make a map, load up the states data and take a look:
+
+```{r}
+states <- map_data("state")
+head(states)
+```
+
+## Basic Map Data
+
+What data is needed in order to plot a basic map?
+  
+- Latitude/longitude points for all map boundaries
+- Which boundary group all lat/long points belong
+- The order to connect points within each group
+
+## Basic Map Data
+
+The *states* data has all necessary information
+
+## A Basic Map
+
+A bunch of latitude longitude points...
+
+```{r, fig.height=4, fig.width=7}
+qplot(long, lat, geom = "point", data = states)
+```
+
+## A Bit Better Map
+
+... that are connected with lines in a very specific order.
+
+```{r, fig.height=4, fig.width=7}
+qplot(long, lat, geom = "path", data = states, group = group) + 
+    coord_map()
+```
+
+## Polygon vs Path
+
+```{r, fig.height=4, fig.width=7}
+qplot(long, lat, geom = "polygon", data = states, group = group) + 
+    coord_map()
+```
+
+## Incorporating Information
+
+- Add other geographic information by adding geometric layers to the plot
+- Add non-geopgraphic information by altering the fill color for each state
+    - Use `geom = "polygon"` to treat states as solid shapes
+    - Show numeric information with color shade/intensity
+    - Show categorical information using color hue
+    
+## Categorical Data
+
+If a categorical variable is assigned as the fill color then `qplot` will assign different hues for each category. 
+
+Load in a state regions dataset:
+
+```{r, echo = 2:3}
+statereg <- read.csv("https://srvanderplas.github.io/NPPD-Analytics-Workshop/02.Graphics/data/statereg.csv")
+statereg <- read.csv("https://bit.ly/2i0AFHK")
+head(statereg)
+```
+
+## Joining Data
+
+`join` or `merge` the original states data with new info 
+
+The `left_join` function is used for merging\*\*:
+
+```{r, message = F, warning = F}
+library(dplyr)
+states.class.map <- left_join(states, statereg, by = c("region" = "State"))
+head(states.class.map)
+```
+
+\*\* More on this later
+
+## Plotting the Result
+
+```{r, fig.height=4, fig.width=7}
+qplot(long, lat, geom = "polygon", data = states.class.map, 
+      group = group, fill = StateGroups, colour = I("black")) + 
+    coord_map() 
+```
+
+## Numerical Data & Maps
+
+- Behavioral Risk Factor Surveillance System
+- 2008 telephone survey run by the Center for Disease Control (CDC)
+- Ask a variety of questions related to health and wellness
+- Cleaned data with state aggregated values posted on website
+
+## BRFSS Data Aggregated by State
+
+```{r, echo = 2:3}
+states.stats <- read.csv("https://srvanderplas.github.io/NPPD-Analytics-Workshop/02.Graphics/data/states.stats.csv")
+states.stats <- read.csv("https://bit.ly/2gT95Hc")
+
+head(states.stats)
+```
+
+## Join the data again
+
+```{r, message = F, warning = F}
+states.map <- left_join(states, states.stats, by = c("region" = "state.name"))
+head(states.map)
+```
+
+## Shade and Intensity
+
+Average # of days in the last 30 days of insufficient sleep
+
+```{r, fig.height=3, fig.width=7}
+qplot(long, lat, geom = "polygon", data = states.map, 
+      group = group, fill = avg.qlrest2) + coord_map()
+```
+
+## BRFSS Data by Gender and State
+
+```{r}
+states.sex.stats <- read.csv("https://srvanderplas.github.io/NPPD-Analytics-Workshop/02.Graphics/data/states.sex.stats.csv")
+states.sex.stats <- read.csv("https://bit.ly/2hiKFIb")
+head(states.sex.stats)
+```
+
+## One More Join
+
+```{r, warning = F, message = F}
+states.sex.map <- left_join(states, states.sex.stats, by = c("region" = "state.name"))
+head(states.sex.map)
+```
+
+## Adding Information
+
+Average # of alcoholic drinks per day by state and gender
+
+```{r, fig.height=3, fig.width=7}
+qplot(long, lat, geom = "polygon", data = states.sex.map, 
+      group = group, fill = avg.drnk) + coord_map() + 
+    facet_grid(sex ~ .)
+```
+
+## Your Turn {data-background=#527a7a}
+
+- Use `left_join` to combine child healthcare data with maps information.     
+You can load in the child healthcare data with:
+
+```{r}
+states.health.stats <- read.csv("https://bit.ly/2hRBMq0")
+```
+
+- Use `qplot` to create a map of child healthcare undercoverage rate by state
+
+## Your Turn Solutions {data-background=#527a7a}
+
+```{r, eval = F}
+library(maps)
+library(dplyr)
+states <- map_data("state")
+states.health.map <- left_join(states, states.health.stats, 
+                               by = c("region" = "state.name"))
+
+# Use qplot to create a map of child healthcare undercoverage 
+# rate by state
+	
+qplot(data = states.health.map, x = long, y = lat, 
+      geom = 'polygon', group = group, 
+      fill = no.coverage) + coord_map()
+```
+
+## Your Turn Solutions {data-background=#527a7a}
+
+```{r, eval = T, echo = F, message = F, warning = F}
+library(maps)
+library(dplyr)
+states <- map_data("state")
+states.health.map <- left_join(states, states.health.stats, 
+                               by = c("region" = "state.name"))
+
+# Use qplot to create a map of child healthcare undercoverage rate by state
+	
+qplot(data = states.health.map, x = long, y = lat, geom = 'polygon',
+      group = group, fill = no.coverage) + coord_map()
+```
+## Cleaning Up Your Maps
+
+Use ggplot2 options to clean up your map!
+
+- Adding Titles `+ ggtitle(...)`
+- Might want a plain white background `+ theme_bw()`
+- Extremely familiar geography may eliminate need for latitude and longitude axes `+ theme(...)`
+- Want to customize color gradient `+ scale_fill_gradient2(...)`
+- Keep aspect ratios correct `+ coord_map()`
+
+## Cleaned Up Map
+
+```{r, fig.height=4.28, fig.width=10, eval = F, tidy = F}
+qplot(long, lat, geom = "polygon", data = states.map, 
+      group = group, fill = avg.drnk) + 
+  coord_map() +  theme_bw() +
+  scale_fill_gradient2(
+    name = "Avg Drinks",
+    limits = c(1.5, 3.5), 
+    low = "lightgray", high = "red") + 
+  theme(axis.ticks = element_blank(),
+        axis.text = element_blank(),
+        axis.title = element_blank()) +
+  ggtitle("Average Number of Alcoholic Beverages 
+          Consumed Per Day by State")
+```
+
+## Cleaned Up Map
+```{r, fig.height=4.28, fig.width=10, echo = F}
+qplot(long, lat, geom = "polygon", data = states.map, 
+      group = group, fill = avg.drnk) + 
+  coord_map() +  theme_bw() +
+  scale_fill_gradient2(
+    name = "Avg Drinks",
+    limits = c(1.5, 3.5), 
+    low = "lightgray", high = "red") + 
+  theme(axis.ticks = element_blank(),
+        axis.text = element_blank(),
+        axis.title = element_blank()) +
+  ggtitle("Average Number of Alcoholic Beverages Consumed Per Day by State")
+```
+
+## Your Turn {data-background=#527a7a}
+
+Use options to polish the look of your map of child healthcare undercoverage rate by state!
+
+## Your Turn Solutions {data-background=#527a7a}
+
+```{r, eval = F}
+qplot(data = states.health.map, x = long, y = lat, 
+      geom = 'polygon', group = group, fill = no.coverage) + 
+  coord_map() + 
+  scale_fill_gradient2(
+    name = "Child\nHealthcare\nUndercoverage",
+    limits = c(0, .2), 
+    low = 'white', high = 'red') + 
+  ggtitle("Health Insurance in the U.S.\n
+          Which states have the highest rates 
+          of undercovered children?") +
+  theme_minimal() + 
+  theme(panel.grid = element_blank(), 
+        axis.text = element_blank(),
+        axis.title = element_blank())	
+```
+
+## Your Turn Solutions {data-background=#527a7a}
+
+```{r, echo = F}
+library(maps)
+library(dplyr)
+qplot(data = states.health.map, x = long, y = lat, 
+      geom = 'polygon', group = group, fill = no.coverage) + 
+  coord_map() + 
+  scale_fill_gradient2(
+    name = "Child\nHealthcare\nUndercoverage",
+    limits = c(0, .2), 
+    low = 'white', high = 'red') + 
+  ggtitle("Health Insurance in the U.S.\n
+          Which states have the highest rates of undercovered children?") +
+  theme_minimal() + 
+  theme(panel.grid = element_blank(), 
+        axis.text = element_blank(),
+        axis.title = element_blank())	
+```
