@@ -7,4 +7,4 @@ output: html_document
 - [State Regions](./statereg.csv)
 - [State Stats](./states.stats.csv)
 - [State Sex Stats](./states.sex.stats.csv)
-- [State Health Statts](./states.health.stats.csv)
+- [State Health Stats](./states.health.stats.csv)
