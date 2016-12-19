@@ -1,0 +1,10 @@
+---
+title: "Graphics Data Index"
+output: html_document
+---
+
+- [Tips](./tips.csv)
+- [State Regions](./statereg.csv)
+- [State Stats](./states.stats.csv)
+- [State Sex Stats](./states.sex.stats.csv)
+- [State Health Statts](./states.health.stats.csv)
