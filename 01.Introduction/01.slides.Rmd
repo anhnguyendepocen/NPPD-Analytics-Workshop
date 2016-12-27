@@ -68,13 +68,11 @@ How do these variable influence the amount being tipped?
 
 Follow along using [Tips-Example.R](code/Tips-Example.R)
 
-## First Look at Data in R
+## First Look: Data in R
 
 Load the tips data using `read.csv()`
 
 ```{r, echo = T}
-tips <- read.csv("https://srvanderplas.github.io/NPPD-Analytics-Workshop/01.Introduction/data/tips.csv")
-# Short link:
 tips <- read.csv("https://bit.ly/2fQoMP1")
 ```
 
@@ -125,7 +123,8 @@ Color the points by meal. Is there a difference?
 qplot(tip, total_bill, geom = "point", data = tips, colour = time)
 ```
 
-## Even More Scatterplots
+***
+### Even More Scatterplots
 
 Add a linear regression line to the plot
 
@@ -149,11 +148,12 @@ tips$rate <- tips$tip / tips$total_bill
 summary(tips$rate)
 ```
 
-## Tipping Rate Histogram
+## Tipping Rate 
+### Histogram
 
 What is the distribution of tipping rates? 
 
-```{r, fig.height=4, fig.width=7}
+```{r, fig.height=3, fig.width=7}
 qplot(rate, data = tips, binwidth = .01)
 ```
 
@@ -191,7 +191,7 @@ Boxplots are useful for comparing the distribution of data. Do smokers tip at di
 qplot(smoker, rate, geom = "boxplot", data = tips)
 ```
 
-## Your Turn {data-background=#527a7a}
+## Your Turn {data-background=#527a7a .yourturn}
 
 Try playing with chunks of code from this session to further investigate the tips data:
 
@@ -199,20 +199,20 @@ Try playing with chunks of code from this session to further investigate the tip
 2. Make side by side boxplots of tip rates for different days of the week
 3. Find the average tip value for smokers
 
-## Solutions
+## Solutions {data-background=#527a7a .solutions}
 ### Summary  of Total Bill Values
 ```{r}
 summary(tips$total_bill)
 ```
 
-## Solutions
+## Solutions {data-background=#527a7a .solutions}
 ### Tip Values by Day of the Week
 
 ```{r, fig.height=3, fig.width=7}
 qplot(day, rate, geom = "boxplot", data = tips)
 ```
 
-## Solutions
+## Solutions {data-background=#527a7a .solutions}
 ### Average Tip Value for Smokers
 ```{r}
 mean(tips$tip[tips$smoker == "Yes"])
@@ -357,7 +357,7 @@ rm(T, F) # Fix it!
 
 T == FALSE
 ```
-Note: In R, `T` and `F` are shorthand for `TRUE` and `FALSE` respectively. 
+Note: In R, `T` and `F` are shorthand for `TRUE` and `FALSE`
 
 ## Vectors
 A variable can contain more than one value.    
@@ -402,7 +402,7 @@ head(bill)
 By changing a value to a string, all the other values were changed to strings as well.
 
 
-## Your Turn {data-background=#527a7a}
+## Your Turn {data-background=#527a7a .yourturn}
 
 Using the R Reference Card (and the Help pages, if needed), do the following:
 
@@ -412,8 +412,8 @@ Using the R Reference Card (and the Help pages, if needed), do the following:
 *Hint: "Data Creation" section of the reference card*
 3. Use `rep` to construct this vector: `1 2 3 4 5 1 2 3 4 5 1 2 3 4 5`
 
-## Your Turn Solutions{data-background=#527a7a}
-### Rows and Columns in the `iris` dataset {data-background=#527a7a}
+## Solutions{data-background=#527a7a .solutions}
+### Rows and Columns in the `iris` dataset
 
 ```{r}
 data(iris)
@@ -423,8 +423,8 @@ nrow(iris)
 ncol(iris)
 ```
 
-## Your Turn Solutions{data-background=#527a7a}
-### Rows and Columns in the `iris` dataset {data-background=#527a7a}
+## Solutions{data-background=#527a7a .solutions}
+### Rows and Columns in the `iris` dataset
 
 ```{r}
 # second way: 
@@ -434,7 +434,7 @@ dim(iris)
 str(iris) # look at the top line
 ```
 
-## Solutions{data-background=#527a7a}
+## Solutions{data-background=#527a7a .solutions}
 ### Use `rep` {data-background=#527a7a}
 
 ```{r}
@@ -535,7 +535,7 @@ tips$sex[1:20]
 ```
 
 
-## Your Turn {data-background=#527a7a}
+## Your Turn {data-background=#527a7a .yourturn}
 
 1. Find out how many people tipped over 20%.    
 *Hint: use the `sum` function on a logical vector to calculate how many TRUEs are in the vector:*
@@ -544,7 +544,7 @@ sum(c(TRUE, TRUE, FALSE, TRUE, FALSE))
 ```
 2. **More Challenging**: Calculate the sum of the total bills of anyone who tipped over 20%
 
-## Solutions {data-background=#527a7a}
+## Solutions {data-background=#527a7a .solutions}
 #### How many people tipped over 20% 
 
 ```{r}
@@ -632,7 +632,7 @@ id <- (bill > 40 & rate < .10)
 tips[id,]
 ```
 
-## Your Turn {data-background=#527a7a}
+## Your Turn {data-background=#527a7a .yourturn}
 
 1. Read up on the dataset (`?diamonds`)
 2. Plot price by carat (use qplot - go back to the motivating example for help with the syntax)
@@ -640,24 +640,24 @@ tips[id,]
 4. Make a histogram of all ppc values that exceed $10000 per carat.
 5. Explore any other interesting relationships you find
 
-## Solutions {data-background=#527a7a}
-### Plot price by carat 
+## Solutions {data-background=#527a7a .solutions}
+2. Plot price by carat 
 
 ```{r, fig.height=4, fig.width=7}
 qplot(carat, price, data = diamonds)
 ```
 
-## Solutions {data-background=#527a7a}
-### Create a variable `ppc` for price/carat
+## Solutions {data-background=#527a7a .solutions}
+3. Create a variable `ppc` for price/carat
 
 ```{r}
 diamonds$ppc <- diamonds$price / diamonds$carat
 ```
 
-## Solutions {data-background=#527a7a}
-### Make a histogram of all ppc values that exceed $10000 per carat.
+## Solutions {data-background=#527a7a .solutions}
+4. Make a histogram of all ppc values that exceed $10000 per carat.
 
-```{r, fig.height=4, fig.width=7, tidy = F}
+```{r, fig.height=3, fig.width=7, tidy = F}
 qplot(ppc, geom = "histogram",     
       data = diamonds[diamonds$ppc > 10000,])
 ```
@@ -683,7 +683,7 @@ qplot(ppc, geom = "histogram",
 - `df[i ,]` will select the entire $i^{th}$ row and treat it as a vector
 - Logical vectors can be used in place of i and j used to subset the row and columns
 
-## Adding a new Variable to a Data Frame
+## Adding a New Variable
 
 - Create a new vector that is the same length as other columns
 - Append new column to the data frame using the `$` operator
@@ -743,13 +743,14 @@ names(mydf)[1] <- "nums"
 mydf
 ```
 
-## Your Turn {data-background=#527a7a}
+## Your Turn {data-background=#527a7a .yourturn}
 
 1. Make a data frame with column 1: 1,2,3,4,5,6 and column 2: a,b,a,b,a,b
 2. Select only rows with value "a" in column 2 using logical vector
-3. `mtcars` is a built in data set like `iris`: Extract the 4th row of the `mtcars` data.
+3. `mtcars` is a built in data set like `iris`.     
+Extract the 4th row of the `mtcars` data.
 
-## Solutions {data-background=#527a7a}
+## Solutions {data-background=#527a7a .solutions}
 ### Make a data frame with column 1: 1,2,3,4,5,6 and column 2: a,b,a,b,a,b
 
 ```{r}
@@ -758,7 +759,7 @@ mydf <- data.frame(col1 = 1:6, col2 = rep(c("a", "b"), times = 3))
 mydf
 ```
 
-## Solutions {data-background=#527a7a}
+## Solutions {data-background=#527a7a .solutions}
 ### Select only rows with value "a" in column 2 using logical vector
 
 ```{r}
@@ -767,7 +768,7 @@ mydf[mydf$col2 == "a",]
 mydf
 ```
 
-## Solutions {data-background=#527a7a}
+## Solutions {data-background=#527a7a .solutions}
 ### Extract the 4th row of the `mtcars` data.
 
 ```{r}
@@ -800,27 +801,30 @@ Use indexing to select the second list element:
 mylist[[2]]
 ```
 
-## Your Turn {data-background=#527a7a}
+## Your Turn {data-background=#527a7a .yourturn}
 
 1. Create a list containing a vector and a 2x3 data frame
 2. Use indexing to select the data frame from your list
 3. Use further indexing to select the first row from the data frame in your list
 
-## Your Turn Solutions {data-background=#527a7a}
+## Solutions {data-background=#527a7a .solutions}
 ### Create a list containing a vector and a 2x3 data frame
 
 ```{r}
-mylist <- list(vec = 1:6, df = data.frame(x = 1:2, y = 3:4, z = 5:6))
+mylist <- list(vec = 1:6, 
+               df = data.frame(x = 1:2, 
+                               y = 3:4, 
+                               z = 5:6))
 ```
 
-## Your Turn Solutions {data-background=#527a7a}
+## Solutions {data-background=#527a7a .solutions}
 ### Use indexing to select the data frame from your list
 
 ```{r}
 mylist[[2]]
 ```
 
-## Your Turn Solutions {data-background=#527a7a}
+## Solutions {data-background=#527a7a .solutions}
 ### Select the first row from the data frame in your list
 
 ```{r}
@@ -837,7 +841,8 @@ mylist[[2]][1,]
 - `dim(x)` - View dimensions of object 
 - `length(x)` - Returns the length of a vector
 
-## Examining Objects Example
+## Examining Objects
+### Example
 
 Examine the first two values of an object by passing the `n` parameter to the `head` function:
 
@@ -846,7 +851,8 @@ head(diamonds, n = 2) # first 2 rows of diamonds data frame
 tail(diamonds, n = 2) # last 2 rows of diamonds data frame
 ```
 
-## Examining Objects Example
+## Examining Objects
+### Example
 
 What's the structure of the object?
 
@@ -855,7 +861,8 @@ str(diamonds) # structure of diamonds data frame
 str(mylist) # structure of mylist list
 ```
 
-## Examining Objects Example
+## Examining Objects
+### Example
 
 How does R summarize objects?
 ```{r}
@@ -863,7 +870,8 @@ summary(diamonds) # summarize each column in diamonds
 summary(mylist) # summarize mylist - # values in each item in the list
 ```
 
-## Examining Objects Example
+## Examining Objects
+### Example
 
 What are the dimensions of the object?
 ```{r}
@@ -874,7 +882,7 @@ length(diamonds) # diamonds is a data frame with 10 columns (or really, a list w
 length(mylist) # mylist has 2 objects
 ```
 
-## Your Turn {data-background=#527a7a}
+## Your Turn {data-background=#527a7a .yourturn}
 
 1. View the top 8 rows of mtcars data
 2. What type of object is the mtcars data set?
@@ -882,29 +890,29 @@ length(mylist) # mylist has 2 objects
 4. Summarize the values in each column in iris data set
 
 
-## Your Turn Solutions {data-background=#527a7a}
-### View the top 8 rows of mtcars data
+## Solutions {data-background=#527a7a .solutions}
+1. View the top 8 rows of mtcars data
 
 ```{r}
 head(mtcars, n = 8)
 ```
 
-## Your Turn Solutions {data-background=#527a7a}
-### What type of object is the mtcars data set?
+## Solutions {data-background=#527a7a .solutions}
+2. What type of object is the mtcars data set?
 
 ```{r}
 str(mtcars)
 ```
   
-## Your Turn Solutions {data-background=#527a7a}
-### How many rows are in iris data set? (try finding this using dim or indexing + length)
+## Solutions {data-background=#527a7a .solutions}
+3. How many rows are in iris data set? (try finding this using dim or indexing + length)
 
 ```{r}
 dim(iris)
 ```
 
-## Your Turn Solutions {data-background=#527a7a}
-### Summarize the values in each column in iris data set
+## Solutions {data-background=#527a7a .solutions}
+4. Summarize the values in each column in iris data set
 
 ```{r}
 summary(iris)
@@ -962,21 +970,21 @@ It is generally necessary to import data in to R rather than just using built-in
     - the `readr` package has "smarter" versions of these functions and may be more useful
 - Assign the data to new R object when reading in the file
 
-## Importing Data Demo
+## Importing Data
 
-First, create a csv file. We can use a text editor, excel... Then we load it in:
+First, create a csv file. Use a text editor, excel... Then load it in:
 
 ```{r, eval=FALSE}
 littledata <- read.csv("PretendData.csv")
 ```
 
-## Your Turn {data-background=#527a7a}
+## Your Turn {data-background=#527a7a .yourturn}
 
 - Make 5 rows of data in an excel spreadsheet and save it as a *tab-delimited txt file*.
 - Import this new .txt file into R with `read.table`. You may need to look at the help page for `read.table` in order to properly do this.
 
 
-## Your Turn Solutions {data-background=#527a7a}
+## Solutions {data-background=#527a7a .solutions}
 [Excel Spreadsheet](./data/Fun Webcomics.xlsx)
 
 ```{r}
