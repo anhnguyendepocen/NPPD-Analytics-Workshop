@@ -1037,6 +1037,7 @@ ggplot(movies, aes(x = year, y = budget,
                    group = genre, color = genre)) + 
   geom_point()
 ```
+
 There's a lot of "mush" - it's hard to see individual points. 
 
 ```{r, warning = F}
