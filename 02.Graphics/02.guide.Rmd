@@ -1,3 +1,5 @@
+
+```{r }
 ---
 title: "Graphics in R"
 output:
@@ -1200,3 +1202,5 @@ Here are the links to the saved plots:
 [diamonds.pdf](diamonds.pdf)
 
 [diamonds.png](diamonds.png)
+```
+
