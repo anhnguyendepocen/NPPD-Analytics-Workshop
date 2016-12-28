@@ -180,6 +180,14 @@ qplot(long, lat, geom = "polygon", data = states, group = group) +
   coord_map()
 ```
 
+## Polygon vs Path
+```{r, fig.height = 4, fig.width = 7}
+qplot(long, lat, geom = "polygon", 
+      fill = I("white"), color = I("black"),
+      data = states, group = group) + 
+  coord_map()
+```
+
 ## Incorporating Information
 
 - Add other geographic information by adding geometric layers to the plot
