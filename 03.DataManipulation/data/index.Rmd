@@ -1,0 +1,8 @@
+---
+title: "Data Manipulation Data Index"
+output: html_document
+---
+
+- [midwest.csv](./midwest.csv)
+- [midwest.xls](./midwest.xls)
+
