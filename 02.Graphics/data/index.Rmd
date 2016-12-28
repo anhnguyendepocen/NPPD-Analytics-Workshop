@@ -4,7 +4,14 @@ output: html_document
 ---
 
 - [Tips](./tips.csv)
+
 - [State Regions](./statereg.csv)
 - [State Stats](./states.stats.csv)
 - [State Sex Stats](./states.sex.stats.csv)
 - [State Health Stats](./states.health.stats.csv)
+
+- [NOAA data](./noaa.rdata)
+- [Animal Data](./animal.csv)
+
+- [Movie Data](./MovieSummary.csv)
+
