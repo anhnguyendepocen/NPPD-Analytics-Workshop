@@ -427,20 +427,22 @@ states <- map_data("state")
 ![](images/satelitepicBPoilspill.png)
 
 ## Datasets
-NOAA Data:
-- National Oceanic and Administration 
-- Temperature and Salinity Data in the Gulf of Mexico
+
+#### NOAA Data:
+
+- National Oceanic and Admin. 
+- Temperature and Salinity in the Gulf of Mexico
 - Measured using Floats, Gliders and Boats
 
+## Datasets
 
-US Fisheries and Wildlife Data:
+#### US Fisheries and Wildlife Data:
 
 - Animal Sightings on the Gulf Coast
 - Birds, Turtles and Mammals
 - Status: Oil Covered or Not
 
 Both data sets have geographic coordinates for every observation
-
 
 ## Loading NOAA Data
 
