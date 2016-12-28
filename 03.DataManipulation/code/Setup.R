@@ -1,4 +1,4 @@
-pkgs <- c("ggplot2", "dplyr", "plyr", "tidyr", "readxl", "foreign", "lubridate", "magrittr")
+pkgs <- c("ggplot2", "dplyr", "plyr", "tidyr", "readxl", "foreign", "lubridate", "magrittr", "devtools")
 
 # List all installed packages
 installed.pkgs <- installed.packages()
@@ -11,9 +11,12 @@ if (length(pkgs) > 0) {
   install.packages(pkgs)
 }
 
+devtools::install_github("garrettgman/DSR")
+
 library(ggplot2)
 library(dplyr)
 library(tidyr)
 library(readxl)
 library(foreign)
 library(lubridate)
+library(DSR)
