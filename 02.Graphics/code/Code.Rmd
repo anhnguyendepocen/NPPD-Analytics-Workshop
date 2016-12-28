@@ -10,3 +10,8 @@ output:
 ---
 
 - [Setup](Setup.R)
+- [Basic Plots](BasicPlots.R)
+- [Plotting Map Data](MapData.R)
+- [Layers](Layers.R)
+- [Perception](Perception.R)
+- [Polishing Plots](Polishing.R)
