@@ -1056,16 +1056,19 @@ Color is context-sensitive:
 
 ## More Color
 
-Color is context-sensitive: A and B are the same intensity and hue, but appear to be different.
+Color is context-sensitive: 
 
 ![](images/shadowillusion.png)
 
+A and B are the same intensity and hue, but appear to be different.
+
 ## More Color
 
-Color is context-sensitive: A and B are the same intensity and hue, but appear to be different.
+Color is context-sensitive: 
 
 ![](images/shadowillusionProof.png)
 
+A and B are the same intensity and hue, but appear to be different.
 
 ## Gradients
 
@@ -1105,10 +1108,12 @@ qplot(xmin = x-.5, xmax = x+.5, ymin = 0, ymax = 1, data = data, geom = "rect", 
 
 ## More Gradients
 
-Quantitative schemes: use color gradient with two hues for positive and negative values. Gradient should go through a light, neutral color (white)
+Quantitative schemes: use color gradient with two hues for positive and negative values.    
+Gradient should go through a light, neutral color (white) corresponding to 0.
 
 ```{r, echo=FALSE, fig.width=7, fig.height=1.5}
-qplot(xmin = x-.5, xmax = x+.5, ymin = 0, ymax = 1, data = data, geom = "rect", color = I("black"), fill = diverge) + 
+qplot(xmin = x - .5, xmax = x + .5, ymin = 0, ymax = 1, 
+      data = data, geom = "rect", color = I("black"), fill = diverge) + 
     scale_fill_identity() + 
     ylab("") + 
     xlab("") + 
