@@ -448,7 +448,7 @@ Both data sets have geographic coordinates for every observation
 
 NOAA data is a .rdata file. Read it in:
 
-1. Download the data from http://heike.github.io/rwrks/02-r-graphics/data/noaa.rdata
+1. Download the data [here](https://srvanderplas.github.io/NPPD-Analytics-Workshop/02.Graphics/data/noaa.rdata)
 2. Run the `getwd()` command to find your current working directory
 3. Place noaa.rdata in the directory from step 2.
 4. Run the command below:
