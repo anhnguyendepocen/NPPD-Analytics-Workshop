@@ -1,5 +1,3 @@
-
-```{r }
 ---
 title: "Graphics in R"
 output:
@@ -1162,23 +1160,21 @@ p + theme(
 The `ggsave()` function will save the last plot produced:
 
 ```{r, eval=F}
-qplot(price, carat, data = diamonds)
+qplot(total_bill, tip, data = tips)
 
-ggsave("diamonds.png")
-ggsave("diamonds.pdf")
-ggsave("diamonds.png", width = 6, height = 6)
+ggsave("tips.png")
+ggsave("tips.pdf")
+ggsave("tips.png", width = 6, height = 6)
 ```
 ```{r, echo = F, fig.height = 3, collapse = T, fig.show = 'hold'}
-
-qplot(price, carat, data = diamonds)
-
+qplot(total_bill, tip, data = tips)
 ```
 
 It is also possible to tell it which plot to save explicitly:
 
 ```{r, eval=FALSE}
-dplot <- qplot(carat, price, data = diamonds)
-ggsave("diamonds.png", plot = dplot, dpi = 72)
+dplot <- qplot(total_bill, tip, data = tips)
+ggsave("tips.png", plot = dplot, dpi = 72)
 ```
 
 ## Your Turn
@@ -1202,5 +1198,4 @@ Here are the links to the saved plots:
 [diamonds.pdf](diamonds.pdf)
 
 [diamonds.png](diamonds.png)
-```
 
