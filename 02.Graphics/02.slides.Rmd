@@ -374,7 +374,7 @@ qplot(long, lat, geom = "polygon", data = states.map,
 
 Use options to polish the look of your map of child healthcare undercoverage rate by state!
 
-## Solutions  {class=solutions,}
+## Solutions  {class=solutions data-background=#527a7a}
 ```{r, eval = F}
 qplot(data = states.health.map, x = long, y = lat, 
       geom = 'polygon', group = group, fill = no.coverage) + 
@@ -392,7 +392,7 @@ qplot(data = states.health.map, x = long, y = lat,
         axis.title = element_blank())	
 ```
 
-## Solutions {.solutions  data-background=#527a7a}
+## Solutions {.solutions data-background=#527a7a}
 
 ```{r, echo = F}
 library(maps)
@@ -751,7 +751,7 @@ ggplot() +
                                 color = Condition)) + 
   xlim(c(-91, -80)) + ylim(c(24,32)) + coord_map()
 ```
-## Solutions{class=solutions,}
+## Solutions{class=solutions data-background=#527a7a}
 
 3. On this plot, try to color points by class of animal and/or status of animal
 ```{r, echo=F, warning=FALSE}
