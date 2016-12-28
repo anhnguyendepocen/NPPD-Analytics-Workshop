@@ -18,6 +18,12 @@ knitr::opts_chunk$set(echo = T, comments = T, collapse = T, cache = T)
 
 # Reading in Data
 
+## Setup
+
+```{r, eval = T}
+# Setup.R file
+source("https://bit.ly/2i8sicn")
+```
 
 ## Data in Excel
 
@@ -180,4 +186,270 @@ and read it in to R.
 # download.file("http://support.minitab.com/en-us/datasets/PaintHardness.MTW", "paint.MTW")
 # library(foreign)
 # demographic.vars <- read.mtp("paint.MTW")
+```
+
+# Summarizing Data
+
+## Baseball Data
+
+- The `plyr` package contains the data set `baseball`
+- seasonal batting statistics of all major league players (through 2007)
+ 
+```{r}
+data(baseball, package = "plyr")
+help(baseball, package = "plyr")
+head(baseball)
+```
+
+## Baseball Data
+
+- Goal: create career summary statistics for each player
+- Plan: subset on a player, and compute statistics
+
+```{r}
+ss <- subset(baseball, id == "sosasa01")
+head(ss, 3)
+mean(ss$h / ss$ab)
+```
+
+There should be an **automatic** way to calculate this.
+
+
+## `for` loops
+
+- Idea: repeat the same (set of) statement(s) for each element of an index set
+- Setup: 
+    - Introduce counter variable (sometimes named `i`)
+    - Reserve space for results
+- Generic Code:
+
+```{r, eval=FALSE}
+result <- rep(NA, length(indexset))
+for (i in indexset) {
+  ... some statements ...
+  result[i] <- ...
+}
+```
+    
+## `for` loops for Baseball
+
+- Index set: player id
+- Setup: 
+
+```{r}
+players <- unique(baseball$id)
+n <- length(players)
+
+ba <- rep(NA, n)
+
+for (i in 1:n) {
+  career <- subset(baseball, id == players[i])
+  ba[i] <- with(career, mean(h / ab, na.rm = TRUE))
+}
+
+summary(ba)
+```
+
+## `for` loops for Baseball
+
+- Index set: player id
+- `i = 0`: 
+
+```{r}
+players <- unique(baseball$id)
+n <- length(players)
+
+ba <- rep(NA, n)
+
+head(ba)
+```
+
+## `for` loops for Baseball
+
+- Index set: player id
+- `i = 1`: 
+
+```{r}
+players <- unique(baseball$id)
+
+ba <- rep(NA, length(players))
+
+for (i in 1:1) {
+  career <- subset(baseball, id == players[i])
+  ba[i] <- with(career, mean(h / ab, na.rm = TRUE))
+}
+
+head(ba)
+```
+
+## `for` loops for Baseball
+
+- Index set: player id
+- `i = 2`: 
+
+```{r}
+players <- unique(baseball$id)
+
+ba <- rep(NA, length(players))
+
+for (i in 1:2) {
+  career <- subset(baseball, id == players[i])
+  ba[i] <- with(career, mean(h / ab, na.rm = TRUE))
+}
+
+head(ba)
+```
+
+
+## `for` loops for Baseball
+
+- Index set: player id
+- `i = 3`: 
+
+```{r}
+players <- unique(baseball$id)
+
+ba <- rep(NA, length(players))
+
+for (i in 1:3) {
+  career <- subset(baseball, id == players[i])
+  ba[i] <- with(career, mean(h / ab, na.rm = TRUE))
+}
+
+head(ba)
+```
+
+
+## Your Turn {.yourturn data-background=#527a7a}
+
+- MLB rules for the greatest all-time hitters are that players have to have played 
+    - at least 1000 games 
+    - with at least 1000 at-bats in order to be considered
+- Extend the for loop above to collect the additional information
+- Introduce and collect data for two new variables: `games` and `atbats`
+
+## Solution {.solutions data-background=#527a7a}
+
+```{r}
+library(dplyr)
+data(baseball, package = "plyr")
+
+
+players <- unique(baseball$id) 
+ba <- rep(NA, length(players)) 
+games <- rep(NA, length(players)) 
+atbats <- rep(NA, length(players)) 
+for (i in 1:length(players)) { 
+  career <- subset(baseball, id == players[i]) 
+  ba[i] <- with(career, mean(h / ab, na.rm = TRUE)) 
+  games[i] <- with(career, sum(g, na.rm = TRUE))
+  atbats[i] <- with(career, sum(ab, na.rm = TRUE))
+}
+	
+```
+
+
+***
+### How did it go? What was difficult?
+
+- Household chores (declaring variables, setting values each time) distract from real work
+- Indices are error-prone
+- Loops often result in slow code because R can compute quantities using entire vectors in an optimized way
+
+## Summarise
+
+A special function: `summarise` or `summarize`
+
+```{r, message=FALSE}
+library(dplyr)
+
+baseball <- read.csv("https://bit.ly/2iFyIwL")
+
+summarise(baseball,
+          ba = mean(h / ab, na.rm = TRUE),
+          games = sum(g, na.rm = TRUE),
+          hr = sum(hr, na.rm = TRUE),
+          ab = sum(ab, na.rm = TRUE))
+```
+
+## More Summarise
+
+```{r}
+summarise(subset(baseball, id == "sosasa01"), 
+          ba = mean(h / ab, na.rm = TRUE),
+          games = sum(g, na.rm = TRUE),
+          hr = sum(hr, na.rm = TRUE),
+          ab = sum(ab, na.rm = TRUE))
+```
+
+## `dplyr` + `Summarise`
+
+- A powerful combination to create summary statistics
+
+```{r}
+careers <- summarise(group_by(baseball, id),
+                 ba = mean(h / ab, na.rm = TRUE),
+                 games = sum(g, na.rm = TRUE),
+                 homeruns = sum(hr, na.rm = TRUE),
+                 atbats = sum(ab, na.rm = TRUE))
+
+head(careers)
+```
+
+## Pipes
+Rather than nesting functions(inside(each(other))), use a pipe `%>%`:
+```{r}
+careers <- baseball %>%
+  group_by(id) %>%
+  summarize(
+    ba = mean(h / ab, na.rm = TRUE),
+    games = sum(g, na.rm = TRUE),
+    homeruns = sum(hr, na.rm = TRUE),
+    atbats = sum(ab, na.rm = TRUE)
+  )
+```
+
+Pipes make code more readable and easier to understand.
+
+## Pipes
+`a %>% function(b)`    
+is the same as     
+`function(a, b)`:
+
+the piped variable is substituted for the first function argument. 
+
+## Your Turn {.yourturn data-background=#527a7a}
+
+- Find some summary statistics for each of the teams (variable `team`)
+    - How many different (`unique`) players has the team had?
+    - What was the team's first/last season?
+- Challenge: Find the number of players on each team over time. Does the number change?
+
+
+## Solutions {.solutions data-background=#527a7a}
+1. Find some summary stats for each of the teams (`team`)
+    - How many `unique` players has the team had?
+    - What was the team's first/last season?
+```{r}
+baseball %>% 
+  group_by(team) %>% 
+  summarise(
+    nplayer = length(unique(id)), 
+    first = min(year), 
+    last = max(year))
+```
+
+
+## Solutions {.solutions data-background=#527a7a}
+2. Challenge: Find the number of players on each team over time. Does the number change?
+
+```{r, echo = 1, fig.width = 7, fig.height = 3}
+players.per.year <- baseball %>% 
+  group_by(team, year) %>% 
+  summarize(nplayer = n()) 
+
+ggplot(data = players.per.year) + 
+  geom_point(aes(x = year, y = nplayer, color = team)) + 
+  geom_smooth(aes(x = year, y = nplayer)) + 
+  scale_color_discrete(guide = F)
 ```
