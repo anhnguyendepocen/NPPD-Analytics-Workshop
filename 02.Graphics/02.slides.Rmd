@@ -474,7 +474,7 @@ head(floats, n = 2)[,6:10]
 head(floats, n = 2)[,11:14]
 ```
 
-## Floats Plot
+## Floats
 
 ```{r, fig.height=4, fig.width=7}
 qplot(Longitude, Latitude, color = callSign, data = floats) + 
