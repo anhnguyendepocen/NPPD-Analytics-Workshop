@@ -1,4 +1,4 @@
-pkgs <- c("ggplot2", "dplyr", "plyr", "tidyr", "readxl", "foreign", "lubridate", "magrittr")
+pkgs <- c("ggplot2", "dplyr", "plyr", "tidyr", "readxl", "foreign", "lubridate", "magrittr", "DSR")
 
 # List all installed packages
 installed.pkgs <- installed.packages()
