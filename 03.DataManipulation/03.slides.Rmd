@@ -1,13 +1,183 @@
 ---
 title: "Data Manipulation in R"
 output: 
-    revealjs::revealjs_presentation:
-        transition: fade
-        theme: white
-        highlight: zenburn
-        css: ../css/slides.css
+  revealjs::revealjs_presentation:
+    includes:
+      in_header: header.html
+    transition: fade
+    theme: white
+    highlight: zenburn
+    reveal_options:
+      slideNumber: true
+      previewLinks: true
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = T, comments = T, collapse = T)
+knitr::opts_chunk$set(echo = T, comments = T, collapse = T, cache = T)
+```
+
+# Reading in Data
+
+
+## Data in Excel
+
+Formats xlsx and csv - what's the difference?
+
+- File extensions xls and xlsx are proprietary Excel formats, binary files
+- csv is an extension for Comma Separated Value files. They are text files - directly readable.
+
+- Example: Gas prices in midwest since 1994
+
+
+## Gas Prices in the Midwest
+
+```{r, echo = 2:3}
+midwest <- read.csv("https://srvanderplas.github.io/NPPD-Analytics-Workshop/03.DataManipulation/data/midwest.csv")
+midwest <- read.csv("https://bit.ly/2hwWiQ8")
+head(midwest)
+```
+
+
+## Gas Prices
+
+```{r}
+str(midwest)
+```
+
+There is clearly some work to be done...
+
+***
+### `read.csv` vs. `read.table`
+
+`read.csv` is really just a wrapper for `read.table` with certain parameters set:
+
+```{r}
+read.csv
+```
+
+So to properly read in this data, it's probably best to use `read.table` directly
+
+```{r, eval=FALSE}
+?read.table
+```
+
+
+## Your Turn {.yourturn  data-background=#527a7a}
+
+Have a look at the parameters of read.table (?read.table) to solve the following problems:
+
+1. Read the first two lines of the file into an object called `midwest_names`
+2. Read everything EXCEPT the first two lines into an object called `midwest_data`
+
+```{r, echo=FALSE}
+midwest_names <- read.table("https://bit.ly/2hwWiQ8", nrows = 2, sep = ",", stringsAsFactors = FALSE)
+midwest_data <- read.table("https://bit.ly/2hwWiQ8", skip = 2, sep = ",", stringsAsFactors = FALSE)
+```
+
+## Solutions {.solutions  data-background=#527a7a}
+1. Read the first two lines of the file into an object called `midwest_names`
+```{r}
+midwest_names <- read.table("https://bit.ly/2hwWiQ8", 
+                            nrows = 2, sep = ",", 
+                            stringsAsFactors = FALSE)
+```
+
+2. Read everything EXCEPT the first two lines into an object called `midwest_data`
+```{r}
+midwest_data <- read.table("https://bit.ly/2hwWiQ8", 
+                           skip = 2, sep = ",", 
+                           stringsAsFactors = FALSE)
+```
+
+
+## Demo: Data Cleaning
+
+```{r, warning=FALSE, message=FALSE}
+values <- c(midwest_data$V3, midwest_data$V5, midwest_data$V7, 
+            midwest_data$V9, midwest_data$V11)
+dates <- c(paste(midwest_data$V1, midwest_data$V2, sep = "-"), 
+           paste(midwest_data$V1, midwest_data$V4, sep = "-"),
+           paste(midwest_data$V1, midwest_data$V6, sep = "-"),
+           paste(midwest_data$V1, midwest_data$V8, sep = "-"),
+           paste(midwest_data$V1, midwest_data$V10, sep = "-"))
+
+dates <- dates[!is.na(values)]
+values <- values[!is.na(values)]
+
+library(lubridate)
+dates <- ymd(dates)
+
+midwest_gas <- data.frame(date = dates, price = values)
+midwest_gas <- midwest_gas[with(midwest_gas, order(date)), ]
+```
+
+\*\* A better way to do this will be shown later \*\*
+
+## Make a plot
+```{r, warning=FALSE, message=FALSE, fig.width=7, fig.height=4}
+library(ggplot2)
+qplot(date, price, data = midwest_gas, geom = "line")
+```
+
+
+## Reading Excel Data
+
+```{r, eval=FALSE}
+library(readxl)
+download.file(url = "http://bit.ly/2ihV8Ye", 
+              destfile = "midwest.xls")
+
+midwest2 <- read_excel("midwest.xls")
+# Fix name issues
+names(midwest2) <- make.names(names(midwest2))
+head(midwest2, 4)
+```
+
+```{r, echo=FALSE}
+library(readxl)
+
+midwest2 <- read_excel("./data/midwest.xls")
+names(midwest2) <- make.names(names(midwest2))
+head(midwest2, 4)
+```
+
+
+## `foreign` Package
+
+Other file formats can be read using the functions from package `foreign`
+
+- SPSS: `read.spss`
+- SAS: `read.xport`
+- Minitab: `read.mtp`
+
+
+## Your Turn {.yourturn  data-background=#527a7a}
+
+The NHANES (National Health and Nutrition Survey) publishes data in the SAS xport format:
+
+http://wwwn.cdc.gov/Nchs/Nhanes/Search/nhanes13_14.aspx
+
+1. Scroll to the bottom, choose one of the datasets (Demographics, Examination, etc.). Download the Data file (XPT)
+2. Use `read.xport()` to load the file into R
+
+## Solutions {.solutions  data-background=#527a7a}
+```{r, eval = F}
+download.file("https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/DEMO_H.XPT", "DEMO.XPT")
+library(foreign)
+demographic.vars <- read.xport("DEMO.XPT")
+```
+
+## Your Turn {.yourturn  data-background=#527a7a}
+
+MINITAB publishes several sample data sets. Download the Paint hardness data
+
+http://support.minitab.com/en-us/datasets/PaintHardness.MTW
+
+and read it in to R.
+
+## Solutions {.solutions  data-background=#527a7a}
+```{r}
+# download.file("http://support.minitab.com/en-us/datasets/PaintHardness.MTW", "paint.MTW")
+# library(foreign)
+# demographic.vars <- read.mtp("paint.MTW")
 ```
