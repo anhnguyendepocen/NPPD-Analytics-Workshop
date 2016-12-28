@@ -8,3 +8,4 @@ output: html_document
 
 - [baseball.csv](./baseball.csv)
 
+- [TB Data (Excel)](./TB_Cases.xlsx)

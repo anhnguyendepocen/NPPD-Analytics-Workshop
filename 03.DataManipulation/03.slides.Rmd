@@ -348,13 +348,13 @@ for (i in 1:length(players)) {
 	
 ```
 
-
 ***
 ### How did it go? What was difficult?
 
 - Household chores (declaring variables, setting values each time) distract from real work
 - Indices are error-prone
 - Loops often result in slow code because R can compute quantities using entire vectors in an optimized way
+
 
 ## Summarise
 
@@ -453,3 +453,16 @@ ggplot(data = players.per.year) +
   geom_smooth(aes(x = year, y = nplayer)) + 
   scale_color_discrete(guide = F)
 ```
+
+# Transforming and Analyzing Data
+
+## Data Housekeeping
+
+80% of data analysis is spent on the process of cleaning and preparing the data.
+
+[![NY Times Data Cleaning Article Title](./images/NYTDataCleaning.png)](https://www.nytimes.com/2014/08/18/technology/for-big-data-scientists-hurdle-to-insights-is-janitor-work.html)
+
+“Tidy datasets are all alike but every messy dataset is messy in its own way.” – Hadley Wickham
+
+## `dplyr` and `tidyr`
+
