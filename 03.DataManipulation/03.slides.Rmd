@@ -418,6 +418,11 @@ is the same as
 
 the piped variable is substituted for the first function argument. 
 
+If the argument passed in is not the first argument, use `.`:    
+`b %>% function(a, .)`    
+is the same as    
+`function(a, b)`
+
 ## Your Turn {.yourturn data-background=#527a7a}
 
 - Find some summary statistics for each of the teams (variable `team`)
@@ -464,5 +469,245 @@ ggplot(data = players.per.year) +
 
 “Tidy datasets are all alike but every messy dataset is messy in its own way.” – Hadley Wickham
 
-## `dplyr` and `tidyr`
 
+## French Fries
+During a ten week sensory experiment, 12 individuals were asked to assess taste of french fries on several scales:
+
+How ____ do the fries taste?
+
+- potato-y
+- buttery
+- grassy
+- rancid
+- paint-y
+
+## French Fries
+
+- 3 different oils
+- 2 replicates
+- 12 individuals
+- 10 weeks
+- 5 qualities to rate
+
+Each week, each individual tasted 6 batches of french fries. 
+
+```{r}
+french_fries <- read.csv("https://bit.ly/2hOI890")
+head(french_fries)
+```
+
+## Issues
+
+This format is not ideal for data analysis
+
+```{r, fig.width=7, fig.height=2, warning=FALSE}
+library(ggplot2)
+
+qplot("1_buttery", buttery, data = french_fries, fill = I("red"), geom = "boxplot") +
+    geom_boxplot(aes(x = "2_grassy", y = grassy), fill = I("orange")) +
+    geom_boxplot(aes(x = "3_painty", y = painty), fill = I("yellow")) +
+    geom_boxplot(aes(x = "4_potato", y = potato), fill = I("green")) +
+    geom_boxplot(aes(x = "5_rancid", y = rancid), fill = I("blue")) +
+    xlab("variable") + ylab("rating")
+```
+
+
+## Tidy Data
+
+Data which follows these rules is "tidy" and easier to work with in R:
+
+- Each variable in the data set is placed in its own column
+- Each observation is placed in its own row
+- Each value is placed in its own cell
+
+## Ideal Data
+
+The french fry data is in **wide format** 
+
+![Wide Format](images/tableoverview.png)
+
+and should be in **long format** for plotting
+
+![Long Format](images/tablelong.png)
+
+This is done using the `gather` function.
+
+## Gathering
+
+When gathering, specify the **keys** (identifiers) and the **values** (measures).
+
+### Keys/Identifiers:
+
+- Identify a record (must be unique)
+- Example: Indices on an random variable
+- Fixed by design of experiment (known in advance)
+- May be single or composite (may have one or more variables)
+
+## Gathering 
+
+When gathering, specify the **keys** (identifiers) and the **values** (measures).
+
+#### Values/Measures:
+
+- Collected during the experiment (not known in advance)
+- Usually numeric quantities
+
+
+## Gathering 
+### French Fry Data
+
+```{r}
+library(tidyr)
+
+french_fries_long <- gather(french_fries, 
+                            key = variable, 
+                            value = rating, 
+                            potato:painty)
+
+head(french_fries_long)
+```
+
+## Gathering
+Plotting is much easier with long format data:
+
+```{r, fig.width=7, fig.height=3.5, warning=FALSE}
+qplot(variable, rating, data = french_fries_long, 
+      fill = variable, geom = "boxplot")
+```
+
+## Long to Wide
+
+In certain applications, a wide dataset may be preferable (e.g. to display in a table).
+
+```{r}
+head(french_fries_long)
+```
+
+
+## Spread
+
+The `spread` function (from `tidyr`) is used to do this:
+
+```{r}
+french_fries_wide <- spread(french_fries_long, 
+                            key = variable, value = rating)
+
+head(french_fries_wide)
+```
+
+
+## Your Turn {.yourturn data-background=#527a7a}
+
+```{r}
+billboard <- read.csv("https://bit.ly/2hQGDao")
+```
+
+1. Read in the billboard top 100 music data
+2. Use `tidyr` to convert this data into a long format.
+3. Use ``ggplot2`` to create this time series plot:
+
+```{r, echo=FALSE, fig.width=7, fig.height=3, warning=FALSE}
+long_billboard <- gather(billboard, key = week, value = rank, X1:X76)
+long_billboard$week <- as.numeric(gsub("X", "", long_billboard$week))
+
+qplot(week, rank, data = long_billboard, geom = "line", colour = artist, group = track) +
+    xlim(c(0, 30))
+```
+
+## Solutions {.yourturn data-background=#527a7a}
+2. Use `tidyr` to convert this data into a long format.
+```{r}
+long_billboard <- gather(billboard, 
+                         key = week, value = rank, 
+                         X1:X76)
+
+# Convert weeks to numeric variables
+long_billboard$week <- long_billboard$week %>%
+  gsub("X", "", .) %>%
+  as.numeric()
+```
+
+
+## Solutions {.yourturn data-background=#527a7a}
+3. Use `ggplot2` to create this time series plot:
+```{r, fig.width=7, fig.height=3, warning=FALSE}
+qplot(x = week, y = rank, 
+      colour = artist, group = track, 
+      data = long_billboard, geom = "line") +
+    xlim(c(0, 30))
+```
+
+
+## Split-Apply-Combine
+
+- *Split* a dataset into many smaller sub-datasets
+- *Apply* some function to each sub-dataset to compute a result
+- *Combine* the results of the function calls into a one dataset
+
+<img src="images/sac.png" width=500></img>
+
+## Split-Apply-Combine
+### Using `dplyr`
+
+```{r, message=FALSE, warning=FALSE}
+library(dplyr)
+
+french_fries_rating <- french_fries_long %>%
+  # SPLIT:
+  group_by(variable) %>% 
+  # APPLY + COMBINE:
+  summarize(rating = mean(rating, na.rm = T)) 
+
+french_fries_rating
+```
+
+
+## `dplyr` verbs
+
+There are five primary `dplyr` **verbs**, representing distinct data analysis tasks:
+
+- `filter`: Remove the rows of a data frame, producing subsets
+- `arrange`: Reorder the rows of a data frame
+- `select`: Select particular columns of a data frame
+- `mutate`: Add new columns that are functions of existing columns
+- `summarise`: Create collapsed summaries of a data frame
+    
+## Filter
+
+```{r}
+french_fries %>%
+    filter(subject == 3, time == 1)
+```
+
+## Arrange
+
+```{r}
+french_fries %>%
+    arrange(desc(rancid)) %>%
+    head
+```
+
+## Select
+
+```{r}
+french_fries %>%
+    select(time, treatment, subject, rep, potato) %>%
+    head
+```
+
+## Mutate
+
+```{r}
+french_fries %>%
+    mutate(rancid2 = rancid^2) %>%
+    head
+```
+
+## Summarise
+
+```{r}
+french_fries %>%
+    group_by(time, treatment) %>%
+    summarise(mean_rancid = mean(rancid), 
+              sd_rancid = sd(rancid))
+```
