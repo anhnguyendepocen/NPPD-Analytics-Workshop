@@ -10,4 +10,4 @@ output: html_document
 
 - [French Fry Data](./frenchfries.csv)
 - [Billboard Data](./billboard.csv)
-- [TB Data (Excel)](./TB_Cases.xlsx)
+- [Flights Data](./flights.csv)
