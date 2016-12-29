@@ -12,3 +12,4 @@ output:
 - [Setup](Setup.R)
 - [Reading In Data](ReadingInData.R)
 - [Summarizing Data](SummarizingData.R)
+- [Transforming and Analyzing Data](TransformingAndAnalyzingData.R)
