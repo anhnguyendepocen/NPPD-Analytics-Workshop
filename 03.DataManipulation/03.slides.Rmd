@@ -625,6 +625,9 @@ long_billboard <- gather(billboard,
 long_billboard$week <- long_billboard$week %>%
   gsub("X", "", .) %>%
   as.numeric()
+
+# Get rid of NAs:
+long_billboard <- long_billboard %>% na.omit()
 ```
 
 
@@ -633,18 +636,18 @@ long_billboard$week <- long_billboard$week %>%
 ```{r, fig.width=7, fig.height=3, warning=FALSE}
 qplot(x = week, y = rank, 
       colour = artist, group = track, 
-      data = long_billboard, geom = "line") +
-    xlim(c(0, 30))
+      data = long_billboard, geom = "line")
 ```
 
 
 ## Split-Apply-Combine
 
 - *Split* a dataset into many smaller sub-datasets
-- *Apply* some function to each sub-dataset to compute a result
-- *Combine* the results of the function calls into a one dataset
+- *Apply* some function to each sub-dataset
+- *Combine* the results of the function calls    
+into one dataset
 
-<img src="images/sac.png" width=500></img>
+<img src="images/sac.png" width='40%'></img>
 
 ## Split-Apply-Combine
 ### Using `dplyr`
@@ -666,41 +669,42 @@ french_fries_rating
 
 There are five primary `dplyr` **verbs**, representing distinct data analysis tasks:
 
-- `filter`: Remove the rows of a data frame, producing subsets
+- `filter`: Keep only a subset of a data frame
 - `arrange`: Reorder the rows of a data frame
 - `select`: Select particular columns of a data frame
-- `mutate`: Add new columns that are functions of existing columns
+- `mutate`: Add new columns computed from existing cols
 - `summarise`: Create collapsed summaries of a data frame
     
 ## Filter
 
 ```{r}
 french_fries %>%
-    filter(subject == 3, time == 1)
+  filter(subject == 3, time == 1)
 ```
 
 ## Arrange
 
 ```{r}
 french_fries %>%
-    arrange(desc(rancid)) %>%
-    head
+  arrange(desc(rancid)) %>%
+  head
 ```
 
 ## Select
 
 ```{r}
 french_fries %>%
-    select(time, treatment, subject, rep, potato) %>%
-    head
+  select(time, treatment, subject, rep, potato) %>%
+  head
 ```
 
 ## Mutate
 
 ```{r}
 french_fries %>%
-    mutate(rancid2 = rancid^2) %>%
-    head
+  mutate(rancid2 = rancid^2) %>%
+  select(time, treatment, subject, rancid, rancid2) %>%
+  head
 ```
 
 ## Summarise
@@ -710,4 +714,134 @@ french_fries %>%
     group_by(time, treatment) %>%
     summarise(mean_rancid = mean(rancid), 
               sd_rancid = sd(rancid))
+```
+
+
+## Your Turn {.yourturn data-background=#527a7a}
+This dataset contains information on over 300,000 flights that departed from New York City in the year 2013.
+
+```{r}
+flights <- read.csv("https://bit.ly/2hzhAfW")
+```
+
+1. Using `dplyr` and the pipe operator (`%>%`), create a data frame consisting of the average arrival delay (`arr_delay`) based on the destination airport (`dest`).    
+Sort this data frame in descending order, so the destination airport with the largest delay is first.
+2. Find out the most used airports for each airline carrier.
+
+
+## Solutions {.solutions data-background=#527a7a}
+1. Create a data frame consisting of the average arrival delay (`arr_delay`) based on the destination airport (`dest`).     
+Sort this data frame in descending order, so the destination airport with the largest delay is first. 
+```{r}
+flights %>% 
+  group_by(dest) %>% 
+  summarise(avg_delay = mean(na.omit(arr_delay))) %>% 
+  arrange(desc(avg_delay))
+```
+
+
+## Solutions {.solutions data-background=#527a7a}
+2. Find out the most used airports for each airline carrier.
+
+```{r}
+by.origin <- flights %>% 
+  group_by(carrier, origin) %>% 
+  summarise(count = n()) %>% 
+  ungroup() %>% group_by(carrier) %>% 
+  filter(count == max(count)) %>% 
+  rename(mostused = origin) %>%
+  mutate(kind = "origin")
+
+by.dest <- flights %>% 
+  group_by(carrier, dest) %>% 
+  summarise(count = n()) %>% 
+  ungroup() %>% group_by(carrier) %>% 
+  filter(count == max(count)) %>% 
+  rename(mostused = dest) %>% 
+  mutate(kind = "dest")
+```
+
+## Solutions {.solutions data-background=#527a7a}
+2. Find out the most used airports for each airline carrier.
+
+```{r}
+mostused <- bind_rows(by.origin,by.dest)
+
+mostused %>% group_by(carrier) %>% 
+  filter(count == max(count)) %>% ungroup() %>%
+  arrange(desc(count)) 
+```
+
+
+## Dates and Times
+
+Dates are deceptively hard to work with.
+
+**Example**: 02/05/2012. Is it February 5th, or May 2nd?
+
+Other things are difficult too:
+
+- Time zones
+- POSIXct format in base R is challenging
+
+The **lubridate** package helps tackle some of these issues.
+
+## Basic Lubridate Use
+
+```{r, results='hold', message=FALSE}
+library(lubridate)
+
+now()
+today()
+now() + hours(4)
+today() - days(2)
+```
+
+## Parsing Dates
+
+```{r, results='hold'}
+ymd("2013-05-14")
+mdy("05/14/2013")
+dmy("14052013")
+ymd_hms("2013:05:14 14:50:30", tz = "America/Chicago")
+```
+
+## Your Turn {.yourturn data-background=#527a7a}
+
+1. Using the `flights` data, create a new column Date using lubridate. Paste together the columns year, month, and day in order to do this. See the `paste` function.
+2. Use `dplyr` to calculate the average departure delay for each date.
+3. Plot the date versus the average departure delay
+
+```{r, echo=FALSE, fig.width=7, fig.height=3}
+flights$date <- ymd(paste(flights$year, flights$month, flights$day, sep = "-"))
+delay.dat <- flights %>% 
+    group_by(date) %>% 
+    summarise(dep_delay = mean(dep_delay, na.rm = TRUE))
+
+qplot(date, dep_delay, geom = "line", data = delay.dat)
+```
+
+## Solutions {.solutions data-background=#527a7a}
+
+1. Using the `flights` data, create a new column Date using lubridate.
+
+```{r}
+flights$date <- paste(flights$year, flights$month, flights$day, 
+                      sep = "-") %>%
+  ymd() # Convert from character to date format
+```
+
+2. Use `dplyr` to calculate the average departure delay for each date.
+
+```{r}
+delay.dat <- flights %>% 
+    group_by(date) %>% 
+    summarise(dep_delay = mean(dep_delay, na.rm = TRUE))
+```
+
+## Solutions {.solutions data-background=#527a7a}
+3. Plot the date versus the average departure delay
+
+```{r, fig.width = 7, fig.height = 3}
+qplot(date, dep_delay, geom = "line", data = delay.dat)
 ```
