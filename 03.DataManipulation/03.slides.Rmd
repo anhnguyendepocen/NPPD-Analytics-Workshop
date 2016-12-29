@@ -536,7 +536,7 @@ This is done using the `gather` function.
 
 When gathering, specify the **keys** (identifiers) and the **values** (measures).
 
-### Keys/Identifiers:
+#### Keys/Identifiers:
 
 - Identify a record (must be unique)
 - Example: Indices on an random variable
@@ -597,14 +597,13 @@ head(french_fries_wide)
 
 
 ## Your Turn {.yourturn data-background=#527a7a}
-
+Read in the billboard top 100 music data
 ```{r}
 billboard <- read.csv("https://bit.ly/2hQGDao")
 ```
 
-1. Read in the billboard top 100 music data
-2. Use `tidyr` to convert this data into a long format.
-3. Use ``ggplot2`` to create this time series plot:
+1. Use `tidyr` to convert this data into a long format.
+2. Use ``ggplot2`` to create this time series plot:
 
 ```{r, echo=FALSE, fig.width=7, fig.height=3, warning=FALSE}
 long_billboard <- gather(billboard, key = week, value = rank, X1:X76)
@@ -615,7 +614,7 @@ qplot(week, rank, data = long_billboard, geom = "line", colour = artist, group =
 ```
 
 ## Solutions {.yourturn data-background=#527a7a}
-2. Use `tidyr` to convert this data into a long format.
+1. Use `tidyr` to convert this data into a long format.
 ```{r}
 long_billboard <- gather(billboard, 
                          key = week, value = rank, 
@@ -632,7 +631,7 @@ long_billboard <- long_billboard %>% na.omit()
 
 
 ## Solutions {.yourturn data-background=#527a7a}
-3. Use `ggplot2` to create this time series plot:
+2. Use `ggplot2` to create this time series plot:
 ```{r, fig.width=7, fig.height=3, warning=FALSE}
 qplot(x = week, y = rank, 
       colour = artist, group = track, 
