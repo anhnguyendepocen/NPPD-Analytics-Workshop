@@ -11,7 +11,8 @@ if (length(pkgs) > 0) {
   install.packages(pkgs)
 }
 
-devtools::install_github("garrettgman/DSR")
+# devtools::install_github("garrettgman/DSR")
+# library(DSR)
 
 library(ggplot2)
 library(dplyr)
@@ -19,4 +20,3 @@ library(tidyr)
 library(readxl)
 library(foreign)
 library(lubridate)
-library(DSR)
