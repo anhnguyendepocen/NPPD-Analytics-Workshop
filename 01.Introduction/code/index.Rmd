@@ -11,3 +11,5 @@ output:
 
 - [R Basics](R-Basics.R)
 - [Tips - Example](Tips-Example.R)
+- [Data Structures](Data-Structures.R)
+- [Programming](Programming.R)
