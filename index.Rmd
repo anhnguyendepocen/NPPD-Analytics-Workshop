@@ -15,6 +15,7 @@ output:
     - [Web-based](01.Introduction/01.guide.html)
     - [Word Document](01.Introduction/01.guide.docx)
 - [Code Files](01.Introduction/code/index.html)
+- [Data Files](01.Introduction/data/index.html)
 
 Day 1 Objectives:
 
@@ -29,7 +30,8 @@ Day 1 Objectives:
 - Lesson Material
     - [Web-based](02.Graphics/02.guide.html)
     - [Word Document](02.Graphics/02.guide.docx)
-- [Code Files](02.Graphics/code/Code.html)
+- [Code Files](02.Graphics/code/index.html)
+- [Data Files](02.Graphics/data/index.html)
 
 Day 2 Objectives:
 
@@ -43,7 +45,8 @@ Day 2 Objectives:
 - Lesson Material
     - [Web-based](03.ManipulatingData/03.guide.html)
     - [Word Document](03.ManipulatingData/03.guide.docx)
-- [Code Files](03.ManipulatingData/code/Code.html)
+- [Code Files](03.ManipulatingData/code/index.html)
+- [Data Files](03.ManipulatingData/data/index.html)
 
 Day 3 Objectives:
 - Learn how to summarize data efficiently
