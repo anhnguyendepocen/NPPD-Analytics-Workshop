@@ -1017,7 +1017,7 @@ webcomics
 - `knitr`: integrate LaTeX, HTML, or Markdown with R for easy reproducible research
 
 
-## Creating Your Own Functions
+## Creating Functions
 
 Code Skeleton:
 

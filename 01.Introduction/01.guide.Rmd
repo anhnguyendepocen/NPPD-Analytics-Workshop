@@ -1,14 +1,14 @@
 ---
 title: "Introduction to R"
 output:
-  word_document:
-    reference_docx: U:\Templates\Rmarkdown Word\word_template.docx
   html_document:
     code_folding: show
     fig_caption: yes
     self_contained: yes
     theme: cerulean
     toc: yes
+  word_document:
+    reference_docx: U:\Templates\Rmarkdown Word\word_template.docx
 ---
 
 ```{r setup, include=FALSE}
@@ -894,3 +894,162 @@ littledata <- read.csv("PretendData.csv")
 webcomics <- read.table("./data/FunWebcomics.txt", header = T)
 webcomics
 ```
+
+
+# Packages and Basic Programming
+
+
+## R Packages
+
+- Commonly used R functions are installed with base R
+- R packages containing more specialized R functions can be installed freely from CRAN servers using function `install.packages()`
+- After packages are installed, their functions can be loaded into the current R session using the function `library()`
+
+
+### Finding R Packages
+
+- How do I locate a package with the desired function?
+- Google ("R project" + search term works well)
+- R website task views to search relevent subjects: http://cran.r-project.org/web/views/
+- ??searchterm will search R help for pages related to the search term
+- `sos` package adds helpful features for searching for packages related to a particular topic
+
+Handy R Packages:
+
+- `ggplot2`: Statistical graphics
+- `dplyr`/`tidyr`: Manipulating data structures
+- `knitr`: integrate LaTeX, HTML, or Markdown with R for easy reproducible research
+
+
+## Creating Functions
+
+Code Skeleton:
+
+```{r}
+foo <- function(arg1, arg2, ...) {
+    # Code goes here
+    return(output)
+}
+```
+
+Example:
+
+```{r}
+mymean <- function(data) {
+    ans <- sum(data) / length(data)
+    return(ans)
+}
+```
+
+
+## If/Else Statements
+
+Skeleton:
+
+```{r, eval=FALSE}
+if (condition) {
+    # Some code that runs if condition is TRUE
+} else {
+    # Some code that runs if condition is FALSE
+}
+```
+
+Example:
+
+```{r}
+mymean <- function(data) {
+    if (!is.numeric(data)) {
+        stop("Numeric input is required")
+    } else {
+        ans <- sum(data) / length(data)
+        return(ans)
+    }
+}
+```
+
+
+## Looping
+
+- Reduce the amount of typing
+- Let R do repetitive tasks automatically
+- R offers several loops: for, while, repeat.
+
+```{r}
+for (i in 1:3) {
+    print(i)
+}
+```
+
+
+### For Loops
+
+```{r}
+tips <- read.csv("https://bit.ly/2iNqvKM")
+
+id <- c("total_bill", "tip", "size")
+for (colname in id) {
+    print(colname)
+}
+
+for(colname in id) {
+    print(paste(colname, mymean(tips[, colname])))
+}
+```
+
+### While Loops
+
+```{r}
+i <- 1
+while (i <= 5) {
+    print(i)
+    i <- i + 1
+}
+```
+
+## Your Turn 
+
+1. Create a function that takes numeric input and provides the mean and standard deviation for the data (`sd` may be useful)
+2. Add checks to your function to make sure the data is either numeric or logical.  If it is logical convert it to numeric.
+3. Loop over the columns of the diamonds data set and apply your function to all of the numeric columns.
+
+### Solutions 
+
+1. Create a function that takes numeric input and provides the mean and standard deviation for the data (`sd` may be useful)
+```{r}
+myfun <- function(x) {
+  m <- mean(x)
+  s <- sd(x)
+  return(c(mean = m, sd = s))
+}
+```
+
+2. Add checks to your function to make sure the data is either numeric or logical.  If it is logical convert it to numeric.
+```{r}
+myfun <- function(x) {
+  if (is.logical(x)) {
+    x <- as.numeric(x)
+  }
+  if (!is.numeric(x)) {
+    warning("x is not logical or numeric. Cannot compute a mean or std. deviation.")
+    return(c(mean = NA, sd = NA))
+  }
+  m <- mean(x)
+  s <- sd(x)
+  return(c(mean = m, sd = s))
+}
+```
+
+3. Loop over the columns of the diamonds data set and apply your function to all of the numeric columns.
+```{r, warning = F}
+data(diamonds)
+diamondStats <- matrix(0, nrow = ncol(diamonds), ncol = 2, 
+                       dimnames = list(names(diamonds), 
+                                       c("mean", "sd")))
+
+for(i in 1:ncol(diamonds)) {
+  diamondStats[i,] <- myfun(diamonds[[i]])
+}
+
+diamondStats
+```
+
