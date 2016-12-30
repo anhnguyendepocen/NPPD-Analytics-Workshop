@@ -14,7 +14,14 @@ output:
 - Lesson Material
     - [Web-based](01.Introduction/01.guide.html)
     - [Word Document](01.Introduction/01.guide.docx)
-- [Code Files](01.Introduction/code/Code.html)
+- [Code Files](01.Introduction/code/index.html)
+
+Day 1 Objectives:
+
+- Become familiar with the RStudio IDE, R syntax, and R data types
+- Understand how to get help with R
+
+
 
 # Day 2: Graphics
 
@@ -24,6 +31,11 @@ output:
     - [Word Document](02.Graphics/02.guide.docx)
 - [Code Files](02.Graphics/code/Code.html)
 
+Day 2 Objectives:
+
+- Use `qplot` and `ggplot` to construct plots in R
+- Understand how to create layered graphics
+- Apply perceptual principles to create good graphics
 
 # Day 3: Manipulating Data
 
@@ -33,5 +45,10 @@ output:
     - [Word Document](03.ManipulatingData/03.guide.docx)
 - [Code Files](03.ManipulatingData/code/Code.html)
 
+Day 3 Objectives:
+- Learn how to summarize data efficiently
+- Understand how to convert between wide form and long form data as well as the uses for each type of data
+- Recognize "tidy" data and use `tidyr` and `dplyr` functions to work towards "tidy" data
+- Understand how to work with dates and times in R
 
 # Bonus Material: Reporting with R and Markdown
