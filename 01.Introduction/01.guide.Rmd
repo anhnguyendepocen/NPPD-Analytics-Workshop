@@ -37,7 +37,7 @@ There are many software programs designed to store, summarize, visualize, or ana
 
 This guide will help set up R and RStudio on your machine. It is included for reference. 
 
-## Installing R:
+## Installing R
 
 On Windows or OS X:
 
@@ -47,7 +47,7 @@ On Windows or OS X:
 - On Windows, choose the "base" subdirectory to install R.
 - On OS X, choose the .pkg file to install R.
 
-## Installing RStudio:
+## Installing RStudio
 
 - Browse to https://www.rstudio.com/
 - Mouse over Products and click RStudio
@@ -166,7 +166,7 @@ Compare two groups using a side-by-side boxplot. For instance, do smokers tip at
 qplot(x = smoker, y = rate, geom = "boxplot", data = tips)
 ```
 
-## Your Turn!
+##### Your Turn!
 
 Try playing with chunks of code shown above to further investigate the tips data:
 
@@ -174,10 +174,11 @@ Try playing with chunks of code shown above to further investigate the tips data
 2. Make side by side boxplots of tip rates for different days of the week
 3. Find the average tip value for smokers
 
-### Solutions
+
+##### Solutions
 
 1. Get a summary of the total bill values
-```{r}
+```{r, }
 summary(tips$total_bill)
 ```
 
@@ -368,7 +369,7 @@ head(bill)
 
 By changing a value to a string, all the other values were changed to strings as well.
 
-### Your Turn
+##### Your Turn
 
 Using the R Reference Card (and the Help pages, if needed), do the following:
 
@@ -378,7 +379,9 @@ Using the R Reference Card (and the Help pages, if needed), do the following:
 *Hint: "Data Creation" section of the reference card*
 3. Use `rep` to construct this vector: `1 2 3 4 5 1 2 3 4 5 1 2 3 4 5`
 
-#### Solutions
+
+
+##### Solutions
 
 1. Find out how many rows and columns the `iris' data set has.  Figure out at least 2 ways to do this.
 
@@ -405,6 +408,9 @@ rep(c(1:5), each = 2)
 ```{r}
 rep(c(1:5), times = 3)
 ```
+
+
+###### End Solutions
 
 Vectors can be manipulated by indexing. 
 
@@ -481,7 +487,7 @@ tips$sex[1:20]
 ```
 
 
-### Your Turn
+##### Your Turn
 
 1. Find out how many people tipped over 20%.    
 *Hint: use the `sum` function on a logical vector to calculate how many TRUEs are in the vector:*
@@ -490,7 +496,9 @@ sum(c(TRUE, TRUE, FALSE, TRUE, FALSE))
 ```
 2. **More Challenging**: Calculate the sum of the total bills of anyone who tipped over 20%
 
-#### Solutions
+
+
+##### Solutions
 1. How many people tipped over 20%?
 
 ```{r}
@@ -503,6 +511,7 @@ sum(tips$rate > .2)
 sum(tips$total_bill[tips$rate > .2])
 ```
 
+###### End Solutions
 
 ## Data Types in R
 
@@ -576,7 +585,7 @@ id <- (bill > 40 & rate < .10)
 tips[id,]
 ```
 
-## Your Turn
+##### Your Turn
 
 1. Read up on the dataset (`?diamonds`)
 2. Plot price by carat (use qplot - go back to the motivating example for help with the syntax)
@@ -584,7 +593,9 @@ tips[id,]
 4. Make a histogram of all ppc values that exceed $10000 per carat.
 5. Explore any other interesting relationships you find
 
-### Solutions
+
+
+##### Solutions
 2. Plot price by carat (use qplot - go back to the motivating example for help with the syntax)
 
 ```{r}
@@ -606,8 +617,6 @@ qplot(ppc, geom = "histogram", data = diamonds[diamonds$ppc > 10000,])
 ```
 
 5. Explore any other interesting relationships you find
-
-
 
 # Data Structures
 
@@ -678,13 +687,15 @@ names(mydf)[1] <- "nums"
 mydf
 ```
 
-### Your Turn
+##### Your Turn
 
 1. Make a data frame with column 1: 1,2,3,4,5,6 and column 2: a,b,a,b,a,b
 2. Select only rows with value "a" in column 2 using logical vector
 3. `mtcars` is a built in data set like `iris`: Extract the 4th row of the `mtcars` data.
 
-#### Solutions
+
+
+##### Solutions
 
 1. Make a data frame with column 1: 1,2,3,4,5,6 and column 2: a,b,a,b,a,b
 
@@ -708,6 +719,7 @@ data(mtcars)
 mtcars[4,]
 ```
 
+###### End Solutions
 
 
 ## Lists
@@ -733,13 +745,15 @@ Use indexing to select the second list element:
 mylist[[2]]
 ```
 
-### Your Turn
+##### Your Turn
 
 1. Create a list containing a vector and a 2x3 data frame
 2. Use indexing to select the data frame from your list
 3. Use further indexing to select the first row from the data frame in your list
 
-#### Solutions
+
+
+##### Solutions
 1.  Create a list containing a vector and a 2x3 data frame
 
 ```{r}
@@ -758,6 +772,7 @@ mylist[[2]]
 mylist[[2]][1,]
 ```
 
+###### End Solutions
 
 ## Examining Objects
 R objects can get very complicated very quickly (nesting lists inside of lists, for example). 
@@ -801,7 +816,7 @@ length(diamonds) # diamonds is a data frame with 10 columns (or really, a list w
 length(mylist) # mylist has 2 objects
 ```
 
-### Your Turn
+##### Your Turn
 
 1. View the top 8 rows of mtcars data
 2. What type of object is the mtcars data set?
@@ -809,7 +824,9 @@ length(mylist) # mylist has 2 objects
 4. Summarize the values in each column in iris data set
 
 
-#### Solutions
+
+
+##### Solutions
 1.  View the top 8 rows of mtcars data
 
 ```{r}
@@ -834,6 +851,7 @@ dim(iris)
 summary(iris)
 ```
 
+###### End Solutions
 
 ## Working with Output from a Function
 
@@ -889,20 +907,19 @@ First, create a csv file. Use a text editor, excel... Then load it in:
 littledata <- read.csv("PretendData.csv")
 ```
 
-### Your Turn
+##### Your Turn
 
 - Make 5 rows of data in an excel spreadsheet and save it as a *tab-delimited txt file*.
 - Import this new .txt file into R with `read.table`. You may need to look at the help page for `read.table` in order to properly do this.
 
 
-#### Solutions
+##### Solutions
 [Excel Spreadsheet](./data/Fun Webcomics.xlsx) (also at https://bit.ly/2hOYYYT)
 
 ```{r}
 webcomics <- read.table("./data/FunWebcomics.txt", header = T)
 webcomics
 ```
-
 
 # Packages and Basic Programming
 
@@ -1014,13 +1031,15 @@ while (i <= 5) {
 }
 ```
 
-## Your Turn 
+##### Your Turn 
 
 1. Create a function that takes numeric input and provides the mean and standard deviation for the data (`sd` may be useful)
 2. Add checks to your function to make sure the data is either numeric or logical.  If it is logical convert it to numeric.
 3. Loop over the columns of the diamonds data set and apply your function to all of the numeric columns.
 
-### Solutions 
+
+
+##### Solutions 
 
 1. Create a function that takes numeric input and provides the mean and standard deviation for the data (`sd` may be useful)
 ```{r}

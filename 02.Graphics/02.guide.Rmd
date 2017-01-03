@@ -98,7 +98,7 @@ qplot(carat, log(price), geom = "point", data = diamonds,
   xlab("Carat Weight") + ylab("Log Price")
 ```
 
-## Your Turn
+##### Your Turn
 
 All of the "Your Turns" for this section will use the tips data set:
 
@@ -110,7 +110,7 @@ tips <- read.csv("https://bit.ly/2gGoiLR")
 2. Use options within qplot to color points by smokers
 3. Clean up axis labels and add main plot title
 
-### Solutions
+##### Solutions
 1. Scatterplot of variables tips and total bill
 ```{r}
 qplot(data = tips, x = total_bill, y = tip)
@@ -127,7 +127,6 @@ qplot(data = tips, x = total_bill, y = tip, color = smoker,
       xlab = "Total Bill ($)", ylab = "Tip ($)", 
       main = "Tip left by patrons' total bill and smoking status")
 ```
-
 
 # Plotting Map Data
 
@@ -171,7 +170,9 @@ Polygons are often more appropriate for showing additional information on a map.
 qplot(long, lat, geom = "polygon", 
       data = states, group = group) + 
   coord_map()
+```
 
+```{r, fig.height=4, fig.width=7}
 # Fancier map
 qplot(long, lat, geom = "polygon", 
       fill = I("white"), color = I("black"),
@@ -280,7 +281,7 @@ qplot(long, lat, geom = "polygon", data = states.sex.map,
   facet_grid(sex ~ .)
 ```
 
-## Your Turn
+##### Your Turn
 
 - Use `left_join` to combine child healthcare data with maps information.     
 You can load in the child healthcare data with:
@@ -291,7 +292,7 @@ states.health.stats <- read.csv("https://bit.ly/2hRBMq0")
 
 - Use `qplot` to create a map of child healthcare undercoverage rate by state
 
-### Solutions
+##### Solutions
 ```{r, message = F, warning = F}
 library(maps)
 library(dplyr)
@@ -304,6 +305,8 @@ states.health.map <- left_join(states, states.health.stats,
 qplot(data = states.health.map, x = long, y = lat, geom = 'polygon',
       group = group, fill = no.coverage) + coord_map()
 ```
+
+###### End Solutions
 
 ## Cleaning Up Maps
 
@@ -330,11 +333,11 @@ qplot(long, lat, geom = "polygon", data = states.map,
           Consumed Per Day by State")
 ```
 
-## Your Turn
+##### Your Turn
 
 Use options to polish the look of the map of child healthcare undercoverage rate by state!
 
-### Solutions 
+##### Solutions 
 ```{r}
 qplot(data = states.health.map, x = long, y = lat, 
       geom = 'polygon', group = group, fill = no.coverage) + 
@@ -468,44 +471,22 @@ Plots have:
 
 **Data**: floats, states
 
-<table>
-<tr>
-<td>
 **Mappings**: 
-<table>
-<tr>
-<td>aesthetic</td><td> mapping</td>
-</tr>
-<tr>
-<td>x</td><td>Longitude</td>
-</tr>
-<tr>
-<td>y</td><td>Latitude</td>
-</tr>
-<tr>
-<td>color</td><td>CallSign</td>
-</tr>
-</table>
-</td>
-<td>
+
+aesthetic | mapping 
+--------- | -------
+x | Longitude
+y | Latitude
+color | CallSign
+
 **Scales**:
-<table>
-<tr>
-<td>aesthetic</td><td> scale</td>
-</tr>
-<tr>
-<td>x</td><td>continuous</td>
-</tr>
-<tr>
-<td>y</td><td>continuous</td>
-</tr>
-<tr>
-<td>color</td><td>discrete</td>
-</tr>
-</table>
-</td>
-</tr>
-</table>
+
+aesthetic | scale 
+--------- | -----
+x | continuous
+y | continuous
+color | discrete
+
 **Geoms**: Points (floats), lines (states)
 
 **Facetting**: None
@@ -547,7 +528,7 @@ ggplot(data = floats,
 ```
 
 
-## Your Turn
+##### Your Turn
 
 Find the `ggplot()` statement that creates this plot:
 
@@ -557,13 +538,14 @@ ggplot(aes(x = Depth, y = Temperature, color = callSign), data = floats) + geom_
 
 Hint: look at the Floats data for variable ideas
 
-### Solutions
+##### Solutions
 ```{r, fig.height=4, fig.width=7, echo=TRUE, warning=FALSE}
 ggplot(aes(x = Depth, y = Temperature, color = callSign), 
        data = floats) + 
   geom_point()
 ```
 
+###### End Solutions
 
 ## What is a Layer?
 
@@ -613,7 +595,7 @@ ggplot() +
 ```
 
 
-## Your Turn
+##### Your Turn
 ```{r}
 animal <- read.csv("https://bit.ly/2hNlTUl")
 ```
@@ -628,7 +610,7 @@ library(lubridate)
 animal$month <- month(as.Date(animal$Date_))
 ```
 
-### Solutions
+##### Solutions
 
 2. Plot the location of animal sightings on a map
 
@@ -665,6 +647,7 @@ ggplot() +
   xlim(c(-91, -80)) + ylim(c(24,32)) +
   facet_wrap(~month) + coord_map() 	
 ```
+
 
 # Perception
 
@@ -749,7 +732,7 @@ qplot(x, y, data = data, color = factor(color), shape = factor(shape2), size = I
   new_theme_empty
 ```
 
-## Your Turn
+##### Your Turn
 
 Find ways to improve the following graphic:
 
@@ -761,7 +744,7 @@ qplot(x, y, data = frame, shape = g1, colour = g2, size = I(4))
 - Make sure the "oddball" stands out while keeping the information on the groups
 - Hint: `interaction` combines factor variables
 
-### Solutions
+##### Solutions
 
 ```{r, fig.height=4, fig.width=7, out.width = "60%"}
 # Make sure the "oddball" stands out while keeping the 
@@ -785,6 +768,8 @@ ggplot(frame, aes(x, y)) +
   guides(fill = guide_legend(override.aes = list(color = c("red", "green"))),
          colour = guide_legend(override.aes = list(fill = "white", shape = 22)))
 ```
+
+###### End Solutions
 
 ## Accuracy of Perception
 Human visual perception is very accurate for some qualities, but accuracy is not 100%. The following hierarchy lists judgment types from most accurate to least accurate. 
@@ -958,7 +943,7 @@ qplot(xmin = x-.5, xmax = x + .5, ymin = 0, ymax = 1, data = data, geom = "rect"
 ```
 
 Sometimes, it is useful to emphasize differences in quantitative variables. For instance, it is common on maps to show values which are above and below "average". In these situations, it is permissible to use two colors - one to represent positive values, and one to represent negative values. The gradient should move through a light, neutral color (white, or in some cases light yellow), corresponding to 0 or the average value. 
-```{r, echo=FALSE, fig.width=7, fig.height=1.5}
+```{r, echo=FALSE, fig.width=3, fig.height=.428}
 qplot(xmin = x - .5, xmax = x + .5, ymin = 0, ymax = 1, data = data, geom = "rect", color = I("black"), fill = diverge) + 
     scale_fill_identity() + 
     ylab("") + 
@@ -996,7 +981,7 @@ These schemes are designed for use in maps, but can often be used as-is (or slig
     - Equivalents for fill: `scale_fill_...`
     
 
-## Your Turn
+##### Your Turn
 
 - In the diamonds data, cut is ordinal, while price and carat are continuous
 - Find a graphic that gives an overview of these three variables while respecting their types
@@ -1006,11 +991,13 @@ These schemes are designed for use in maps, but can often be used as-is (or slig
 qplot(carat, price, colour = clarity, data = diamonds)
 ```
 
-### Solutions
+##### Solutions
 ```{r}
 qplot(carat, price, colour = clarity, data = diamonds) + 
   scale_colour_brewer(palette = "BuGn")
 ```
+
+###### End Solutions
 
 ## Facetting
 Facets are a way to extract subsets of data and place them side-by-side in graphics
@@ -1024,7 +1011,7 @@ qplot(price, carat, data = diamonds, color = color,
 ```
 
 
-## Your Turn
+##### Your Turn
 
 The `movies` dataset contains information from IMDB.com including ratings, genre, length in minutes, and year of release.
 
@@ -1035,7 +1022,7 @@ movies <- read.csv("https://bit.ly/2hqhCoM")
 - Explore the differences in length, rating, etc. in movie genres over time
 - Hint: use facetting!
 
-### Solutions
+##### Solutions
 
 Start by exploring year, budget, and genre. 
 ```{r, warning = F}
@@ -1183,13 +1170,13 @@ dplot <- qplot(total_bill, tip, data = tips)
 ggsave("tips.png", plot = dplot, dpi = 72)
 ```
 
-## Your Turn
+##### Your Turn
 
 1. Save a pdf of a scatterplot of price vs carat
 2. Open up the pdf in Adobe Acrobat (or another PDF Reader)
 3. Save a png of the same scatterplot
 
-### Solutions
+##### Solutions
 
 ```{r, fig.show = 'hide'}
 qplot(price, carat, data = diamonds)

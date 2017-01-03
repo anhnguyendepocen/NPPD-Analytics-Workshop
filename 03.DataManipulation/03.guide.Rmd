@@ -70,7 +70,7 @@ So to properly read in this data, it's probably best to use `read.table` directl
 ```
 
 
-## Your Turn 
+##### Your Turn 
 
 Have a look at the parameters of read.table (?read.table) to solve the following problems:
 
@@ -82,7 +82,7 @@ midwest_names <- read.table("https://bit.ly/2hwWiQ8", nrows = 2, sep = ",", stri
 midwest_data <- read.table("https://bit.ly/2hwWiQ8", skip = 2, sep = ",", stringsAsFactors = FALSE)
 ```
 
-### Solutions
+##### Solutions
 1. Read the first two lines of the file into an object called `midwest_names`
 ```{r}
 midwest_names <- read.table("https://bit.ly/2hwWiQ8", 
@@ -97,6 +97,8 @@ midwest_data <- read.table("https://bit.ly/2hwWiQ8",
                            stringsAsFactors = FALSE)
 ```
 
+
+###### End Solutions
 
 ## Demo: Data Cleaning
 In order to demonstrate reading data in to R, some quick data cleaning is necessary. 
@@ -162,7 +164,7 @@ Other file formats can be read using the functions from package `foreign`
 - Minitab: `read.mtp`
 
 
-## Your Turn 
+##### Your Turn 
 
 The NHANES (National Health and Nutrition Survey) publishes data in the SAS xport format:
 
@@ -171,9 +173,10 @@ https://wwwn.cdc.gov/Nchs/Nhanes/Search/nhanes13_14.aspx
 1. Scroll to the bottom, choose one of the datasets (Demographics, Examination, etc.). Download the Data file (XPT)
 2. Use `read.xport()` to load the file into R
 
-### Solutions 
+##### Solutions 
 ```{r, eval = F}
-download.file("https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/DEMO_H.XPT", "DEMO.XPT")
+download.file("https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/DEMO_H.XPT", 
+              destfile = "DEMO.XPT", mode = "wb")
 library(foreign)
 demographic.vars <- read.xport("DEMO.XPT")
 ```
@@ -298,7 +301,7 @@ head(ba)
 ```
 
 
-## Your Turn
+##### Your Turn
 
 - MLB rules for the greatest all-time hitters are that players have to have played 
     - at least 1000 games 
@@ -400,7 +403,7 @@ If the argument passed in is not the first argument, use `.`:
 is the same as    
 `function(a, b)`
 
-## Your Turn
+##### Your Turn
 
 - Find some summary statistics for each of the teams (variable `team`)
     - How many different (`unique`) players has the team had?
@@ -408,7 +411,7 @@ is the same as
 - Challenge: Find the number of players on each team over time. Does the number change?
 
 
-### Solutions 
+##### Solutions 
 1. Find some summary stats for each of the teams (`team`)
     - How many `unique` players has the team had?
     - What was the team's first/last season?
@@ -563,7 +566,7 @@ head(french_fries_wide)
 ```
 
 
-## Your Turn
+##### Your Turn
 Read in the billboard top 100 music data
 ```{r}
 billboard <- read.csv("https://bit.ly/2hQGDao")
@@ -580,7 +583,7 @@ qplot(week, rank, data = long_billboard, geom = "line", colour = artist, group =
     xlim(c(0, 30))
 ```
 
-### Solutions
+##### Solutions
 1. Use `tidyr` to convert this data into a long format.
 ```{r}
 long_billboard <- gather(billboard, 
@@ -603,6 +606,7 @@ qplot(x = week, y = rank,
       data = long_billboard, geom = "line")
 ```
 
+###### End Solutions
 
 ## Split-Apply-Combine
 
@@ -680,7 +684,7 @@ french_fries %>%
 ```
 
 
-## Your Turn
+##### Your Turn
 This dataset contains information on over 300,000 flights that departed from New York City in the year 2013.
 
 ```{r}
@@ -692,7 +696,7 @@ Sort this data frame in descending order, so the destination airport with the la
 2. Find out the most used airports for each airline carrier.
 
 
-### Solutions 
+##### Solutions 
 1. Create a data frame consisting of the average arrival delay (`arr_delay`) based on the destination airport (`dest`).     
 Sort this data frame in descending order, so the destination airport with the largest delay is first. 
 ```{r}
@@ -728,6 +732,8 @@ mostused %>% group_by(carrier) %>%
   arrange(desc(count)) 
 ```
 
+###### End Solutions
+
 ## Dates and Times
 
 Dates are deceptively hard to work with.
@@ -761,7 +767,7 @@ dmy("14052013")
 ymd_hms("2013:05:14 14:50:30", tz = "America/Chicago")
 ```
 
-## Your Turn
+##### Your Turn
 
 1. Using the `flights` data, create a new column Date using lubridate. Paste together the columns year, month, and day in order to do this. See the `paste` function.
 2. Use `dplyr` to calculate the average departure delay for each date.
@@ -776,7 +782,7 @@ delay.dat <- flights %>%
 qplot(date, dep_delay, geom = "line", data = delay.dat)
 ```
 
-### Solutions 
+##### Solutions 
 
 1. Using the `flights` data, create a new column Date using lubridate.
 
