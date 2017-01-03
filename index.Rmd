@@ -21,6 +21,8 @@ Day 1 Objectives:
 
 - Become familiar with the RStudio IDE, R syntax, and R data types
 - Understand how to get help with R
+- Become familiar with the R reference card
+
 
 
 
@@ -41,12 +43,12 @@ Day 2 Objectives:
 
 # Day 3: Manipulating Data
 
-- [Slides](03.ManipulatingData/03.slides.html)
+- [Slides](03.DataManipulation/03.slides.html)
 - Lesson Material
-    - [Web-based](03.ManipulatingData/03.guide.html)
-    - [Word Document](03.ManipulatingData/03.guide.docx)
-- [Code Files](03.ManipulatingData/code/index.html)
-- [Data Files](03.ManipulatingData/data/index.html)
+    - [Web-based](03.DataManipulation/03.guide.html)
+    - [Word Document](03.DataManipulation/03.guide.docx)
+- [Code Files](03.DataManipulation/code/index.html)
+- [Data Files](03.DataManipulation/data/index.html)
 
 Day 3 Objectives:
 - Learn how to summarize data efficiently
