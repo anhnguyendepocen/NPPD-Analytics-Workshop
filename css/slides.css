@@ -31,3 +31,7 @@
 .reveal .controls div.navigate-down.enabled:hover {
   border-top-color: black; }
 
+h6 {
+  color: transparent;
+  font-size:0;
+}
