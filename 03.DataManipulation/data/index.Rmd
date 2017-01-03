@@ -4,7 +4,7 @@ output: html_document
 ---
 
 - [midwest.csv](./midwest.csv)
-- [midwest.xls](./midwest.xls)
+- [midwest.xlsx](./midwest.xlsx)
 
 - [baseball.csv](./baseball.csv)
 
