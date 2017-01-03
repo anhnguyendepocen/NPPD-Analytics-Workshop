@@ -1,0 +1,15 @@
+---
+title: "Introduction to R Code Files"
+output:
+  html_document:
+    code_folding: show
+    fig_caption: yes
+    self_contained: yes
+    theme: cerulean
+    toc: yes
+---
+
+- [R Basics](R-Basics.R)
+- [Tips - Example](Tips-Example.R)
+- [Data Structures](Data-Structures.R)
+- [Programming](Programming.R)

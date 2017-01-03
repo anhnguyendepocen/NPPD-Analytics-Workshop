@@ -1,0 +1,17 @@
+---
+title: "Graphics in R Code Files"
+output:
+  html_document:
+    code_folding: show
+    fig_caption: yes
+    self_contained: yes
+    theme: cerulean
+    toc: yes
+---
+
+- [Setup](Setup.R)
+- [Basic Plots](BasicPlots.R)
+- [Plotting Map Data](MapData.R)
+- [Layers](Layers.R)
+- [Perception](Perception.R)
+- [Polishing Plots](Polishing.R)

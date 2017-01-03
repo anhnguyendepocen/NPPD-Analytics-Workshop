@@ -1,0 +1,13 @@
+---
+title: "Data Manipulation Data Index"
+output: html_document
+---
+
+- [midwest.csv](./midwest.csv)
+- [midwest.xls](./midwest.xls)
+
+- [baseball.csv](./baseball.csv)
+
+- [French Fry Data](./frenchfries.csv)
+- [Billboard Data](./billboard.csv)
+- [Flights Data](./flights.csv)

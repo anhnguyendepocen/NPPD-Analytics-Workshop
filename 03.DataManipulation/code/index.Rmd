@@ -1,0 +1,15 @@
+---
+title: "Data Manipulation in R Code Files"
+output:
+  html_document:
+    code_folding: show
+    fig_caption: yes
+    self_contained: yes
+    theme: cerulean
+    toc: yes
+---
+
+- [Setup](Setup.R)
+- [Reading In Data](ReadingInData.R)
+- [Summarizing Data](SummarizingData.R)
+- [Transforming and Analyzing Data](TransformingAndAnalyzingData.R)
