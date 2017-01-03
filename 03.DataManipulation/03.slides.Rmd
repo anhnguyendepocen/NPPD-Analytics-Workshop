@@ -130,10 +130,10 @@ qplot(date, price, data = midwest_gas, geom = "line")
 
 ```{r, eval=FALSE}
 library(readxl)
-download.file(url = "http://bit.ly/2ihV8Ye", 
-              destfile = "midwest.xls")
+download.file(url = "https://bit.ly/2i6oyFi", 
+              destfile = "midwest.xlsx", mode = "wb")
 
-midwest2 <- read_excel("midwest.xls")
+midwest2 <- read_excel("midwest.xlsx")
 # Fix name issues
 names(midwest2) <- make.names(names(midwest2))
 head(midwest2, 4)
@@ -142,7 +142,7 @@ head(midwest2, 4)
 ```{r, echo=FALSE}
 library(readxl)
 
-midwest2 <- read_excel("./data/midwest.xls")
+midwest2 <- read_excel("./data/midwest.xlsx")
 names(midwest2) <- make.names(names(midwest2))
 head(midwest2, 4)
 ```
@@ -168,7 +168,8 @@ http://wwwn.cdc.gov/Nchs/Nhanes/Search/nhanes13_14.aspx
 
 ## Solutions {.solutions  data-background=#527a7a}
 ```{r, eval = F}
-download.file("https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/DEMO_H.XPT", "DEMO.XPT")
+download.file("https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/DEMO_H.XPT", 
+              destfile = "DEMO.XPT", mode = "wb")
 library(foreign)
 demographic.vars <- read.xport("DEMO.XPT")
 ```

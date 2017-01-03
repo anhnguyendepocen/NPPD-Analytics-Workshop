@@ -143,10 +143,11 @@ qplot(date, price, data = midwest_gas, geom = "line")
 
 ```{r}
 library(readxl)
-download.file(url = "https://bit.ly/2ihV8Ye", 
-              destfile = "midwest.xls")
+download.file(url = "https://bit.ly/2i6oyFi",
+              destfile = "midwest.xlsx",
+              mode = "wb")
 
-midwest2 <- read_excel("midwest.xls")
+midwest2 <- read_excel("midwest.xlsx")
 # Fix name issues
 names(midwest2) <- make.names(names(midwest2))
 head(midwest2, 4)
