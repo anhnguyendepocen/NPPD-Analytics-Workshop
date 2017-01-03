@@ -1,19 +1,27 @@
 ---
 title: "Data Manipulation in R"
 output:
+  word_document:
+    reference_docx: U:\Templates\Rmarkdown Word\training_template.docx
   html_document:
     code_folding: show
     fig_caption: yes
     self_contained: yes
     theme: cerulean
     toc: yes
-  word_document:
-    reference_docx: U:\Templates\Rmarkdown Word\word_template.docx
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = T, comments = T, collapse = T, cache = T)
 ```
+
+
+Data Manipulation Objectives:
+
+- Learn how to summarize data efficiently
+- Understand how to convert between wide form and long form data as well as the uses for each type of data
+- Recognize "tidy" data and use `tidyr` and `dplyr` functions to work towards "tidy" data
+- Understand how to work with dates and times in R
 
 # Reading in Data
 

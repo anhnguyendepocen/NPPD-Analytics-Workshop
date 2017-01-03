@@ -16,6 +16,14 @@ knitr::opts_chunk$set(echo = TRUE, collapse = T, error = T,
                       tidy.opts = list(width.cutoff = 50))
 ```
 
+Introduction to R Objectives: 
+
+- Become familiar with the RStudio IDE, R syntax, and R data types
+- Understand how to get help with R
+- Become familiar with the R reference card
+
+***
+
 There are many software programs designed to store, summarize, visualize, or analyze data:
 
 - Spreadsheets: Microsoft Excel, Google Sheets, etc.

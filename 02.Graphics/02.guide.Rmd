@@ -20,6 +20,12 @@ knitr::opts_chunk$set(echo = T, comments = T, collapse = T, fig.show = "hold",
 library(ggplot2)
 ```
 
+Graphics Objectives:
+
+- Use `qplot` and `ggplot` to construct plots in R
+- Understand how to create layered graphics
+- Apply perceptual principles to create good graphics
+
 # Basic Plots
 
 ## Setup
