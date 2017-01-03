@@ -1,14 +1,14 @@
 ---
 title: "Introduction to R"
 output:
+  word_document:
+    reference_docx: U:\Templates\Rmarkdown Word\word_template.docx
   html_document:
     code_folding: show
     fig_caption: yes
     self_contained: yes
     theme: cerulean
     toc: yes
-  word_document:
-    reference_docx: U:\Templates\Rmarkdown Word\word_template.docx
 ---
 
 ```{r setup, include=FALSE}
@@ -69,13 +69,13 @@ Follow along using [Tips-Example.R](code/Tips-Example.R)
 
 ## First look: Reading in the data
 
-Lets use R to look at the top few rows of the tips data set. First, we load tip using `read.csv`:
+Use R to look at the top few rows of the tips data set. First, load tip using `read.csv`:
 
 ```{r}
-tips <- read.csv("https://srvanderplas.github.io/NPPD-Analytics-Workshop/01.Introduction/data/tips.csv")
+tips <- read.csv("http://bit.ly/2iNqvKM")
 ```
 
-Now, we use the `head` function to look at the first 6 rows of the data:
+Now, use the `head` function to look at the first 6 rows of the data:
 
 ```{r}
 head(tips)
@@ -87,7 +87,7 @@ How big is this data set and what types of variables are in each column?
 str(tips)
 ```
 
-We can get a summary of the values for each variable in tips:
+Get a summary of the values for each variable in tips:
 
 ```{r}
 summary(tips)
@@ -95,7 +95,7 @@ summary(tips)
 
 
 What is the relationship between total bill and tip value?
-First, we need to install and load `ggplot2` (a graphics library):
+First, install and load `ggplot2` (a graphics library):
 
 ```{r, eval=FALSE}
 install.packages("ggplot2")
@@ -110,14 +110,14 @@ library(ggplot2)
 qplot(x = tip, y = total_bill, geom = "point", data = tips)
 ```
 
-We can add linear regression line to the plot:
+Add linear regression line to the plot:
 
 ```{r, fig.height = 4, fig.width = 6}
 qplot(x = tip, y = total_bill, geom = "point", data = tips) + 
     geom_smooth(method = "lm")
 ```
 
-Tipping is generally done using a rule of thumb based on a percentage of the total bill. We will make a new variable in the data set for the tipping rate = tip / total bill
+Tipping is generally done using a rule of thumb based on a percentage of the total bill. Make a new variable in the data set for the tipping rate = tip / total bill
 
 ```{r}
 tips$rate <- tips$tip / tips$total_bill
@@ -125,7 +125,7 @@ tips$rate <- tips$tip / tips$total_bill
 summary(tips$rate)
 ```
 
-What is the distribution of tip rate in this dataset? We can use R to create a histogram:
+What is the distribution of tip rate in this dataset? Use R to create a histogram:
 
 ```{r, fig.height = 4, fig.width = 6}
 qplot(x = rate, data = tips, binwidth = .01)
@@ -137,14 +137,14 @@ One person tipped over 70%, who are they?
 tips[which.max(tips$rate),]
 ```
 
-We can also calculate the average tipping rate for men and women separately:
+Calculate the average tipping rate for men and women separately:
 
 ```{r}
 mean(tips$rate[tips$sex == "Male"])
 mean(tips$rate[tips$sex == "Female"])
 ```
 
-Is the difference between the two groups statistically significant? We can calculate a t-test to examine whether the average tip rate for men is the same as the average tip rate for women. 
+Is the difference between the two groups statistically significant? Calculate a t-test to examine whether the average tip rate for men is the same as the average tip rate for women. 
 
 ```{r}
 t.test(rate ~ sex, data = tips)
@@ -152,7 +152,7 @@ t.test(rate ~ sex, data = tips)
 
 The p-value is greater than 0.05, and the confidence interval contains 0: there is no evidence of a significant difference in tipping rate between men and women. 
 
-We can compare two groups using a side-by-side boxplot. For instance, we can see whether smokers tip at a different rate than non-smokers: 
+Compare two groups using a side-by-side boxplot. For instance, do smokers tip at a different rate than non-smokers? 
 
 ```{r, fig.height = 3, fig.width = 6}
 qplot(x = smoker, y = rate, geom = "boxplot", data = tips)
@@ -275,7 +275,7 @@ MyAge ^ 2
 - Names are case-sensitive
 - Common letters are used internally by R and should be avoided as variable names    
 `c, q, t, C, D, F, T, I`
-- There are reserved words that R won't let you use for variable names.    
+- There are reserved words that R won't allow as variable names.    
 `for, in, while, if, else, repeat, break, next`
 - R will let you use the name of a predefined function.    
 Try not to overwrite those!
@@ -875,7 +875,7 @@ It is generally necessary to import data in to R rather than just using built-in
 
 ### Importing Data Demo
 
-First, create a csv file. We can use a text editor, excel... Then we load it in:
+First, create a csv file. Use a text editor, excel... Then load it in:
 
 ```{r, eval=FALSE}
 littledata <- read.csv("PretendData.csv")
