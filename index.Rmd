@@ -57,3 +57,12 @@ Day 3 Objectives:
 - Understand how to work with dates and times in R
 
 # Bonus Material: Reporting with R and Markdown
+
+** Still under development **
+
+- [Slides](04.Knitr/04.slides.html)
+- Lesson Material
+    - [Web-based](04.Knitr/04.guide.html)
+    - [Word Document](04.Knitr/04.guide.docx)
+- [Code Files](04.Knitr/code/index.html)
+- [Data Files](04.Knitr/data/index.html)

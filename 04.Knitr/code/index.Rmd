@@ -1,5 +1,5 @@
 ---
-title: "Introduction to R Code Files"
+title: "Reporting with R and Markdown Code Files"
 output:
   html_document:
     code_folding: show
@@ -8,6 +8,3 @@ output:
     theme: cerulean
     toc: yes
 ---
-
-- [R Basics](R-Basics.R)
-- [Tips - Example](Tips-Example.R)

@@ -1,7 +1,4 @@
 ---
-title: "Introduction to R Data Index"
+title: "Reporting with R and Markdown Data Index"
 output: html_document
 ---
-
-- [Tips](tips.csv)
-- [Fun Webcomics](FunWebcomics.txt)
