@@ -66,3 +66,26 @@ Day 3 Objectives:
     - [Word Document](04.Knitr/04.guide.docx)
 - [Code Files](04.Knitr/code/index.html)
 - [Data Files](04.Knitr/data/index.html)
+
+
+# Reference Material:
+## Learning R
+- [Introduction to R Bootcamp](https://www.datacamp.com/courses/free-introduction-to-r) - Free datacamp course covering the basics of R
+- [Try R](http://tryr.codeschool.com/) - Codeschool class that allows you to interactively learn R
+- Computerworld Insider [Learn R Programming](http://www.computerworld.com/article/2884322/app-development/learn-r-programming-basics-with-our-pdf.html#tk.ctw-infsb) guide (free registration required)
+- [swirl](http://swirlstats.com/), an R package designed to teach you R from the command line
+
+## Using RStudio
+- Using RStudio: [Webinars](https://www.rstudio.com/resources/webinars/) and Training documents
+
+## Better Coding Practices
+- [R Style Guide](http://adv-r.had.co.nz/Style.html) - How to organize and format R code so that it is readable and easily shared.
+
+## Data Science and R
+- [R for Data Science](http://r4ds.had.co.nz/) - A book written by Hadley Wickham and Garret Grolemund (both of RStudio) which is available online for free (and is also in print). Covers most of the material in this course in great detail. 
+
+## Get Help
+- [Stackoverflow](https://stackoverflow.com/questions/tagged/r) is a great place to look for solutions to problems in R. You can also post questions if there is not a similar question that has already been asked.
+
+## The Wider R Universe
+- [R bloggers](http://www.r-bloggers.com/) contains useful information on how to use packages, announcements for new packages, and other current goings-on in the R community. 
