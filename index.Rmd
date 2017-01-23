@@ -22,7 +22,7 @@ Day 1 Objectives:
 - Become familiar with the RStudio IDE, R syntax, and R data types
 - Understand how to get help with R
 - Become familiar with the R reference card
-
+- Become familiar with Rmarkdown to generate reports
 
 
 
@@ -55,18 +55,6 @@ Day 3 Objectives:
 - Understand how to convert between wide form and long form data as well as the uses for each type of data
 - Recognize "tidy" data and use `tidyr` and `dplyr` functions to work towards "tidy" data
 - Understand how to work with dates and times in R
-
-# Bonus Material: Reporting with R and Markdown
-
-** Still under development **
-
-- [Slides](04.Knitr/04.slides.html)
-- Lesson Material
-    - [Web-based](04.Knitr/04.guide.html)
-    - [Word Document](04.Knitr/04.guide.docx)
-- [Code Files](04.Knitr/code/index.html)
-- [Data Files](04.Knitr/data/index.html)
-
 
 # Reference Material:
 ## Learning R

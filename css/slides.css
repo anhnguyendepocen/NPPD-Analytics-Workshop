@@ -1,8 +1,8 @@
-.reveal section.yourturn a {
+.reveal .yourturn a {
   color: white;
 }
 
-.reveal section.solutions a {
+.reveal .solutions a {
   color: white;
 }
 
