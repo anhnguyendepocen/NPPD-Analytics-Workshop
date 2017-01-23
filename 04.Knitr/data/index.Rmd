@@ -1,4 +1,0 @@
----
-title: "Reporting with R and Markdown Data Index"
-output: html_document
----
