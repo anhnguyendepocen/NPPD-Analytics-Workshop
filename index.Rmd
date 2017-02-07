@@ -65,6 +65,7 @@ Day 3 Objectives:
 - Using RStudio: [Webinars](https://www.rstudio.com/resources/webinars/) and Training documents
 - [How to make 50 different types of visualizations in ggplot2](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html)
 - [R Style Guide](http://adv-r.had.co.nz/Style.html) - How to organize and format R code so that it is readable and easily shared.
+- [Using R with Databases](https://bigdatauniversity.com/courses/using-r-with-databases/) - A free course on using SQL and R together, connecting to databases using RODBC and RJDBC, and similar topics.
 
 ## Learning more about R and Data Science
 - [R for Data Science](http://r4ds.had.co.nz/) - A book written by Hadley Wickham and Garret Grolemund (both of RStudio) which is available online for free (and is also in print). Covers most of the material in this course in great detail. 
