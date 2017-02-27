@@ -57,6 +57,10 @@ Day 3 Objectives:
 - Understand how to work with dates and times in R
 
 # Reference Material:
+
+## Installing R
+- [Guide to Installing R, RStudio, and Database packages](InstallGuide.html)
+
 ## Learning R
 - [Introduction to R Bootcamp](https://www.datacamp.com/courses/free-introduction-to-r) - Free datacamp course covering the basics of R
 - [Try R](http://tryr.codeschool.com/) - Codeschool class that allows you to interactively learn R
@@ -70,6 +74,7 @@ Day 3 Objectives:
 ## Learning more about R and Data Science
 - [R for Data Science](http://r4ds.had.co.nz/) - A book written by Hadley Wickham and Garret Grolemund (both of RStudio) which is available online for free (and is also in print). Covers most of the material in this course in great detail. 
 - [R bloggers](http://www.r-bloggers.com/) contains useful information on how to use packages, announcements for new packages, and other current goings-on in the R community. 
+- [RStudio Conference 2017 Webinars](https://www.rstudio.com/resources/webinars/#rstudioconf) A series of webinars introducing new topics in R and Data Science. Learn how to structure databases, how to do 'tidy' analyses with R and RStudio, how to manipulate text, and much more.
 
 ## Get Help
 - [Stackoverflow](https://stackoverflow.com/questions/tagged/r) is a great place to look for solutions to problems in R. You can also post questions if there is not a similar question that has already been asked.

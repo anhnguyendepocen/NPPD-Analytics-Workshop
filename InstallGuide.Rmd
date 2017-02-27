@@ -1,0 +1,97 @@
+---
+title: "R Install Guide"
+author: "Susan VanderPlas"
+date: "February 27, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Installing R
+* Download R from [http://cran.rstudio.com](http://cran.rstudio.com). [Here](https://cran.rstudio.com/bin/windows/base/R-3.3.2-win.exe) is a link to the R install file at the time this tutorial was written.
+
+* Install this file by running the file as an administrator. 
+
+* Download and Install [Rtools](https://cran.rstudio.com/bin/windows/Rtools/) (the most recent version) as an administrator. You do not need to install the packages necessary to compile R, but you should install both the 32 and 64 bit versions of Rtools. Use the default install path (this will simplify your life later)
+
+## Installing RStudio
+* Download the free version of [RStudio](https://www.rstudio.com/products/rstudio/download/). Install this as an administrator as well. 
+
+
+## Installing common R packages
+
+* Start RStudio
+
+* Run the following command
+
+```{r install-common-pkgs, eval = F}
+source("http://bit.ly/2mvS3Df")
+```
+
+This command locates [a script](https://raw.githubusercontent.com/srvanderplas/srvanderplas.github.io/master/Code/InstallPackages.R) I've written and stored online that will acquire the most commonly used R packages. You should only run this script if Rtools has installed successfully! If you want to see the script contents, click on the link above. 
+
+Some packages may not install if you do not have the following programs installed on your machine:
+
+* [Java Development Kit (JDK)](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+* [Perl](http://strawberryperl.com/)
+
+This is generally ok unless you eventually need to use the packages that failed to install. This script is a blunt instrument that is designed to make sure that 90% of the time the packages which you need to use are already installed. You can always install other packages later.
+
+If you install JDK or Perl, you can re-run the script and only the packages which have not already installed successfully will be installed.
+
+
+## Connecting to Oracle databases
+* Ensure Oracle is installed on the machine. Locate the oracle install directory, hereafter referred to as "~\Oracle\"
+
+* Set the following environment variables (Right click on My Computer -> Properties -> Advanced System Settings -> Environment Variables):
+    * OCI_INC: "~\Oracle\oci\include"
+    * (PICK ONE) OCI_LIB32: "~\Oracle\bin" (if you have 32-bit oracle installed)
+    * (PICK ONE) OCI_LIB64: "~\Oracle\bin" (if you have 64-bit oracle installed)
+    
+* Install ROracle: `install.packages("ROracle", type = "source")`
+
+* To connect to a specific database, you will need to look in the TNSNAMES.ORA file, which should be somewhere in the Oracle installation directory. The following code is a skeleton for how to connect to an oracle database. 
+
+```{r r-oracle-conn, eval = F}
+
+library(ROracle)
+
+drv <- dbDriver("Oracle")
+
+connect.string <- "(DESCRIPTION =
+    (ADDRESS_LIST =
+       (ADDRESS = (COMMUNITY = ...)(PROTOCOL = TCP)(Host = ...)(Port = ...))
+    )
+  (CONNECT_DATA =
+      (INSTANCE_NAME = PROD)
+    (SERVICE_NAME = PROD.WORLD)
+  )
+)" # From the TNSNAMES.ORA file
+
+# Actually connect
+con <- dbConnect(drv, "your username", "your password",
+                 dbname = connect.string)
+
+# Queries:
+tmp <- dbGetQuery(con, "Query text here")
+```
+
+## Connecting to SQL databases
+* Install RODBC: `install.packages("RODBC")`
+
+* Here is skeleton code for how to connect to a SQL database:
+
+```{r r-sql-conn, eval = F}
+con <- odbcDriverConnect(
+  'driver={SQL Server};
+  server=server_name;
+  database=db_name;
+  trusted_connection=true' # This uses windows login information 
+                           # instead of a username/password
+) 
+
+# Queries:
+tmp <- sqlQuery(con, "Query text here")
+```
