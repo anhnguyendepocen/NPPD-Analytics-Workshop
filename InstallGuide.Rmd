@@ -43,12 +43,12 @@ If you install JDK or Perl, you can re-run the script and only the packages whic
 
 
 ## Connecting to Oracle databases
-* Ensure Oracle is installed on the machine. Locate the oracle install directory, hereafter referred to as "~\Oracle\"
+* Ensure Oracle is installed on the machine. Locate the oracle install directory, hereafter referred to as "~\\Oracle\\"
 
 * Set the following environment variables (Right click on My Computer -> Properties -> Advanced System Settings -> Environment Variables):
-    * OCI_INC: "~\Oracle\oci\include"
-    * (PICK ONE) OCI_LIB32: "~\Oracle\bin" (if you have 32-bit oracle installed)
-    * (PICK ONE) OCI_LIB64: "~\Oracle\bin" (if you have 64-bit oracle installed)
+    * OCI_INC: "~\\Oracle\\oci\\include"
+    * (PICK ONE) OCI_LIB32: "~\\Oracle\\bin" (if you have 32-bit oracle installed)
+    * (PICK ONE) OCI_LIB64: "~\\Oracle\\bin" (if you have 64-bit oracle installed)
     
 * Install ROracle: `install.packages("ROracle", type = "source")`
 

@@ -157,12 +157,12 @@ $(document).ready(function () {
 <div id="connecting-to-oracle-databases" class="section level2">
 <h2>Connecting to Oracle databases</h2>
 <ul>
-<li><p>Ensure Oracle is installed on the machine. Locate the oracle install directory, hereafter referred to as “~&quot;</p></li>
+<li><p>Ensure Oracle is installed on the machine. Locate the oracle install directory, hereafter referred to as “~\Oracle\”</p></li>
 <li>Set the following environment variables (Right click on My Computer -&gt; Properties -&gt; Advanced System Settings -&gt; Environment Variables):
 <ul>
-<li>OCI_INC: “~”</li>
-<li>(PICK ONE) OCI_LIB32: “~” (if you have 32-bit oracle installed)</li>
-<li>(PICK ONE) OCI_LIB64: “~” (if you have 64-bit oracle installed)</li>
+<li>OCI_INC: “~\Oracle\oci\include”</li>
+<li>(PICK ONE) OCI_LIB32: “~\Oracle\bin” (if you have 32-bit oracle installed)</li>
+<li>(PICK ONE) OCI_LIB64: “~\Oracle\bin” (if you have 64-bit oracle installed)</li>
 </ul></li>
 <li><p>Install ROracle: <code>install.packages(&quot;ROracle&quot;, type = &quot;source&quot;)</code></p></li>
 <li><p>To connect to a specific database, you will need to look in the TNSNAMES.ORA file, which should be somewhere in the Oracle installation directory. The following code is a skeleton for how to connect to an oracle database.</p></li>
