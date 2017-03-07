@@ -1,5 +1,5 @@
 ---
-title: "DatabaseConnections.Rmd"
+title: "Database Connections in R"
 author: "Susan VanderPlas"
 date: "March 7, 2017"
 output: html_document
