@@ -1,0 +1,65 @@
+---
+title: "DatabaseConnections.Rmd"
+author: "Susan VanderPlas"
+date: "March 7, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+Notes on how to connect to various databases using R. 
+
+## Connecting to Oracle databases
+* Ensure Oracle is installed on the machine. Locate the oracle install directory, hereafter referred to as "~\\Oracle\\"
+
+* Set the following environment variables (Right click on My Computer -> Properties -> Advanced System Settings -> Environment Variables):
+    * OCI_INC: "~\\Oracle\\oci\\include"
+    * (PICK ONE) OCI_LIB32: "~\\Oracle\\bin" (if you have 32-bit oracle installed)
+    * (PICK ONE) OCI_LIB64: "~\\Oracle\\bin" (if you have 64-bit oracle installed)
+    
+* Install ROracle: `install.packages("ROracle", type = "source")`
+
+* To connect to a specific database, you will need to look in the TNSNAMES.ORA file, which should be somewhere in the Oracle installation directory. The following code is a skeleton for how to connect to an oracle database. 
+
+```{r r-oracle-conn, eval = F}
+
+library(ROracle)
+
+drv <- dbDriver("Oracle")
+
+connect.string <- "(DESCRIPTION =
+    (ADDRESS_LIST =
+       (ADDRESS = (COMMUNITY = ...)(PROTOCOL = TCP)(Host = ...)(Port = ...))
+    )
+  (CONNECT_DATA =
+      (INSTANCE_NAME = PROD)
+    (SERVICE_NAME = PROD.WORLD)
+  )
+)" # From the TNSNAMES.ORA file
+
+# Actually connect
+con <- dbConnect(drv, "your username", "your password",
+                 dbname = connect.string)
+
+# Queries:
+tmp <- dbGetQuery(con, "Query text here")
+```
+
+## Connecting to SQL databases
+* Install RODBC: `install.packages("RODBC")`
+
+* Here is skeleton code for how to connect to a SQL database:
+
+```{r r-sql-conn, eval = F}
+con <- odbcDriverConnect(
+  'driver={SQL Server};
+  server=server_name;
+  database=db_name;
+  trusted_connection=true' # This uses windows login information 
+                           # instead of a username/password
+) 
+
+# Queries:
+tmp <- sqlQuery(con, "Query text here")
+```

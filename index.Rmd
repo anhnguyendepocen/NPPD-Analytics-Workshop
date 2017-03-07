@@ -60,6 +60,7 @@ Day 3 Objectives:
 
 ## Installing R
 - [Guide to Installing R, RStudio, and Database packages](InstallGuide.html)
+- [Database Packages in R](DatabaseConnections.html)
 
 ## Learning R
 - [Introduction to R Bootcamp](https://www.datacamp.com/courses/free-introduction-to-r) - Free datacamp course covering the basics of R
