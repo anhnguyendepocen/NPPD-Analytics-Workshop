@@ -9,7 +9,14 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Contact ITT to gain administrator permissions before attempting to install R and RStudio.
+
+## Before you begin
+
+- Contact ITT to gain administrator permissions before attempting to install R and RStudio.
+
+- If you run into issues, log on to Slack and ask for help! Please leave at least the following information:
+    - What you were attempting to install
+    - Any error messages you have (text/screenshots would be great)
 
 ## Installing R
 * Download R from [http://cran.rstudio.com](http://cran.rstudio.com). [Here](https://cran.rstudio.com/bin/windows/base/R-3.3.2-win.exe) is a link to the R install file at the time this tutorial was written.
@@ -17,6 +24,10 @@ Contact ITT to gain administrator permissions before attempting to install R and
 * Install this file by running the file as an administrator. 
 
 * Download and Install [Rtools](https://cran.rstudio.com/bin/windows/Rtools/) (the most recent version) as an administrator. You do not need to install the packages necessary to compile R, but you should install both the 32 and 64 bit versions of Rtools. Use the default install path (this will simplify your life later)
+
+![Portions of Rtools to install][rtoolsinstall1]
+
+![Check the box to alter the system path!!][rtoolsinstall2]
 
 ## Installing RStudio
 * Download the free version of [RStudio](https://www.rstudio.com/products/rstudio/download/). Install this as an administrator as well. 
@@ -42,3 +53,6 @@ Some packages may not install if you do not have the following programs installe
 This is generally ok unless you eventually need to use the packages that failed to install. This script is a blunt instrument that is designed to make sure that 90% of the time the packages which you need to use are already installed. You can always install other packages later.
 
 If you install JDK or Perl, you can re-run the script and only the packages which have not already installed successfully will be installed.
+
+[rtoolsinstall1]: images/RtoolsInstall.png
+[rtoolsinstall2]: images/RtoolsInstall2.png
