@@ -17,6 +17,12 @@ knitr::opts_chunk$set(echo = TRUE)
 - If you run into issues, log on to Slack and ask for help! Please leave at least the following information:
     - What you were attempting to install
     - Any error messages you have (text/screenshots would be great)
+    
+## After you complete the installation:
+
+- Copy the code in [this file](Test.R) and paste it into the RStudio Console window (the bottom left). 
+- If you get any errors, log onto Slack and paste all text output from the console window.
+
 
 ## Installing R
 * Download R from [http://cran.rstudio.com](http://cran.rstudio.com). [Here](https://cran.rstudio.com/bin/windows/base/R-3.3.2-win.exe) is a link to the R install file at the time this tutorial was written.
