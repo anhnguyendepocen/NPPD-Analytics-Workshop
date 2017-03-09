@@ -52,6 +52,8 @@ tmp <- dbGetQuery(con, "Query text here")
 * Here is skeleton code for how to connect to a SQL database:
 
 ```{r r-sql-conn, eval = F}
+library(RODBC)
+
 con <- odbcDriverConnect(
   'driver={SQL Server};
   server=server_name;

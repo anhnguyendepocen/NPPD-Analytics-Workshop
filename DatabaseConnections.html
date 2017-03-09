@@ -164,7 +164,9 @@ tmp &lt;- dbGetQuery(con, &quot;Query text here&quot;)</code></pre>
 <li><p>Install RODBC: <code>install.packages(&quot;RODBC&quot;)</code></p></li>
 <li><p>Here is skeleton code for how to connect to a SQL database:</p></li>
 </ul>
-<pre class="r"><code>con &lt;- odbcDriverConnect(
+<pre class="r"><code>library(RODBC)
+
+con &lt;- odbcDriverConnect(
   'driver={SQL Server};
   server=server_name;
   database=db_name;
