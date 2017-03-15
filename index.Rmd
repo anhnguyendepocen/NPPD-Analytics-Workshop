@@ -79,3 +79,7 @@ Day 3 Objectives:
 
 ## Get Help
 - [Stackoverflow](https://stackoverflow.com/questions/tagged/r) is a great place to look for solutions to problems in R. You can also post questions if there is not a similar question that has already been asked.
+
+## Best Practices
+- [Organizing Data in Spreadsheets](http://kbroman.org/dataorg/) - a list of best practices for working with spreadsheet data.
+- [Sharing Data for Statistical Analysis](https://ropensci.github.io/reproducibility-guide/sections/dataSharing/) - a list of suggestions for sharing data between subject-matter experts and analysts.
