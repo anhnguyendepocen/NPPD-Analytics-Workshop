@@ -1192,7 +1192,7 @@ diamondStats
 
 * The [R Markdown website](http://rmarkdown.rstudio.com/) is built with R Markdown.
 * The [new edition of the ggplot2 book](https://github.com/hadley/ggplot2-book/) uses it.
-* R package vignettes (for example, [I made this for plotly](http://cpsievert.github.io/plotly/pipe-dsl/)).
+* R package vignettes (for example, [a vignette for plotly](http://cpsievert.github.io/plotly/pipe-dsl/)).
 * [Many](http://lincolnmullen.com/projects/dh-r/index.html) great [tutorials](http://renkun.me/learnR/) use R markdown add-ons such as [Rgitbook](http://jason.bryer.org/Rgitbook/).
 * People are [blogging with it](http://cpsievert.github.io/knitr-jekyll//2015/04/jekyll-tufte-servr.html).
 * This course is built with markdown
@@ -1259,17 +1259,17 @@ In this case, when "Knit HTML" is clicked, RStudio calls `rmarkdown::render("fil
 A code chunk is a concept borrowed from the [knitr](http://yihui.name/knitr/) package (which, in turn, was inspired by [literate programming](http://en.wikipedia.org/wiki/Literate_programming)). In .Rmd files, you can start/end a code chunk with three back-ticks.
 
 ```
-```{r chunk1}
+```{r chunk1}
 1 + 1
-```
+```
 ```
 
 Want to run a command in another language?
 
 ```
-```{r chunk2, engine = 'python'}
+```{r chunk2, engine = 'python'}
 print "a" + "b"
-```
+```
 ```
 
 ## Code chunk options
@@ -1296,9 +1296,9 @@ Study the second page of the [R Markdown Reference Guide](https://www.rstudio.co
 **Pro Tip**: Don't like the default chunk option value? Change it at the top of the document:
 
 ```
-```{r setup2}
+```{r setup2}
 knitr::opts_chunk$set(message = FALSE, warning = FALSE)
-```
+```
 ```
 
 
@@ -1306,9 +1306,9 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 ## Solutions {.solutions data-background=#527a7a}
 
 ```
-```{r, fig.align = "right", fig.width = 3, fig.height = 3, out.width = "50%"}
+```{r, fig.align = "right", fig.width = 3, fig.height = 3, out.width = "50%"}
 qplot(rnorm(100))
-```
+```
 ```
 
 ```{r, echo=FALSE, fig.align = "right", fig.width = 3, fig.height = 3, out.width = "50%"}
@@ -1319,9 +1319,9 @@ qplot(rnorm(100))
 ## Solutions {.solutions data-background=#527a7a}
 
 ```
-```{r, fig.cap = "Histogram of 100 samples from a normal distribution"}
+```{r, fig.cap = "Histogram of 100 samples from a normal distribution"}
 qplot(rnorm(100))
-```
+```
 ```
 
 ```{r, echo=FALSE, fig.cap = "Histogram of 100 samples from a normal distribution", fig.width = 5, fig.height = 3}
@@ -1331,14 +1331,14 @@ qplot(rnorm(100))
 ## Solutions {.solutions data-background=#527a7a}
 
 ```
-```{r, fig.show = 'animate', ffmpeg.format = 'mp4'}
+```{r, fig.show = 'animate', ffmpeg.format = 'mp4'}
 samples <- seq(100, 500, 50)
 for (i in samples) {
   print(
     qplot(rnorm(i)) + ggtitle(sprintf("%d Samples from a Normal Dist", i))
   )
 }
-```
+```
 ```
 
 ```{r, echo=FALSE, fig.show = 'animate', fig.height = 2.5, fig.width = 5, out.width = "80%", ffmpeg.format = 'mp4'}
