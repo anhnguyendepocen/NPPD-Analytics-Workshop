@@ -15,7 +15,7 @@ summary(tips)
 
 # --- Graphical Exploration ---------------------------------------------------
 # Install a package to plot the data
-install.packages("ggplot2")
+# install.packages("ggplot2")
 # Load the package
 library(ggplot2)
 
