@@ -9,7 +9,7 @@ output:
     toc: yes
 ---
 
-- [R Basics](R-Basics.R)
 - [Tips - Example](Tips-Example.R)
+- [R Basics](R-Basics.R)
 - [Data Structures](Data-Structures.R)
 - [Programming](Programming.R)
