@@ -198,5 +198,5 @@ c(T, T, F, F) | c(T, F, T, F)
 
 # Use to enforce multiple conditions and filter data frames
 # Which are big bills with a poor tip rate?
-id <- (bill > 40 & rate < .10)
+id <- (tips$total_bill > 40 & tips$rate < .10)
 tips[id,]
