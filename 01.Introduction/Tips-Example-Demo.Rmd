@@ -1,0 +1,72 @@
+---
+title: "Tips-Example"
+author: "Susan VanderPlas"
+date: "March 21, 2017"
+output:
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F)
+
+library(pander)
+```
+
+```{r data, echo = F}
+tips <- read.csv("https://bit.ly/2fQoMP1")
+```
+
+
+## Data Exploration
+This dataset has a few rows and columns. Here's what it looks like:
+
+```{r}
+pander(head(tips))
+```
+
+## Graphical Exploration
+```{r}
+library(ggplot2)
+```
+
+Here is a basic scatterplot of tips vs. total bill
+```{r basic-scatterplot-tips-totalbill}
+qplot(tip, total_bill, geom = "point", data = tips)
+```
+
+Lalalala useful information 
+
+```{r color-scatterplot-tips-totalbill, fig.width = 6, fig.height = 3, fig.cap = "Scatterplot in full color"}
+qplot(tip, total_bill, geom = "point", data = tips, colour = time)
+```
+
+Linear regressions are awesome. Try them!
+
+```{r linear-regression}
+qplot(tip, total_bill, geom = "point", data = tips) + geom_smooth(method = "lm")
+```
+
+## Creating new variables
+```{r}
+# Create a new variable - tipping rate
+tips$rate <- tips$tip / tips$total_bill
+# Summarize tip rate - min, max, quartiles, and mean
+pander(summary(tips$rate))
+
+```
+
+```{r plot-of-tip-rate}
+qplot(rate, data = tips, binwidth = .01)
+```
+
+Someone is a really awesome tipper! Who are they?
+
+```{r}
+# What's the deal with the really high tipping rate?
+tips[which.max(tips$rate),]
+```
+
+
+```{r t-test}
+pander(t.test(rate ~ sex, data = tips))
+```
