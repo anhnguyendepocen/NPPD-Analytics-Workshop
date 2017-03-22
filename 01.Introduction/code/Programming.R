@@ -8,7 +8,7 @@
 #   return(output)
 # }
 
-# Sample functtion to compute the mean
+# Sample function to compute the mean
 mymean <- function(data) {
   ans <- sum(data) / length(data)
   return(ans)

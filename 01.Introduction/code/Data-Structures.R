@@ -24,6 +24,7 @@ mydf <- data.frame(NUMS = 1:5,
 mydf
 
 # Change variable names
+names(mydf)
 names(mydf)[1] <- "nums"
 mydf
 
