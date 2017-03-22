@@ -86,8 +86,8 @@ qplot(long, lat, geom = "polygon", data = states.sex.map,
   facet_grid(sex ~ .)
 
 #--- Your Turn -----------------------------------------------------------------
-states.sex.stats <- read.csv("https://bit.ly/2hiKFIb")
-head(states.sex.stats)
+states.health.stats <- read.csv("https://bit.ly/2hRBMq0")
+head(states.health.stats)
 
 # 1. Use left_join to combine child healthcare data with maps information
 
