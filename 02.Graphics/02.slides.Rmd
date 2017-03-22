@@ -6,7 +6,6 @@ output:
       in_header: header.html
     transition: fade
     theme: white
-    highlight: zenburn
     reveal_options:
       slideNumber: true
       previewLinks: true

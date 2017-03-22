@@ -2,6 +2,10 @@
   color: white;
 }
 
+.reveal code {
+  font-weight: bolder;
+  font-size: 120%;
+}
 .reveal .solutions a {
   color: white;
 }
