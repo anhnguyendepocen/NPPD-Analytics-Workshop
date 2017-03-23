@@ -155,7 +155,7 @@ Other file formats can be read using the functions from package `foreign`
 - SAS: `read.xport`
 - Minitab: `read.mtp`
 
-
+<!---
 ## Your Turn {.yourturn  data-background=#8EC8D7}
 
 The NHANES (National Health and Nutrition Survey) publishes data in the SAS xport format:
@@ -187,7 +187,7 @@ and read it in to R.
 # library(foreign)
 # demographic.vars <- read.mtp("paint.MTW")
 ```
-
+--->
 # Summarizing Data
 
 ## Baseball Data
