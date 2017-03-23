@@ -6,7 +6,6 @@ output:
       in_header: header.html
     transition: fade
     theme: white
-    highlight: zenburn
     reveal_options:
       slideNumber: true
       previewLinks: true
@@ -14,6 +13,7 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = T, comments = T, collapse = T, cache = T)
+options(width = 55)
 ```
 
 # Reading in Data
@@ -68,7 +68,7 @@ So to properly read in this data, it's probably best to use `read.table` directl
 ```
 
 
-## Your Turn {.yourturn  data-background=#527a7a}
+## Your Turn {.yourturn  data-background=#8EC8D7}
 
 Have a look at the parameters of read.table (?read.table) to solve the following problems:
 
@@ -80,7 +80,7 @@ midwest_names <- read.table("https://bit.ly/2hwWiQ8", nrows = 2, sep = ",", stri
 midwest_data <- read.table("https://bit.ly/2hwWiQ8", skip = 2, sep = ",", stringsAsFactors = FALSE)
 ```
 
-## Solutions {.solutions  data-background=#527a7a}
+## Solutions {.solutions  data-background=#8EC8D7}
 1. Read the first two lines of the file into an object called `midwest_names`
 ```{r}
 midwest_names <- read.table("https://bit.ly/2hwWiQ8", 
@@ -112,7 +112,6 @@ values <- values[!is.na(values)]
 
 library(lubridate)
 dates <- ymd(dates)
-
 midwest_gas <- data.frame(date = dates, price = values)
 midwest_gas <- midwest_gas[with(midwest_gas, order(date)), ]
 ```
@@ -157,7 +156,7 @@ Other file formats can be read using the functions from package `foreign`
 - Minitab: `read.mtp`
 
 
-## Your Turn {.yourturn  data-background=#527a7a}
+## Your Turn {.yourturn  data-background=#8EC8D7}
 
 The NHANES (National Health and Nutrition Survey) publishes data in the SAS xport format:
 
@@ -166,7 +165,7 @@ http://wwwn.cdc.gov/Nchs/Nhanes/Search/nhanes13_14.aspx
 1. Scroll to the bottom, choose one of the datasets (Demographics, Examination, etc.). Download the Data file (XPT)
 2. Use `read.xport()` to load the file into R
 
-## Solutions {.solutions  data-background=#527a7a}
+## Solutions {.solutions  data-background=#8EC8D7}
 ```{r, eval = F}
 download.file("https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/DEMO_H.XPT", 
               destfile = "DEMO.XPT", mode = "wb")
@@ -174,7 +173,7 @@ library(foreign)
 demographic.vars <- read.xport("DEMO.XPT")
 ```
 
-## Your Turn {.yourturn  data-background=#527a7a}
+## Your Turn {.yourturn  data-background=#8EC8D7}
 
 MINITAB publishes several sample data sets. Download the Paint hardness data
 
@@ -182,7 +181,7 @@ http://support.minitab.com/en-us/datasets/PaintHardness.MTW
 
 and read it in to R.
 
-## Solutions {.solutions  data-background=#527a7a}
+## Solutions {.solutions  data-background=#8EC8D7}
 ```{r}
 # download.file("http://support.minitab.com/en-us/datasets/PaintHardness.MTW", "paint.MTW")
 # library(foreign)
@@ -321,7 +320,7 @@ head(ba)
 ```
 
 
-## Your Turn {.yourturn data-background=#527a7a}
+## Your Turn {.yourturn data-background=#8EC8D7}
 
 - MLB rules for the greatest all-time hitters are that players have to have played 
     - at least 1000 games 
@@ -329,7 +328,7 @@ head(ba)
 - Extend the for loop above to collect the additional information
 - Introduce and collect data for two new variables: `games` and `atbats`
 
-## Solution {.solutions data-background=#527a7a}
+## Solution {.solutions data-background=#8EC8D7}
 
 ```{r}
 library(dplyr)
@@ -424,7 +423,7 @@ If the argument passed in is not the first argument, use `.`:
 is the same as    
 `function(a, b)`
 
-## Your Turn {.yourturn data-background=#527a7a}
+## Your Turn {.yourturn data-background=#8EC8D7}
 
 - Find some summary statistics for each of the teams (variable `team`)
     - How many different (`unique`) players has the team had?
@@ -432,7 +431,7 @@ is the same as
 - Challenge: Find the number of players on each team over time. Does the number change?
 
 
-## Solutions {.solutions data-background=#527a7a}
+## Solutions {.solutions data-background=#8EC8D7}
 1. Find some summary stats for each of the teams (`team`)
     - How many `unique` players has the team had?
     - What was the team's first/last season?
@@ -446,7 +445,7 @@ baseball %>%
 ```
 
 
-## Solutions {.solutions data-background=#527a7a}
+## Solutions {.solutions data-background=#8EC8D7}
 2. Challenge: Find the number of players on each team over time. Does the number change?
 
 ```{r, echo = 1, fig.width = 7, fig.height = 3}
@@ -597,7 +596,7 @@ head(french_fries_wide)
 ```
 
 
-## Your Turn {.yourturn data-background=#527a7a}
+## Your Turn {.yourturn data-background=#8EC8D7}
 Read in the billboard top 100 music data
 ```{r}
 billboard <- read.csv("https://bit.ly/2hQGDao")
@@ -614,7 +613,7 @@ qplot(week, rank, data = long_billboard, geom = "line", colour = artist, group =
     xlim(c(0, 30))
 ```
 
-## Solutions {.yourturn data-background=#527a7a}
+## Solutions {.yourturn data-background=#8EC8D7}
 1. Use `tidyr` to convert this data into a long format.
 ```{r}
 long_billboard <- gather(billboard, 
@@ -631,7 +630,7 @@ long_billboard <- long_billboard %>% na.omit()
 ```
 
 
-## Solutions {.yourturn data-background=#527a7a}
+## Solutions {.yourturn data-background=#8EC8D7}
 2. Use `ggplot2` to create this time series plot:
 ```{r, fig.width=7, fig.height=3, warning=FALSE}
 qplot(x = week, y = rank, 
@@ -717,7 +716,7 @@ french_fries %>%
 ```
 
 
-## Your Turn {.yourturn data-background=#527a7a}
+## Your Turn {.yourturn data-background=#8EC8D7}
 This dataset contains information on over 300,000 flights that departed from New York City in the year 2013.
 
 ```{r}
@@ -729,7 +728,7 @@ Sort this data frame in descending order, so the destination airport with the la
 2. Find out the most used airports for each airline carrier.
 
 
-## Solutions {.solutions data-background=#527a7a}
+## Solutions {.solutions data-background=#8EC8D7}
 1. Create a data frame consisting of the average arrival delay (`arr_delay`) based on the destination airport (`dest`).     
 Sort this data frame in descending order, so the destination airport with the largest delay is first. 
 ```{r}
@@ -740,7 +739,7 @@ flights %>%
 ```
 
 
-## Solutions {.solutions data-background=#527a7a}
+## Solutions {.solutions data-background=#8EC8D7}
 2. Find out the most used airports for each airline carrier.
 
 ```{r}
@@ -761,7 +760,7 @@ by.dest <- flights %>%
   mutate(kind = "dest")
 ```
 
-## Solutions {.solutions data-background=#527a7a}
+## Solutions {.solutions data-background=#8EC8D7}
 2. Find out the most used airports for each airline carrier.
 
 ```{r}
@@ -806,7 +805,7 @@ dmy("14052013")
 ymd_hms("2013:05:14 14:50:30", tz = "America/Chicago")
 ```
 
-## Your Turn {.yourturn data-background=#527a7a}
+## Your Turn {.yourturn data-background=#8EC8D7}
 
 1. Using the `flights` data, create a new column Date using lubridate. Paste together the columns year, month, and day in order to do this. See the `paste` function.
 2. Use `dplyr` to calculate the average departure delay for each date.
@@ -821,7 +820,7 @@ delay.dat <- flights %>%
 qplot(date, dep_delay, geom = "line", data = delay.dat)
 ```
 
-## Solutions {.solutions data-background=#527a7a}
+## Solutions {.solutions data-background=#8EC8D7}
 
 1. Using the `flights` data, create a new column Date using lubridate.
 
@@ -839,7 +838,7 @@ delay.dat <- flights %>%
     summarise(dep_delay = mean(dep_delay, na.rm = TRUE))
 ```
 
-## Solutions {.solutions data-background=#527a7a}
+## Solutions {.solutions data-background=#8EC8D7}
 3. Plot the date versus the average departure delay
 
 ```{r, fig.width = 7, fig.height = 3}
