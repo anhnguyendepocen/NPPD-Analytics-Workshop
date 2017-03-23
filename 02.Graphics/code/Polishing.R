@@ -45,23 +45,23 @@ p + theme(
 )
 
 #--- Saving Your Work ----------------------------------------------------------
-qplot(total_bill, tip, data = diamonds)
+qplot(carat, price, data = diamonds)
 
 # Save as a png
-ggsave("tips.png")
+ggsave("diamonds.png", width = 5, height = 5)
 
 # Save as a pdf
-ggsave("tips.pdf")
+ggsave("diamonds.pdf")
 
 # Force a specific size
-ggsave("tips.png", width = 6, height = 6)
+ggsave("diamonds.png", width = 6, height = 6)
 
 # Change the resolution
 ggsave("tips.png", width = 6, height = 6, dpi = 300)
 
 # Explicitly specify which plot to save
 dplot <- qplot(carat, price, data = diamonds)
-ggsave("diamonds.png", plot = dplot, dpi = 72)
+ggsave("diamonds.png", plot = dplot, dpi = 300)
 
 #--- Your Turn -----------------------------------------------------------------
 # 1. Save a pdf of a scatterplot of price vs carat
